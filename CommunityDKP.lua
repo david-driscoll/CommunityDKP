@@ -28,7 +28,7 @@ function CommDKP:Toggle()        -- toggles IsShown() state of CommDKP.UIConfig,
 	CommDKP.UIConfig:SetClampedToScreen(true)
 	if core.BiddingWindow then core.BiddingWindow:SetFrameLevel(6) end
 	if core.ModesWindow then core.ModesWindow:SetFrameLevel(2) end
-		
+
 	if core.IsOfficer == nil then
 		CommDKP:CheckOfficer()
 	end
@@ -82,7 +82,7 @@ local SortButtons = {}
 function CommDKP:FilterDKPTable(sort, reset)          -- filters core.WorkingTable based on classes in classFiltered table. core.currentSort should be used in most cases
 	local parentTable;
 
-	if not CommDKP.UIConfig then 
+	if not CommDKP.UIConfig then
 		return
 	end
 
@@ -110,18 +110,18 @@ function CommDKP:FilterDKPTable(sort, reset)          -- filters core.WorkingTab
 
 		if CommDKP.UIConfig.search:GetText() ~= L["SEARCH"] and CommDKP.UIConfig.search:GetText() ~= "" then
 			if not strfind(string.upper(v.player), string.upper(CommDKP.UIConfig.search:GetText())) and not strfind(string.upper(v.class), string.upper(CommDKP.UIConfig.search:GetText()))
-			and not strfind(string.upper(v.role), string.upper(CommDKP.UIConfig.search:GetText())) and not strfind(string.upper(v.rankName), string.upper(CommDKP.UIConfig.search:GetText())) 
+			and not strfind(string.upper(v.role), string.upper(CommDKP.UIConfig.search:GetText())) and not strfind(string.upper(v.rankName), string.upper(CommDKP.UIConfig.search:GetText()))
 			and not strfind(string.upper(v.spec), string.upper(CommDKP.UIConfig.search:GetText())) then
 				searchFilter = false;
 			end
 		end
-		
+
 		if CommDKP.ConfigTab1.checkBtn[11]:GetChecked() then
 			local guildSize,_,_ = GetNumGuildMembers();
 			for i=1, guildSize do
 				local name,_,_,_,_,_,_,_,online = GetGuildRosterInfo(i)
 				name = strsub(name, 1, string.find(name, "-")-1)
-				
+
 				if name == v.player then
 					IsOnline = online;
 					break;
@@ -243,8 +243,8 @@ function CommDKP:CreateMenu()
 	CommDKP.UIConfig:SetPoint("CENTER", UIParent, "CENTER", -250, 100);
 	CommDKP.UIConfig:SetSize(550, 590);
 	CommDKP.UIConfig:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 	});
 	CommDKP.UIConfig:SetBackdropColor(0,0,0,0.8);
 	CommDKP.UIConfig:SetMovable(true);
@@ -266,8 +266,8 @@ function CommDKP:CreateMenu()
 	CommDKP.UIConfig.closeContainer = CreateFrame("Frame", "CommDKPTitle", CommDKP.UIConfig)
 	CommDKP.UIConfig.closeContainer:SetPoint("CENTER", CommDKP.UIConfig, "TOPRIGHT", -4, 0)
 	CommDKP.UIConfig.closeContainer:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 	});
 	CommDKP.UIConfig.closeContainer:SetBackdropColor(0,0,0,0.9)
 	CommDKP.UIConfig.closeContainer:SetBackdropBorderColor(1,1,1,0.2)
@@ -289,22 +289,22 @@ function CommDKP:CreateMenu()
 	CommDKP.DKPTable_Headers:SetSize(500, 22)
 	CommDKP.DKPTable_Headers:SetPoint("BOTTOMLEFT", CommDKP.DKPTable, "TOPLEFT", 0, 1)
 	CommDKP.DKPTable_Headers:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 	});
 	CommDKP.DKPTable_Headers:SetBackdropColor(0,0,0,0.8);
 	CommDKP.DKPTable_Headers:SetBackdropBorderColor(1,1,1,0.5)
 	CommDKP.DKPTable_Headers:Show()
 	---------------------------------------
 	-- Sort Buttons
-	--------------------------------------- 
+	---------------------------------------
 	SortButtons.player = CreateFrame("Button", "$ParentSortButtonPlayer", CommDKP.DKPTable_Headers)
 	SortButtons.class = CreateFrame("Button", "$ParentSortButtonClass", CommDKP.DKPTable_Headers)
 	SortButtons.dkp = CreateFrame("Button", "$ParentSortButtonDkp", CommDKP.DKPTable_Headers)
 	SortButtons.class:SetPoint("BOTTOM", CommDKP.DKPTable_Headers, "BOTTOM", 0, 2)
 	SortButtons.player:SetPoint("RIGHT", SortButtons.class, "LEFT")
 	SortButtons.dkp:SetPoint("LEFT", SortButtons.class, "RIGHT")
-	 
+
 	for k, v in pairs(SortButtons) do
 		v.Id = k
 		v:SetHighlightTexture("Interface\\BUTTONS\\BlueGrad64_faded.blp");
@@ -323,7 +323,7 @@ function CommDKP:CreateMenu()
 	SortButtons.player.t:SetFontObject("CommDKPNormal")
 	SortButtons.player.t:SetTextColor(1, 1, 1, 1);
 	SortButtons.player.t:SetPoint("LEFT", SortButtons.player, "LEFT", 50, 0);
-	SortButtons.player.t:SetText(L["PLAYER"]); 
+	SortButtons.player.t:SetText(L["PLAYER"]);
 
 	--[[SortButtons.class.t = SortButtons.class:CreateFontString(nil, "OVERLAY")
 	SortButtons.class.t:SetFontObject("CommDKPNormal");
@@ -401,8 +401,8 @@ function CommDKP:CreateMenu()
 	CommDKP.UIConfig.search:SetMultiLine(false)
 	CommDKP.UIConfig.search:SetSize(140, 24)
 	CommDKP.UIConfig.search:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 	});
 	CommDKP.UIConfig.search:SetBackdropColor(0,0,0,0.9)
 	CommDKP.UIConfig.search:SetBackdropBorderColor(1,1,1,0.6)
@@ -463,8 +463,8 @@ function CommDKP:CreateMenu()
 		--CommDKP.ConfigTab3.TeamManagementContainer.TeamListDropDown:ClearAllPoints()
 		CommDKP.UIConfig.TeamViewChangerDropDown:SetPoint("BOTTOMLEFT", CommDKP.UIConfig, "BOTTOMLEFT", 340, 4)
 		-- tooltip on mouseOver
-		CommDKP.UIConfig.TeamViewChangerDropDown:SetScript("OnEnter", 
-			function(self) 
+		CommDKP.UIConfig.TeamViewChangerDropDown:SetScript("OnEnter",
+			function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetText(L["TEAMCURRENTLIST"], 0.25, 0.75, 0.90, 1, true);
 				GameTooltip:AddLine(L["TEAMCURRENTLISTDESC"], 1.0, 1.0, 1.0, true);
@@ -482,13 +482,13 @@ function CommDKP:CreateMenu()
 		UIDropDownMenu_SetText(CommDKP.UIConfig.TeamViewChangerDropDown, CommDKP:GetCurrentTeamName())
 
 		-- Create and bind the initialization function to the dropdown menu
-		UIDropDownMenu_Initialize(CommDKP.UIConfig.TeamViewChangerDropDown, 
+		UIDropDownMenu_Initialize(CommDKP.UIConfig.TeamViewChangerDropDown,
 			function(self, level, menuList)
 
 				local dropDownMenuItem = UIDropDownMenu_CreateInfo()
 				dropDownMenuItem.func = self.SetValue
 				dropDownMenuItem.fontObject = "CommDKPSmallCenter"
-			
+
 				teamList = CommDKP:GetGuildTeamList()
 
 				for i=1, #teamList do
@@ -538,11 +538,11 @@ function CommDKP:CreateMenu()
 	CommDKP.UIConfig.expand = CreateFrame("Frame", "CommDKPTitle", CommDKP.UIConfig)
 	CommDKP.UIConfig.expand:SetPoint("LEFT", CommDKP.UIConfig, "RIGHT", 0, 0)
 	CommDKP.UIConfig.expand:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
+		bgFile   = "Textures\\white.blp",
 	});
 	CommDKP.UIConfig.expand:SetBackdropColor(0,0,0,0.7)
 	CommDKP.UIConfig.expand:SetSize(15, 60)
-	
+
 	CommDKP.UIConfig.expandtab = CommDKP.UIConfig.expand:CreateTexture(nil, "OVERLAY", nil);
 	CommDKP.UIConfig.expandtab:SetColorTexture(0, 0, 0, 1)
 	CommDKP.UIConfig.expandtab:SetPoint("CENTER", CommDKP.UIConfig.expand, "CENTER");
@@ -552,7 +552,7 @@ function CommDKP:CreateMenu()
 	CommDKP.UIConfig.expand.trigger = CreateFrame("Button", "$ParentCollapseExpandButton", CommDKP.UIConfig.expand)
 	CommDKP.UIConfig.expand.trigger:SetSize(15, 60)
 	CommDKP.UIConfig.expand.trigger:SetPoint("CENTER", CommDKP.UIConfig.expand, "CENTER", 0, 0)
-	CommDKP.UIConfig.expand.trigger:SetScript("OnClick", function(self) 
+	CommDKP.UIConfig.expand.trigger:SetScript("OnClick", function(self)
 		if core.ShowState == false then
 			CommDKP.UIConfig:SetWidth(1106)
 			CommDKP.UIConfig.TabMenu:Show()
@@ -570,8 +570,8 @@ function CommDKP:CreateMenu()
 	CommDKP.UIConfig.TitleBar = CreateFrame("Frame", "CommDKPTitle", CommDKP.UIConfig, "ShadowOverlaySmallTemplate")
 	CommDKP.UIConfig.TitleBar:SetPoint("BOTTOM", SortButtons.class, "TOP", 0, 10)
 	CommDKP.UIConfig.TitleBar:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 	});
 	CommDKP.UIConfig.TitleBar:SetBackdropColor(0,0,0,0.9)
 	CommDKP.UIConfig.TitleBar:SetSize(166, 54)
@@ -591,8 +591,8 @@ function CommDKP:CreateMenu()
 		CommDKP.ChangeLogDisplay:SetPoint("TOP", UIParent, "TOP", 0, -200);
 		CommDKP.ChangeLogDisplay:SetSize(600, 100);
 		CommDKP.ChangeLogDisplay:SetBackdrop( {
-			bgFile = "Textures\\white.blp", tile = true,                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-			edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,  
+			bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
+			edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 			insets = { left = 0, right = 0, top = 0, bottom = 0 }
 		});
 		CommDKP.ChangeLogDisplay:SetBackdropColor(0,0,0,0.9);
@@ -634,8 +634,8 @@ function CommDKP:CreateMenu()
 		CommDKP.ChangeLogDisplay.closeContainer = CreateFrame("Frame", "CommDKPChangeLogClose", CommDKP.ChangeLogDisplay)
 		CommDKP.ChangeLogDisplay.closeContainer:SetPoint("CENTER", CommDKP.ChangeLogDisplay, "TOPRIGHT", -4, 0)
 		CommDKP.ChangeLogDisplay.closeContainer:SetBackdrop({
-			bgFile   = "Textures\\white.blp", tile = true,
-			edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+			bgFile   = "Textures\\white.blp",
+			edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 		});
 		CommDKP.ChangeLogDisplay.closeContainer:SetBackdropColor(0,0,0,0.9)
 		CommDKP.ChangeLogDisplay.closeContainer:SetBackdropBorderColor(1,1,1,0.2)
@@ -658,7 +658,7 @@ function CommDKP:CreateMenu()
 				core.DB.defaults.HideChangeLogs = 0
 			end
 		end)
-		
+
 		if L["BESTPRACTICES"] ~= "" then
 			CommDKP.ChangeLogDisplay.Notes:SetText("|CFFAEAEDD"..L["BESTPRACTICES"].."|r")
 		end
@@ -682,7 +682,7 @@ function CommDKP:CreateMenu()
 	CommDKP.UIConfig.Version:SetScale("0.9")
 	CommDKP.UIConfig.Version:SetTextColor(c[1].r, c[1].g, c[1].b, 0.5);
 	CommDKP.UIConfig.Version:SetPoint("BOTTOMRIGHT", CommDKP.UIConfig.TitleBar, "BOTTOMRIGHT", -8, 4);
-	CommDKP.UIConfig.Version:SetText(core.SemVer); 
+	CommDKP.UIConfig.Version:SetText(core.SemVer);
 
 	CommDKP.UIConfig:Hide(); -- hide menu after creation until called.
 	CommDKP:FilterDKPTable(core.currentSort)   -- initial sort and populates data values in DKPTable.Rows{} CommDKP:FilterDKPTable() -> CommDKP:SortDKPTable() -> CommDKP:DKPTable_Update()

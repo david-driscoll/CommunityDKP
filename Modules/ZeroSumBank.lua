@@ -16,7 +16,7 @@ local function ZeroSumDistribution()
 			for i=1, #CommDKP:GetTable(CommDKP_Standby, true) do
 				tinsert(VerifyTable, CommDKP:GetTable(CommDKP_Standby, true)[i].player)
 			end
-		end		
+		end
 
 		for i=1, 40 do
 			local tempName, _rank, _subgroup, _level, _class, _fileName, zone, online = GetRaidRosterInfo(i)
@@ -43,7 +43,7 @@ local function ZeroSumDistribution()
 				players = players..name..","
 			end
 		end
-		
+
 		local newIndex = curOfficer.."-"..curTime
 		tinsert(CommDKP:GetTable(CommDKP_DKPHistory, true), 1, {players=players, dkp=distribution, reason=reason, date=curTime, index=newIndex})
 		if CommDKP.ConfigTab6.history then
@@ -53,7 +53,7 @@ local function ZeroSumDistribution()
 		CommDKP.Sync:SendData("CommDKPDKPDist", CommDKP:GetTable(CommDKP_DKPHistory, true)[1])
 		CommDKP.Sync:SendData("CommDKPBCastMsg", L["RAIDDKPADJUSTBY"].." "..distribution.." "..L["AMONG"].." "..#VerifyTable.." "..L["PLAYERSFORREASON"]..": "..reason)
 		CommDKP:Print("Raid DKP Adjusted by "..distribution.." "..L["AMONG"].." "..#VerifyTable.." "..L["PLAYERSFORREASON"]..": "..reason)
-		
+
 		table.wipe(VerifyTable)
 		table.wipe(core.DB.modes.ZeroSumBank)
 		core.DB.modes.ZeroSumBank.balance = 0
@@ -78,7 +78,7 @@ function CommDKP:ZeroSumBank_Update()
  			core.ZeroSumBank.LootFrame.LootList:SetText(core.ZeroSumBank.LootFrame.LootList:GetText()..core.DB.modes.ZeroSumBank[i].loot.." "..L["FOR"].." "..core.DB.modes.ZeroSumBank[i].cost.." "..L["DKP"].."\n")
  		end
  	end
- 	
+
  	if core.ZeroSumBank.LootFrame.LootList:GetHeight() > 180 then
  		core.ZeroSumBank.LootFrame:SetHeight(core.ZeroSumBank.LootFrame.LootList:GetHeight() + 18)
  		core.ZeroSumBank:SetHeight(350 + core.ZeroSumBank.LootFrame.LootList:GetHeight() - 170)
@@ -93,8 +93,8 @@ function CommDKP:ZeroSumBank_Create()
 	f:SetPoint("TOP", UIParent, "TOP", 400, -50);
 	f:SetSize(325, 350);
 	f:SetBackdrop( {
-		bgFile = "Textures\\white.blp", tile = true,                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,  
+		bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f:SetBackdropColor(0,0,0,0.9);
@@ -112,8 +112,8 @@ function CommDKP:ZeroSumBank_Create()
 	f.closeContainer = CreateFrame("Frame", "CommDKPZeroSumBankWindowCloseButtonContainer", f)
 	f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
 	f.closeContainer:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 	});
 	f.closeContainer:SetBackdropColor(0,0,0,0.9)
 	f.closeContainer:SetBackdropBorderColor(1,1,1,0.2)
@@ -139,13 +139,13 @@ function CommDKP:ZeroSumBank_Create()
 	f.Boss.Header:SetText(L["BOSS"]..": ")
 
 	f.Balance = CreateFrame("EditBox", nil, f)
-	f.Balance:SetPoint("TOPLEFT", f, "TOPLEFT", 70, -65)   
+	f.Balance:SetPoint("TOPLEFT", f, "TOPLEFT", 70, -65)
     f.Balance:SetAutoFocus(false)
     f.Balance:SetMultiLine(false)
     f.Balance:SetSize(85, 28)
     f.Balance:SetBackdrop({
-      bgFile   = "Textures\\white.blp", tile = true,
-      edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\slider-border", tile = true, tileSize = 1, edgeSize = 2, 
+      bgFile   = "Textures\\white.blp",
+      edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\slider-border", tile = true, tileSize = 1, edgeSize = 2,
     });
     f.Balance:SetBackdropColor(0,0,0,0.9)
     f.Balance:SetBackdropBorderColor(1,1,1,0.4)
@@ -236,8 +236,8 @@ function CommDKP:ZeroSumBank_Create()
 	f.LootFrame:SetPoint("TOPRIGHT", f.IncludeStandby, "BOTTOM", 95, -5)
 	f.LootFrame:SetSize(305, 190)
 	f.LootFrame:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 	});
 	f.LootFrame:SetBackdropColor(0,0,0,0.9)
 	f.LootFrame:SetBackdropBorderColor(1,1,1,1)

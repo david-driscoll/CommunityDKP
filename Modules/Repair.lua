@@ -97,7 +97,7 @@ local function ConsolidateTables(keepDKP)
 			timer = 0
 			-- Create new DKPHistory entry compensating for difference between history and DKPTable (if some history was lost due to overwriting)
 			if keepDKP then
-				for i=1, #CommDKP:GetTable(CommDKP_DKPTable, true) do 
+				for i=1, #CommDKP:GetTable(CommDKP_DKPTable, true) do
 					local search = CommDKP:Table_Search(DKPTableTemp, CommDKP:GetTable(CommDKP_DKPTable, true)[i].player, "player")
 
 					if search then
@@ -122,7 +122,7 @@ local function ConsolidateTables(keepDKP)
 					table.insert(CommDKP:GetTable(CommDKP_DKPHistory, true), insert)
 				end
 			else
-				for i=1, #CommDKP:GetTable(CommDKP_DKPTable, true) do 
+				for i=1, #CommDKP:GetTable(CommDKP_DKPTable, true) do
 					local search = CommDKP:Table_Search(DKPTableTemp, CommDKP:GetTable(CommDKP_DKPTable, true)[i].player, "player")
 
 					if search then
@@ -138,7 +138,7 @@ local function ConsolidateTables(keepDKP)
 				local search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPTable, true), DKPTableTemp[i].player)
 
 				if not search then
-					CommDKP:GetTable(CommDKP_Archive, true)[DKPTableTemp[i].player] = { dkp=0, lifetime_spent=0, lifetime_gained=0, deleted=true, edited=curTime } 
+					CommDKP:GetTable(CommDKP_Archive, true)[DKPTableTemp[i].player] = { dkp=0, lifetime_spent=0, lifetime_gained=0, deleted=true, edited=curTime }
 				end
 			end
 
@@ -163,7 +163,7 @@ local function RepairDKPHistory(keepDKP)
 	local timer = 0
 	local processing = false
 	local officer = UnitName("player")
-	
+
 	local ValidateTimer = ValidateTimer or CreateFrame("StatusBar", nil, UIParent)
 	ValidateTimer:SetScript("OnUpdate", function(self, elapsed)
 		timer = timer + elapsed
@@ -171,7 +171,7 @@ local function RepairDKPHistory(keepDKP)
 			processing = true
 			-- delete duplicate entries and correct DKP (DKPHistory table)
 			local search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPHistory, true), CommDKP:GetTable(CommDKP_DKPHistory, true)[i].date, "date")
-			
+
 			if CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletes or CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletedby or CommDKP:GetTable(CommDKP_DKPHistory, true)[i].reason == "Migration Correction" then  -- removes deleted entries/Migration Correction
 				table.remove(CommDKP:GetTable(CommDKP_DKPHistory, true), i)
 			elseif #search > 1 then 		-- removes duplicate entries
@@ -209,7 +209,7 @@ function CommDKP:RepairTables(keepDKP)  -- Repair starts
 	local timer = 0
 	local processing = false
 	ValInProgress = true
-	
+
 	CommDKP:Print(L["REPAIRSTART"])
 
 	if keepDKP then
@@ -224,7 +224,7 @@ function CommDKP:RepairTables(keepDKP)  -- Repair starts
 		if timer > 0.01 and i <= #CommDKP:GetTable(CommDKP_Loot, true) and not processing then
 			processing = true
 			local search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_Loot, true), CommDKP:GetTable(CommDKP_Loot, true)[i].date, "date")
-			
+
 			if CommDKP:GetTable(CommDKP_Loot, true)[i].deletedby or CommDKP:GetTable(CommDKP_Loot, true)[i].deletes then
 				table.remove(CommDKP:GetTable(CommDKP_Loot, true), i)
 			elseif search and #search > 1 then

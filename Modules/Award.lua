@@ -138,7 +138,7 @@ local function AwardItem(player, cost, boss, zone, loot, reassign)
 				if search and CommDKP:GetTable(CommDKP_Loot, true)[search[1][1]].player ~= winner then
 					CommDKP:GetTable(CommDKP_Loot, true)[1].reassigned = true
 				end
-			end 
+			end
 			if type(bids) == "table" then
 				CommDKP:GetTable(CommDKP_Loot, true)[1].bids = bids
 			end
@@ -160,13 +160,13 @@ local function AwardItem(player, cost, boss, zone, loot, reassign)
 
 			core.BidInProgress = false;
 			CommDKP:BroadcastStopBidTimer()
-			
+
 			local _, _, Color, Ltype, itemID, Enchant, Gem1, Gem2, Gem3, Gem4, Suffix, Unique, LinkLvl, Name = string.find(loot,"|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
 
 			if itemName == nil and Name ~= nil then
 				itemName = Name;
 			end
-		
+
 			local search = CommDKP:GetTable(CommDKP_MinBids, true)[itemID]
 			local minBidAmount = CommDKP_round(CommDKP:GetMinBid(loot), core.DB.modes.rounding);
 			local lastBidAmount = CommDKP_round(core.BiddingWindow.cost:GetNumber(), core.DB.modes.rounding);
@@ -214,7 +214,7 @@ local function AwardItem(player, cost, boss, zone, loot, reassign)
 
 				CommDKP.Sync:SendData("CommDKPSetPrice", CommDKP:GetTable(CommDKP_MinBids, true)[itemID]);
 			end
-			
+
 			core.PriceTable = CommDKP:FormatPriceTable();
 			CommDKP:PriceTable_Update(0);
 
@@ -244,8 +244,11 @@ local function AwardConfirm_Create()
 	f:SetSize(400, 270); -- + 40
 	f:SetClampedToScreen(true)
 	f:SetBackdrop( {
-		bgFile = "Textures\\white.blp", tile = true,                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,  
+		bgFile = "Textures\\white.blp", -- White backdrop allows for black background with 1.0 alpha on low alpha containers
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga",
+		tile = true,
+		tileSize = 1,
+		edgeSize = 3,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f:SetBackdropColor(0,0,0,0.9);
@@ -277,7 +280,7 @@ local function AwardConfirm_Create()
 
 	----------------------------------
 	-- Player row
-	----------------------------------	
+	----------------------------------
 
 		f.playerHeader = f:CreateFontString(nil, "OVERLAY")
 		f.playerHeader:SetFontObject("CommDKPLargeRight");
@@ -292,7 +295,7 @@ local function AwardConfirm_Create()
 
 	----------------------------------
 	-- Item row
-	----------------------------------	
+	----------------------------------
 
 		f.lootHeader = f:CreateFontString(nil, "OVERLAY")
 		f.lootHeader:SetFontObject("CommDKPLargeRight");
@@ -326,8 +329,8 @@ local function AwardConfirm_Create()
 		f.cost:SetPoint("LEFT", f.costHeader, "RIGHT", 5, 0)
 		f.cost:SetSize(50, 22)
 		f.cost:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 1, edgeSize = 2, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 1, edgeSize = 2,
 		});
 		f.cost:SetBackdropColor(0,0,0,0.9)
 		f.cost:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -401,8 +404,8 @@ function CommDKP:AwardConfirm(player, cost, boss, zone, loot, reassign)
 	local PlayerList = {};
 	local curSelected = 0;
 	local mode = core.DB.modes.mode;
-	
-	
+
+
 	if player then
 		search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPTable, true), player)
 		class = CommDKP:GetCColors(CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].class)
@@ -437,8 +440,8 @@ function CommDKP:AwardConfirm(player, cost, boss, zone, loot, reassign)
 	-- team drop down initialization
 	-----
 
-	core.AwardConfirm.team:SetScript("OnEnter", 
-		function(self) 
+	core.AwardConfirm.team:SetScript("OnEnter",
+		function(self)
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 			GameTooltip:SetText(L["TEAMCURRENTLIST"], 0.25, 0.75, 0.90, 1, true);
 			GameTooltip:AddLine(L["WARNING"], 1.0, 0, 0, true);
@@ -453,13 +456,13 @@ function CommDKP:AwardConfirm(player, cost, boss, zone, loot, reassign)
 	)
 
 	-- Create and bind the initialization function to the dropdown menu
-		UIDropDownMenu_Initialize(core.AwardConfirm.team, 
+		UIDropDownMenu_Initialize(core.AwardConfirm.team,
 			function(self, level, menuList)
 
 				local dropDownMenuItem = UIDropDownMenu_CreateInfo()
 				dropDownMenuItem.func = self.SetValue
 				dropDownMenuItem.fontObject = "CommDKPSmallCenter"
-			
+
 				teamList = CommDKP:GetGuildTeamList()
 
 				for i=1, #teamList do
@@ -475,7 +478,7 @@ function CommDKP:AwardConfirm(player, cost, boss, zone, loot, reassign)
 		)
 		-- Show which team is currently the current one
 		UIDropDownMenu_SetText(core.AwardConfirm.team, CommDKP:GetCurrentTeamName())
-	
+
 	if player then
 		UIDropDownMenu_SetText(core.AwardConfirm.player, "|c"..class.hex..player.."|r")
 	else
@@ -493,14 +496,14 @@ function CommDKP:AwardConfirm(player, cost, boss, zone, loot, reassign)
 		if (level or 1) == 1 then
 			local numSubs = ceil(#PlayerList/20)
 			filterName.func = self.SetValue
-		
+
 			for i=1, numSubs do
 				local max = i*20;
 				if max > #PlayerList then max = #PlayerList end
 				filterName.text, filterName.checked, filterName.menuList, filterName.hasArrow = strsub(PlayerList[((i*20)-19)], 1, 1).."-"..strsub(PlayerList[max], 1, 1), curSelected >= (i*20)-19 and curSelected <= i*20, i, true
 				UIDropDownMenu_AddButton(filterName)
 			end
-			
+
 		else
 			filterName.func = self.SetValue
 			for i=ranges[menuList], ranges[menuList]+19 do
@@ -519,11 +522,11 @@ function CommDKP:AwardConfirm(player, cost, boss, zone, loot, reassign)
 			end
 		end
 	end)
-	
+
 	UIDropDownMenu_SetText(core.AwardConfirm.bossDropDown, curBoss)
 	UIDropDownMenu_Initialize(core.AwardConfirm.bossDropDown, function(self, level, menuList)                                   -- BOSS dropdown
 		UIDropDownMenu_SetAnchor(core.AwardConfirm.bossDropDown, 10, 10, "TOPLEFT", core.AwardConfirm.bossDropDown, "BOTTOMLEFT")
-		--UIDropDownMenu_JustifyText(core.AwardConfirm.bossDropDown, "LEFT") 
+		--UIDropDownMenu_JustifyText(core.AwardConfirm.bossDropDown, "LEFT")
 		local reason = UIDropDownMenu_CreateInfo()
 		local tempNPCs = {};
 
@@ -551,7 +554,7 @@ function CommDKP:AwardConfirm(player, cost, boss, zone, loot, reassign)
 	UIDropDownMenu_SetText(core.AwardConfirm.zoneDropDown, curZone)
 	UIDropDownMenu_Initialize(core.AwardConfirm.zoneDropDown, function(self, level, menuList)                                   -- ZONE dropdown
 		UIDropDownMenu_SetAnchor(core.AwardConfirm.zoneDropDown, 10, 10, "TOPLEFT", core.AwardConfirm.zoneDropDown, "BOTTOMLEFT")
-		--UIDropDownMenu_JustifyText(core.AwardConfirm.bossDropDown, "LEFT") 
+		--UIDropDownMenu_JustifyText(core.AwardConfirm.bossDropDown, "LEFT")
 		local reason = UIDropDownMenu_CreateInfo()
 		local tempZones = {};
 

@@ -43,7 +43,7 @@ CommDKP.Commands = {
       CommDKP:CheckOfficer()
       CommDKP:StatusVerify_Update()
 
-      if core.IsOfficer then  
+      if core.IsOfficer then
 		if ... == nil then
 			if core.BidAuctioneer then
 				CommDKP:ToggleBidWindow()
@@ -59,7 +59,7 @@ CommDKP.Commands = {
       CommDKP:BidInterface_Toggle()
     else
       CommDKP:Print("CommunityDKP has not completed initialization.")
-    end 
+    end
   end,
   ["repairtables"] = function(...)       -- test new features
     local cmd = ...
@@ -74,7 +74,7 @@ CommDKP.Commands = {
   ["award"] = function (name, ...)
     if core.IsOfficer and core.Initialized then
       CommDKP:StatusVerify_Update()
-      
+
       if not name or not strfind(name, ":::::") then
         CommDKP:Print(L["AWARDWARNING"])
         return
@@ -85,7 +85,7 @@ CommDKP.Commands = {
 	  local itemName,itemLink,_,_,_,_,_,_,_,_ = GetItemInfo(item)
 	  local cost = 0;
 	  local _, _, Color, Ltype, itemID, Enchant, Gem1, Gem2, Gem3, Gem4, Suffix, Unique, LinkLvl, Name = string.find(itemLink,"|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
-	  
+
 	  if itemName == nil and Name ~= nil then
 		itemName = Name;
       end
@@ -155,25 +155,25 @@ local function HandleSlashCommands(str)
   if (#str == 0) then
     CommDKP.Commands.config();
     return;
-  end  
-  
+  end
+
   local args = {};
   for _, arg in ipairs({ string.split(' ', str) }) do
     if (#arg > 0) then
       table.insert(args, arg);
     end
   end
-  
+
   local path = CommDKP.Commands;
-  
+
   for id, arg in ipairs(args) do
     if (#arg > 0) then
-      arg = arg:lower();      
+      arg = arg:lower();
       if (path[arg]) then
         if (type(path[arg]) == "function") then
-          path[arg](select(id + 1, unpack(args))); 
-          return;          
-        elseif (type(path[arg]) == "table") then        
+          path[arg](select(id + 1, unpack(args)));
+          return;
+        elseif (type(path[arg]) == "table") then
           path = path[arg];
         end
       else
@@ -185,7 +185,7 @@ local function HandleSlashCommands(str)
 end
 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", function(self, event, msg, ...)      -- suppresses outgoing whisper responses to limit spam
-	
+
 	if core.DB == nil then
 		return false;
 	end
@@ -210,7 +210,7 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", function(self, event,
 			  return true;
 			end
 		end
-	  
+
 		if strfind(msg, "CommunityDKP: ") == 1 then
 			return true
 		elseif strfind(msg, L["DKPAVAILABLE"]) ~= nil and strfind(msg, '%[') ~= nil and strfind(msg, '%]') ~= nil then
@@ -323,7 +323,7 @@ function CommDKP:SendSeedData()
 		else
 			latestIndexForTeam[tostring(_teams[i][1])]["DKPHistory"] = "start"
 		end
-		
+
 		if #CommDKP:GetTable(CommDKP_Loot, true, tostring(_teams[i][1])) > 0 and strfind(CommDKP:GetTable(CommDKP_Loot, true, tostring(_teams[i][1]))[1].index, "-") then
 			local off2,date2 = strsplit("-", CommDKP:GetTable(CommDKP_Loot, true, tostring(_teams[i][1]))[1].index)
 			if CommDKP:ValidateSender(off2) then
@@ -336,7 +336,7 @@ function CommDKP:SendSeedData()
 		end
 	end
 
-	--[[ 
+	--[[
 		latestIndexForTeam = {
 			["0"] = {
 				["Loot"] = "name-date",
@@ -509,7 +509,7 @@ function CommDKP_OnEvent(self, event, arg1, ...)
 			days = math.floor(reset / 86400)
 			hours = math.floor(math.floor(reset % 86400) / 3600)
 			mins = math.ceil((reset % 3600) / 60)
-			
+
 			if days > 1 then days = " "..days.." "..L["DAYS"] elseif days == 0 then days = "" else days = " "..days.." "..L["DAY"] end
 			if hours > 1 then hours = " "..hours.." "..L["HOURS"] elseif hours == 0 then hours = "" else hours = " "..hours.." "..L["HOUR"].."." end
 			if mins > 1 then mins = " "..mins.." "..L["MINUTES"].."." elseif mins == 0 then mins = "" else mins = " "..mins.." "..L["MINUTE"].."." end
@@ -623,13 +623,13 @@ function CommDKP_OnEvent(self, event, arg1, ...)
 end
 
 function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run on load triggered registered events at bottom of file
-	if (name ~= "CommunityDKP") then return end 
+	if (name ~= "CommunityDKP") then return end
 
 	-- allows using left and right buttons to move through chat 'edit' box
 	--[[for i = 1, NUM_CHAT_WINDOWS do
 		_G["ChatFrame"..i.."EditBox"]:SetAltArrowKeyMode(false);
 	end--]]
-	
+
 	----------------------------------
 	-- Register Slash Commands
 	----------------------------------
@@ -660,7 +660,7 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
 						local item, link = GameTooltip:GetItem();
 
 						if (key == "LALT" or key == "LSHIFT") and IsShiftKeyDown() and IsAltKeyDown() then
-							
+
 							local _, _, Color, Ltype, itemID, Enchant, Gem1, Gem2, Gem3, Gem4, Suffix, Unique, LinkLvl, Name = string.find(link,"|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
 							local itemIcon = GetItemIcon(itemID);
 							local itemName, itemLink = GetItemInfo(link);
@@ -683,12 +683,12 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
 		-- Verify DB Schemas
 		------------------------------------------------
 		if not CommDKP:VerifyDBSchema(CommDKP_DB) then CommDKP_DB = CommDKP:UpgradeDBSchema(CommDKP_DB, CommDKP_DB, false, "CommDKP_DB") end;
-		
+
 		-- Verify that the DB table has been initialized.
 		CommDKP:SetTable(CommDKP_DB, false, CommDKP:InitializeCommDKPDB(CommDKP:GetTable(CommDKP_DB)))
 		core.DB = CommDKP:GetTable(CommDKP_DB); --Player specific DB
 
-		
+
 		if not CommDKP:VerifyDBSchema(CommDKP_DKPTable) then CommDKP_DKPTable = CommDKP:UpgradeDBSchema(CommDKP_DKPTable, CommDKP_DKPTable, true, "CommDKP_DKPTable") end;
 		if not CommDKP:VerifyDBSchema(CommDKP_Loot) then CommDKP_Loot = CommDKP:UpgradeDBSchema(CommDKP_Loot, CommDKP_Loot, true, "CommDKP_Loot") end;
 		if not CommDKP:VerifyDBSchema(CommDKP_DKPHistory) then CommDKP_DKPHistory = CommDKP:UpgradeDBSchema(CommDKP_DKPHistory, CommDKP_DKPHistory, true, "CommDKP_DKPHistory") end;
@@ -731,7 +731,7 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
 		table.sort(core.WorkingTable, function(a, b)
 			return a["player"] < b["player"]
 		end)
-		
+
 		table.sort(core.PriceTable, function(a, b)
 			if a["item"] ~= nil and b["item"] == nil then
 				return true;
@@ -743,7 +743,7 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
 
 			return a["item"] < b["item"]
 		end)
-		
+
 		CommDKP:StartBidTimer("seconds", nil)						-- initiates timer frame for use
 
 		if CommDKP.BidTimer then CommDKP.BidTimer:SetScript("OnUpdate", nil) end
@@ -843,7 +843,7 @@ function CommDKP:UpgradeDBSchema(newDbTable, oldDbTable, hasTeams, tableName)
 	if  newDbTable.dbinfo.priorbuild == nil then
 		newDbTable.dbinfo.priorbuild = 0;
 	end
-	
+
 	--Set Prior Build
 	newDbTable.dbinfo.priorbuild = newDbTable.dbinfo.build;
 
@@ -884,7 +884,7 @@ function CommDKP:InitializeCommDKPDB(dbTable)
 	if dbTable == nil then
 		dbTable = {}
 	end
-	
+
 	if not dbTable.DKPBonus or not dbTable.DKPBonus.OnTimeBonus then
 		dbTable.DKPBonus = {
 			OnTimeBonus = 15, BossKillBonus = 5, CompletionBonus = 10, NewBossKillBonus = 10, UnexcusedAbsence = -25, BidTimer = 30, DecayPercentage = 20, GiveRaidStart = false, IncStandby = false,
@@ -896,7 +896,7 @@ function CommDKP:InitializeCommDKPDB(dbTable)
 			HistoryLimit = 2500, DKPHistoryLimit = 2500, BidTimerSize = 1.0, CommDKPScaleSize = 1.0, SuppressNotifications = false, TooltipHistoryCount = 15, SuppressTells = true,
 		}
 	end
-	if not dbTable.defaults.ChatFrames then 
+	if not dbTable.defaults.ChatFrames then
 		dbTable.defaults.ChatFrames = {}
 		for i = 1, NUM_CHAT_WINDOWS do
 			local name = GetChatWindowInfo(i)
@@ -944,7 +944,7 @@ function CommDKP:InitializeCommDKPDB(dbTable)
 	end
 
 	if IsInGuild() then
-		if not dbTable.teams["0"] then 
+		if not dbTable.teams["0"] then
 			dbTable.teams["0"] = {name=CommDKP:GetGuildName()}
 			dbTable.defaults.CurrentTeam = "0";
 		end;
@@ -960,7 +960,7 @@ function CommDKP:InitPlayerTable(globalTable, hasTeams, tableName)
 
 		local realmName = CommDKP:GetRealmName();
 		local guildName = CommDKP:GetGuildName();
-		
+
 
 		playerTable = CommDKP:InitializeGuild(playerTable,realmName,guildName);
 
@@ -981,19 +981,19 @@ end
 
 function CommDKP:InitializeGuild(dataTable, realmName, guildName)
 	local retOK1, hasInfo1 = pcall(CommDKP_tableHasKey,dataTable,realmName);
-	
+
 	if (not retOK1) or (retOK1 and not hasInfo1) then
 		dataTable[realmName] = {}
 	end
-	
+
 	if guildName ~= nil then
 		local retOK2, hasInfo2 = pcall(CommDKP_tableHasKey,dataTable[realmName],guildName);
-		
+
 		if (not retOK2) or (retOK2 and not hasInfo2) then
 			dataTable[realmName][guildName] = {}
 		end
 	end
-	
+
  	return dataTable
 end
 
@@ -1015,7 +1015,7 @@ function CommDKP:MonolithMigration()
 	if reason == "MISSING" or reason == "DISABLED" then
 		return false -- MonolithDKP is missing or globally disabled
 	end
-	
+
 	local loaded, finished = IsAddOnLoaded("MonolithDKP")
 	if not loaded then
 		return false -- MonolithDKP is disabled for the current character

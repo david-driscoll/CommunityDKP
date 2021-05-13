@@ -29,7 +29,7 @@ local function Remove_Entries()
 					flag = true
 				end
 			end
-			
+
 			if flag then 		-- above 2 loops flags character if they have any loot/dkp history. Only inserts to archive and broadcasts if found. Other players will not have the entry if no history exists
 				if not CommDKP:GetTable(CommDKP_Archive, true)[core.SelectedData[i].player] then
 					CommDKP:GetTable(CommDKP_Archive, true)[core.SelectedData[i].player] = { deleted=true, edited=curTime }
@@ -125,7 +125,7 @@ local function AddRaidToDKPTable()
 					numPlayers = numPlayers + 1;
 					c = CommDKP:GetCColors(tempClass)
 					if addedUsers == nil then
-						addedUsers = "|c"..c.hex..tempName.."|r"; 
+						addedUsers = "|c"..c.hex..tempName.."|r";
 					else
 						addedUsers = addedUsers..", |c"..c.hex..tempName.."|r"
 					end
@@ -148,7 +148,7 @@ local function AddRaidToDKPTable()
 		else
 			CommDKP:ClassGraph()
 		end
-		if FlagRecovery then 
+		if FlagRecovery then
 			CommDKP:Print(L["YOUHAVERECOVERED"])
 		end
 		CommDKP:FilterDKPTable(core.currentSort, "reset")
@@ -188,7 +188,7 @@ local function AddGuildToDKPTable(rank, level)
 			numPlayers = numPlayers + 1;
 			c = CommDKP:GetCColors(class)
 			if addedUsers == nil then
-				addedUsers = "|c"..c.hex..name.."|r"; 
+				addedUsers = "|c"..c.hex..name.."|r";
 			else
 				addedUsers = addedUsers..", |c"..c.hex..name.."|r"
 			end
@@ -206,7 +206,7 @@ local function AddGuildToDKPTable(rank, level)
 	if addedUsers then
 		CommDKP:Print("["..CommDKP:GetTeamName(CommDKP:GetCurrentTeamIndex()).."] "..L["ADDED"].." "..numPlayers.." "..L["PLAYERS"]..": "..addedUsers)
 	end
-	if FlagRecovery then 
+	if FlagRecovery then
 		CommDKP:Print(L["YOUHAVERECOVERED"])
 	end
 	if core.ClassGraph then
@@ -228,7 +228,7 @@ local function AddTargetToDKPTable()
 
 	local search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPTable, true), name)
 	local profile = CommDKP:GetDefaultEntity();
-	
+
 	profile.player=name;
 	profile.class=class;
 
@@ -242,7 +242,7 @@ local function AddTargetToDKPTable()
 		CommDKP:Print("["..CommDKP:GetTeamName(CommDKP:GetCurrentTeamIndex()).."] "..L["ADDED"].." |c"..c.hex..name.."|r")
 
 		if addedUsers == nil then
-			addedUsers = "|c"..c.hex..name.."|r"; 
+			addedUsers = "|c"..c.hex..name.."|r";
 		else
 			addedUsers = addedUsers..", |c"..c.hex..name.."|r"
 		end
@@ -305,17 +305,17 @@ function CommDKP:AddEntitiesToDKPTable(entities, team)
 		local class = entities[i].class;
 		local profile = entities[i];
 		local c;
-	
+
 		local search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPTable, true, team), name)
-	
+
 		CommDKP:GetTable(CommDKP_Profiles, true, team)[name] = profile;
 
 		if not search then
-	
+
 			numPlayers = numPlayers + 1;
 			c = CommDKP:GetCColors(class)
 			if addedUsers == nil then
-				addedUsers = "|c"..c.hex..name.."|r"; 
+				addedUsers = "|c"..c.hex..name.."|r";
 			else
 				addedUsers = addedUsers..", |c"..c.hex..name.."|r"
 			end
@@ -340,7 +340,7 @@ function CommDKP:AddEntitiesToDKPTable(entities, team)
 		if addedUsers then
 			CommDKP:Print("["..CommDKP:GetTeamName(team).."] "..L["ADDED"].." "..numPlayers.." "..L["PLAYERS"]..": "..addedUsers)
 		end
-		if FlagRecovery then 
+		if FlagRecovery then
 			CommDKP:Print(L["YOUHAVERECOVERED"])
 		end
 		if core.ClassGraph then
@@ -359,7 +359,7 @@ function CommDKP:GetGuildRankList()
 		table.insert(tempTable, {index = i-1, name = GuildControlGetRankName(i)})
 		tempTable[GuildControlGetRankName(i)] = i-1
 	end
-	
+
 	return tempTable;
 end
 
@@ -367,12 +367,12 @@ end
 -- TEAM FUNCTIONS
 -------
 
-function CommDKP:ChangeTeamName(index, _name) 
+function CommDKP:ChangeTeamName(index, _name)
 	CommDKP:GetTable(CommDKP_DB, false)["teams"][tostring(index)].name = _name;
 	CommDKP.Sync:SendData("CommDKPTeams", {Teams =  CommDKP:GetTable(CommDKP_DB, false)["teams"]} , nil)
 end
 
-function CommDKP:AddNewTeamToGuild() 
+function CommDKP:AddNewTeamToGuild()
 	local _index = 0
 	local _tmp = CommDKP:GetTable(CommDKP_DB, false)["teams"]
 	local realmName = CommDKP:GetRealmName();
@@ -489,7 +489,7 @@ function CommDKP:ManageEntries()
 		CommDKP.ConfigTab3.AddEntriesHeader:SetPoint("BOTTOMLEFT", CommDKP.ConfigTab3.add_raid_to_table, "TOPLEFT", -10, 10);
 		CommDKP.ConfigTab3.AddEntriesHeader:SetWidth(400)
 		CommDKP.ConfigTab3.AddEntriesHeader:SetFontObject("CommDKPNormalLeft")
-		CommDKP.ConfigTab3.AddEntriesHeader:SetText(L["ADDREMDKPTABLEENTRIES"]); 
+		CommDKP.ConfigTab3.AddEntriesHeader:SetText(L["ADDREMDKPTABLEENTRIES"]);
 
 	----------------------------------
 	-- add raid members button
@@ -498,7 +498,7 @@ function CommDKP:ManageEntries()
 		CommDKP.ConfigTab3.add_raid_to_table:SetSize(120,25);
 
 		-- tooltip for add raid members button
-		CommDKP.ConfigTab3.add_raid_to_table:SetScript("OnEnter", 
+		CommDKP.ConfigTab3.add_raid_to_table:SetScript("OnEnter",
 			function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetText(L["ADDRAIDMEMBERS"], 0.25, 0.75, 0.90, 1, true);
@@ -506,14 +506,14 @@ function CommDKP:ManageEntries()
 				GameTooltip:Show();
 			end
 		)
-		CommDKP.ConfigTab3.add_raid_to_table:SetScript("OnLeave", 
+		CommDKP.ConfigTab3.add_raid_to_table:SetScript("OnLeave",
 			function(self)
 				GameTooltip:Hide()
 			end
 		)
 
 		-- confirmation dialog to remove user(s)
-		CommDKP.ConfigTab3.add_raid_to_table:SetScript("OnClick", 
+		CommDKP.ConfigTab3.add_raid_to_table:SetScript("OnClick",
 			function ()
 				local selected = L["ADDRAIDMEMBERSCONFIRM"];
 
@@ -534,7 +534,7 @@ function CommDKP:ManageEntries()
 		);
 
 
-	
+
 	----------------------------------
 	-- remove selected entries button
 	----------------------------------
@@ -542,7 +542,7 @@ function CommDKP:ManageEntries()
 		CommDKP.ConfigTab3.remove_entries:SetSize(120,25);
 		CommDKP.ConfigTab3.remove_entries:ClearAllPoints()
 		CommDKP.ConfigTab3.remove_entries:SetPoint("LEFT", CommDKP.ConfigTab3.add_raid_to_table, "RIGHT", 20, 0)
-		CommDKP.ConfigTab3.remove_entries:SetScript("OnEnter", 
+		CommDKP.ConfigTab3.remove_entries:SetScript("OnEnter",
 			function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetText(L["REMOVESELECTEDENTRIES"], 0.25, 0.75, 0.90, 1, true);
@@ -551,14 +551,14 @@ function CommDKP:ManageEntries()
 				GameTooltip:Show();
 			end
 		)
-		CommDKP.ConfigTab3.remove_entries:SetScript("OnLeave", 
+		CommDKP.ConfigTab3.remove_entries:SetScript("OnLeave",
 			function(self)
 				GameTooltip:Hide()
 			end
 		)
 		-- confirmation dialog to remove user(s)
-		CommDKP.ConfigTab3.remove_entries:SetScript("OnClick", 
-			function ()	
+		CommDKP.ConfigTab3.remove_entries:SetScript("OnClick",
+			function ()
 				if #core.SelectedData > 0 then
 					local selected = L["CONFIRMREMOVESELECT"]..": \n\n";
 
@@ -612,14 +612,14 @@ function CommDKP:ManageEntries()
 				GameTooltip:Show();
 			end
 		)
-		CommDKP.ConfigTab3.reset_previous_dkp:SetScript("OnLeave", 
+		CommDKP.ConfigTab3.reset_previous_dkp:SetScript("OnLeave",
 			function(self)
 				GameTooltip:Hide()
 			end
 		)
 		-- confirmation dialog to remove user(s)
 		CommDKP.ConfigTab3.reset_previous_dkp:SetScript("OnClick",
-			function ()	
+			function ()
 				StaticPopupDialogs["RESET_PREVIOUS_DKP"] = {
 					text = L["RESETPREVCONFIRM"],
 					button1 = L["YES"],
@@ -644,7 +644,7 @@ function CommDKP:ManageEntries()
 	----------------------------------
 		CommDKP.ConfigTab3.GuildRankDropDown = CreateFrame("FRAME", "CommDKPConfigReasonDropDown", CommDKP.ConfigTab3, "CommunityDKPUIDropDownMenuTemplate")
 		CommDKP.ConfigTab3.GuildRankDropDown:SetPoint("TOPLEFT", CommDKP.ConfigTab3.add_raid_to_table, "BOTTOMLEFT", -17, -15)
-		CommDKP.ConfigTab3.GuildRankDropDown:SetScript("OnEnter", 
+		CommDKP.ConfigTab3.GuildRankDropDown:SetScript("OnEnter",
 			function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetText(L["RANKLIST"], 0.25, 0.75, 0.90, 1, true);
@@ -661,7 +661,7 @@ function CommDKP:ManageEntries()
 		UIDropDownMenu_SetText(CommDKP.ConfigTab3.GuildRankDropDown, "Select Rank")
 
 		-- Create and bind the initialization function to the dropdown menu
-		UIDropDownMenu_Initialize(CommDKP.ConfigTab3.GuildRankDropDown, 
+		UIDropDownMenu_Initialize(CommDKP.ConfigTab3.GuildRankDropDown,
 			function(self, level, menuList)
 				local rank = UIDropDownMenu_CreateInfo()
 					rank.func = self.SetValue
@@ -698,7 +698,7 @@ function CommDKP:ManageEntries()
 		CommDKP.ConfigTab3.AddGuildToDKP:SetSize(120,25);
 		CommDKP.ConfigTab3.AddGuildToDKP:ClearAllPoints()
 		CommDKP.ConfigTab3.AddGuildToDKP:SetPoint("LEFT", CommDKP.ConfigTab3.GuildRankDropDown, "RIGHT", 2, 2)
-		CommDKP.ConfigTab3.AddGuildToDKP:SetScript("OnEnter", 
+		CommDKP.ConfigTab3.AddGuildToDKP:SetScript("OnEnter",
 			function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetText(L["ADDGUILDDKPTABLE"], 0.25, 0.75, 0.90, 1, true);
@@ -706,14 +706,14 @@ function CommDKP:ManageEntries()
 				GameTooltip:Show();
 			end
 		)
-		CommDKP.ConfigTab3.AddGuildToDKP:SetScript("OnLeave", 
+		CommDKP.ConfigTab3.AddGuildToDKP:SetScript("OnLeave",
 			function(self)
 				GameTooltip:Hide()
 			end
 		)
 		-- confirmation dialog to add user(s)
 		CommDKP.ConfigTab3.AddGuildToDKP:SetScript("OnClick",
-			function ()	
+			function ()
 				if curIndex ~= nil then
 					StaticPopupDialogs["ADD_GUILD_MEMBERS"] = {
 						text = L["ADDGUILDCONFIRM"].." \""..curRank.."\"?",
@@ -744,12 +744,12 @@ function CommDKP:ManageEntries()
 
 	----------------------------------
 	-- Add target to DKP list button
-	----------------------------------	
+	----------------------------------
 		CommDKP.ConfigTab3.AddTargetToDKP = self:CreateButton("TOPLEFT", CommDKP.ConfigTab3, "TOPLEFT", 0, 0, L["ADDTARGET"]);
 		CommDKP.ConfigTab3.AddTargetToDKP:SetSize(120,25);
 		CommDKP.ConfigTab3.AddTargetToDKP:ClearAllPoints()
 		CommDKP.ConfigTab3.AddTargetToDKP:SetPoint("LEFT", CommDKP.ConfigTab3.AddGuildToDKP, "RIGHT", 20, 0)
-		CommDKP.ConfigTab3.AddTargetToDKP:SetScript("OnEnter", 
+		CommDKP.ConfigTab3.AddTargetToDKP:SetScript("OnEnter",
 			function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetText(L["ADDTARGETTODKPTABLE"], 0.25, 0.75, 0.90, 1, true);
@@ -762,7 +762,7 @@ function CommDKP:ManageEntries()
 				GameTooltip:Hide()
 			end
 		)
-		CommDKP.ConfigTab3.AddTargetToDKP:SetScript("OnClick", 
+		CommDKP.ConfigTab3.AddTargetToDKP:SetScript("OnClick",
 			function ()	-- confirmation dialog to add user(s)
 				if UnitIsPlayer("target") == true then
 					StaticPopupDialogs["ADD_TARGET_DKP"] = {
@@ -799,7 +799,7 @@ function CommDKP:ManageEntries()
 		CommDKP.ConfigTab3.CleanList:SetSize(120,25);
 		CommDKP.ConfigTab3.CleanList:ClearAllPoints()
 		CommDKP.ConfigTab3.CleanList:SetPoint("TOP", CommDKP.ConfigTab3.AddTargetToDKP, "BOTTOM", 0, -16)
-		CommDKP.ConfigTab3.CleanList:SetScript("OnEnter", 
+		CommDKP.ConfigTab3.CleanList:SetScript("OnEnter",
 			function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetText(L["PURGELIST"], 0.25, 0.75, 0.90, 1, true);
@@ -807,12 +807,12 @@ function CommDKP:ManageEntries()
 				GameTooltip:Show();
 			end
 		)
-		CommDKP.ConfigTab3.CleanList:SetScript("OnLeave", 
+		CommDKP.ConfigTab3.CleanList:SetScript("OnLeave",
 			function(self)
 				GameTooltip:Hide()
 			end
 		)
-		CommDKP.ConfigTab3.CleanList:SetScript("OnClick", 
+		CommDKP.ConfigTab3.CleanList:SetScript("OnClick",
 			function()
 				StaticPopupDialogs["PURGE_CONFIRM"] = {
 					text = L["PURGECONFIRM"],
@@ -831,7 +831,7 @@ function CommDKP:ManageEntries()
 								name = CommDKP:GetTable(CommDKP_DKPTable, true)[i].player;
 
 								if purgeString == nil then
-									purgeString = "|c"..c.hex..name.."|r"; 
+									purgeString = "|c"..c.hex..name.."|r";
 								else
 									purgeString = purgeString..", |c"..c.hex..name.."|r"
 								end
@@ -870,13 +870,13 @@ function CommDKP:ManageEntries()
 		CommDKP.ConfigTab3.WhitelistContainer.WhitelistHeader:SetPoint("TOPLEFT", CommDKP.ConfigTab3.WhitelistContainer, "TOPLEFT", -10, 0);
 		CommDKP.ConfigTab3.WhitelistContainer.WhitelistHeader:SetWidth(400)
 		CommDKP.ConfigTab3.WhitelistContainer.WhitelistHeader:SetFontObject("CommDKPNormalLeft")
-		CommDKP.ConfigTab3.WhitelistContainer.WhitelistHeader:SetText(L["WHITELISTHEADER"]); 
+		CommDKP.ConfigTab3.WhitelistContainer.WhitelistHeader:SetText(L["WHITELISTHEADER"]);
 
 		-- Whitelist button
 		CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton = self:CreateButton("BOTTOMLEFT", CommDKP.ConfigTab3.WhitelistContainer, "BOTTOMLEFT", 15, 15, L["SETWHITELIST"]);
 		CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton:ClearAllPoints()
 		CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton:SetPoint("TOPLEFT", CommDKP.ConfigTab3.WhitelistContainer.WhitelistHeader, "BOTTOMLEFT", 10, -10)
-		CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton:SetScript("OnEnter", 
+		CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton:SetScript("OnEnter",
 			function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetText(L["SETWHITELIST"], 0.25, 0.75, 0.90, 1, true);
@@ -886,14 +886,14 @@ function CommDKP:ManageEntries()
 				GameTooltip:Show();
 			end
 		)
-		CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton:SetScript("OnLeave", 
+		CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton:SetScript("OnLeave",
 			function(self)
 				GameTooltip:Hide()
 			end
 		)
 		-- confirmation dialog to add user(s)
-		CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton:SetScript("OnClick", 
-			function ()	
+		CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton:SetScript("OnClick",
+			function ()
 				if #core.SelectedData > 0 then
 					StaticPopupDialogs["ADD_GUILD_MEMBERS"] = {
 						text = L["CONFIRMWHITELIST"],
@@ -929,7 +929,7 @@ function CommDKP:ManageEntries()
 			----------------------------------
 			-- View Whitelist Button
 			----------------------------------
-		
+
 				CommDKP.ConfigTab3.WhitelistContainer.ViewWhitelistButton = self:CreateButton("BOTTOMLEFT", CommDKP.ConfigTab3.WhitelistContainer, "BOTTOMLEFT", 15, 15, L["VIEWWHITELISTBTN"]);
 				CommDKP.ConfigTab3.WhitelistContainer.ViewWhitelistButton:ClearAllPoints()
 				CommDKP.ConfigTab3.WhitelistContainer.ViewWhitelistButton:SetPoint("LEFT", CommDKP.ConfigTab3.WhitelistContainer.AddWhitelistButton, "RIGHT", 10, 0)
@@ -941,12 +941,12 @@ function CommDKP:ManageEntries()
 						GameTooltip:Show();
 					end
 				)
-				CommDKP.ConfigTab3.WhitelistContainer.ViewWhitelistButton:SetScript("OnLeave", 
+				CommDKP.ConfigTab3.WhitelistContainer.ViewWhitelistButton:SetScript("OnLeave",
 					function(self)
 						GameTooltip:Hide()
 					end
 				)
-				CommDKP.ConfigTab3.WhitelistContainer.ViewWhitelistButton:SetScript("OnClick", 
+				CommDKP.ConfigTab3.WhitelistContainer.ViewWhitelistButton:SetScript("OnClick",
 					function ()	-- confirmation dialog to add user(s)
 						if #CommDKP:GetTable(CommDKP_Whitelist) > 0 then
 							ViewWhitelist()
@@ -967,11 +967,11 @@ function CommDKP:ManageEntries()
 			----------------------------------
 			-- Broadcast Whitelist Button
 			----------------------------------
-		
+
 				CommDKP.ConfigTab3.WhitelistContainer.SendWhitelistButton = self:CreateButton("BOTTOMLEFT", CommDKP.ConfigTab3.WhitelistContainer, "BOTTOMLEFT", 15, 15, L["SENDWHITELIST"]);
 				CommDKP.ConfigTab3.WhitelistContainer.SendWhitelistButton:ClearAllPoints()
 				CommDKP.ConfigTab3.WhitelistContainer.SendWhitelistButton:SetPoint("LEFT", CommDKP.ConfigTab3.WhitelistContainer.ViewWhitelistButton, "RIGHT", 30, 0)
-				CommDKP.ConfigTab3.WhitelistContainer.SendWhitelistButton:SetScript("OnEnter", 
+				CommDKP.ConfigTab3.WhitelistContainer.SendWhitelistButton:SetScript("OnEnter",
 					function(self)
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 						GameTooltip:SetText(L["SENDWHITELIST"], 0.25, 0.75, 0.90, 1, true);
@@ -987,13 +987,13 @@ function CommDKP:ManageEntries()
 				)
 				-- confirmation dialog to add user(s)
 				CommDKP.ConfigTab3.WhitelistContainer.SendWhitelistButton:SetScript("OnClick",
-					function ()	
+					function ()
 						CommDKP.Sync:SendData("CDKPWhitelist", CommDKP:GetTable(CommDKP_Whitelist))
 						CommDKP:Print(L["WHITELISTBROADCASTED"])
 					end
 				);
 
-		
+
 
 	----------------------------------
 	-- Guild team management section
@@ -1009,17 +1009,17 @@ function CommDKP:ManageEntries()
 		CommDKP.ConfigTab3.TeamHeader:SetPoint("TOPLEFT", CommDKP.ConfigTab3.WhitelistContainer, "BOTTOMLEFT", -10, -5);
 		CommDKP.ConfigTab3.TeamHeader:SetWidth(400)
 		CommDKP.ConfigTab3.TeamHeader:SetFontObject("CommDKPNormalLeft")
-		CommDKP.ConfigTab3.TeamHeader:SetText(L["TEAMMANAGEMENTHEADER"].." of "..CommDKP:GetGuildName()..""); 
+		CommDKP.ConfigTab3.TeamHeader:SetText(L["TEAMMANAGEMENTHEADER"].." of "..CommDKP:GetGuildName().."");
 
 		----------------------------------
-		-- Drop down with lists of teams 
+		-- Drop down with lists of teams
 		----------------------------------
 			CommDKP.ConfigTab3.TeamListDropDown = CreateFrame("FRAME", "CommDKPConfigReasonDropDown", CommDKP.ConfigTab3, "CommunityDKPUIDropDownMenuTemplate")
 			--CommDKP.ConfigTab3.TeamManagementContainer.TeamListDropDown:ClearAllPoints()
 			CommDKP.ConfigTab3.TeamListDropDown:SetPoint("BOTTOMLEFT", CommDKP.ConfigTab3.TeamHeader, "BOTTOMLEFT", 0, -50)
 			-- tooltip on mouseOver
-			CommDKP.ConfigTab3.TeamListDropDown:SetScript("OnEnter", 
-				function(self) 
+			CommDKP.ConfigTab3.TeamListDropDown:SetScript("OnEnter",
+				function(self)
 					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 					GameTooltip:SetText(L["TEAMLIST"], 0.25, 0.75, 0.90, 1, true);
 					GameTooltip:AddLine(L["TEAMLISTDESC"], 1.0, 1.0, 1.0, true);
@@ -1035,12 +1035,12 @@ function CommDKP:ManageEntries()
 			UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
 
 			-- Create and bind the initialization function to the dropdown menu
-			UIDropDownMenu_Initialize(CommDKP.ConfigTab3.TeamListDropDown, 
+			UIDropDownMenu_Initialize(CommDKP.ConfigTab3.TeamListDropDown,
 				function(self, level, menuList)
 					local dropDownMenuItem = UIDropDownMenu_CreateInfo()
 					dropDownMenuItem.func = self.SetValue
 					dropDownMenuItem.fontObject = "CommDKPSmallCenter"
-				
+
 					teamList = CommDKP:GetGuildTeamList()
 
 					for i=1, #teamList do
@@ -1080,10 +1080,10 @@ function CommDKP:ManageEntries()
 			CommDKP.ConfigTab3.TeamNameInput:SetSize(160, 24)
 			CommDKP.ConfigTab3.TeamNameInput:SetPoint("TOPRIGHT", CommDKP.ConfigTab3.TeamListDropDown, "TOPRIGHT", 160, 0)
 			CommDKP.ConfigTab3.TeamNameInput:SetBackdrop({
-				bgFile   = "Textures\\white.blp", tile = true,
+				bgFile   = "Textures\\white.blp",
 				edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile",
-				tile = true, 
-				tileSize = 32, 
+				tile = true,
+				tileSize = 32,
 				edgeSize = 2
 			});
 			CommDKP.ConfigTab3.TeamNameInput:SetBackdropColor(0,0,0,0.9)
@@ -1094,13 +1094,13 @@ function CommDKP:ManageEntries()
 			CommDKP.ConfigTab3.TeamNameInput:SetTextInsets(10, 10, 5, 5)
 			CommDKP.ConfigTab3.TeamNameInput.tooltipText = L["TEAMNAMEINPUTTOOLTIP"]
 			CommDKP.ConfigTab3.TeamNameInput.tooltipDescription = L["TEAMNAMEINPUTTOOLTIPDESC"]
-			CommDKP.ConfigTab3.TeamNameInput:SetScript("OnEscapePressed", 
+			CommDKP.ConfigTab3.TeamNameInput:SetScript("OnEscapePressed",
 				function(self)    -- clears focus on esc
 					self:HighlightText(0,0)
 					self:ClearFocus()
 				end
 			)
-			CommDKP.ConfigTab3.TeamNameInput:SetScript("OnEnterPressed", 
+			CommDKP.ConfigTab3.TeamNameInput:SetScript("OnEnterPressed",
 				function(self)
 					self:HighlightText(0,0)
 					if (selectedTeamIndex == nil ) then
@@ -1128,7 +1128,7 @@ function CommDKP:ManageEntries()
 					end
 				end
 			)
-			CommDKP.ConfigTab3.TeamNameInput:SetScript("OnEnter", 
+			CommDKP.ConfigTab3.TeamNameInput:SetScript("OnEnter",
 				function(self)
 					if (self.tooltipText) then
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -1150,16 +1150,16 @@ function CommDKP:ManageEntries()
 				end
 			)
 
-			
+
 
 		----------------------------------
 		-- Rename selected team button
-		----------------------------------	
+		----------------------------------
 			CommDKP.ConfigTab3.TeamRename = self:CreateButton("TOPLEFT", CommDKP.ConfigTab3, "TOPLEFT", 0, 0, L["TEAMRENAME"]);
 			CommDKP.ConfigTab3.TeamRename:SetSize(120,25);
 			CommDKP.ConfigTab3.TeamRename:ClearAllPoints()
 			CommDKP.ConfigTab3.TeamRename:SetPoint("TOPRIGHT", CommDKP.ConfigTab3.TeamNameInput, "TOPRIGHT", 125, 0)
-			CommDKP.ConfigTab3.TeamRename:SetScript("OnEnter", 
+			CommDKP.ConfigTab3.TeamRename:SetScript("OnEnter",
 				function(self)
 					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 					GameTooltip:SetText(L["TEAMRENAMESELECTED"], 0.25, 0.75, 0.90, 1, true);
@@ -1173,8 +1173,8 @@ function CommDKP:ManageEntries()
 				end
 			)
 			-- rename team function
-			CommDKP.ConfigTab3.TeamRename:SetScript("OnClick", 
-				function ()	
+			CommDKP.ConfigTab3.TeamRename:SetScript("OnClick",
+				function ()
 					if selectedTeamIndex == nil then
 						StaticPopupDialogs["RENAME_TEAM"] = {
 							text = L["NOTEAMCHOSEN"],
@@ -1206,7 +1206,7 @@ function CommDKP:ManageEntries()
 								hideOnEscape = true,
 								preferredIndex = 3
 							}
-							StaticPopup_Show ("NOT_GUILD_MASTER")	
+							StaticPopup_Show ("NOT_GUILD_MASTER")
 						end
 					end
 				end
@@ -1214,12 +1214,12 @@ function CommDKP:ManageEntries()
 
 		----------------------------------
 		-- Add new team button
-		----------------------------------	
+		----------------------------------
 		CommDKP.ConfigTab3.TeamAdd = self:CreateButton("TOPLEFT", CommDKP.ConfigTab3, "TOPLEFT", 0, 0, L["TEAMADD"]);
 		CommDKP.ConfigTab3.TeamAdd:SetSize(120,25);
 		CommDKP.ConfigTab3.TeamAdd:ClearAllPoints()
 		CommDKP.ConfigTab3.TeamAdd:SetPoint("BOTTOM", CommDKP.ConfigTab3.TeamRename, "BOTTOM", 0, -40)
-		CommDKP.ConfigTab3.TeamAdd:SetScript("OnEnter", 
+		CommDKP.ConfigTab3.TeamAdd:SetScript("OnEnter",
 			function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetText(L["TEAMADD"], 0.25, 0.75, 0.90, 1, true);
@@ -1233,8 +1233,8 @@ function CommDKP:ManageEntries()
 			end
 		)
 		-- rename team function
-		CommDKP.ConfigTab3.TeamAdd:SetScript("OnClick", 
-			function ()	
+		CommDKP.ConfigTab3.TeamAdd:SetScript("OnClick",
+			function ()
 				if CheckLeader == 1 then
 					StaticPopupDialogs["ADD_TEAM"] = {
 						text = L["TEAMADDDIALOG"],
@@ -1251,7 +1251,7 @@ function CommDKP:ManageEntries()
 						hideOnEscape = true,
 						preferredIndex = 3
 					}
-					StaticPopup_Show ("ADD_TEAM")	
+					StaticPopup_Show ("ADD_TEAM")
 				else
 					StaticPopupDialogs["NOT_GUILD_MASTER"] = {
 						text = L["NOTGUILDMASTER"],
@@ -1261,8 +1261,8 @@ function CommDKP:ManageEntries()
 						hideOnEscape = true,
 						preferredIndex = 3
 					}
-					StaticPopup_Show ("NOT_GUILD_MASTER")	
-				end			
+					StaticPopup_Show ("NOT_GUILD_MASTER")
+				end
 			end
 		);
 

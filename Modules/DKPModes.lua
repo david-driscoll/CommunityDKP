@@ -35,7 +35,7 @@ function CommDKP:DKPModesFrame_Create()
 	f:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 300, -200);
 	f:SetSize(473, 598);
 	f:SetBackdrop( {
-	edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,  
+	edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 	insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f:SetBackdropColor(0,0,0,0.9);
@@ -80,8 +80,11 @@ function CommDKP:DKPModesFrame_Create()
 	f.closeContainer = CreateFrame("Frame", "MonDKModesWindowCloseButtonContainer", f)
 	f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
 	f.closeContainer:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga",
+		tile = true,
+		tileSize = 1,
+		edgeSize = 3,
 	});
 	f.closeContainer:SetBackdropColor(0,0,0,0.9)
 	f.closeContainer:SetBackdropBorderColor(1,1,1,0.2)

@@ -9,15 +9,15 @@ local ValInProgress = false
 function CommDKP_TableCompare(t1,t2) 		-- compares two tables. returns true if all keys and values match
 	local ty1 = type(t1)
 	local ty2 = type(t2)
-	
+
 	if ty1 ~= ty2 then
 		return false
 	end
-	
+
 	if ty1 ~= 'table' and ty2 ~= 'table' then
 		return t1 == t2
 	end
-	
+
 	for k1,v1 in pairs(t1) do
 		local v2 = t2[k1]
 		if v2 == nil or not TableCompare(v1,v2) then
@@ -73,7 +73,7 @@ function CommDKP:ValidateDKPTable_DKP()
 	local pause = false
 	local proc2 = false
 	local total = #CommDKP:GetTable(CommDKP_DKPHistory, true)
-	
+
 	local ValidateTimer = ValidateTimer or CreateFrame("StatusBar", nil, UIParent)
 	ValidateTimer:SetScript("OnUpdate", function(self, elapsed)
 		timer = timer + elapsed
@@ -93,7 +93,7 @@ function CommDKP:ValidateDKPTable_DKP()
 					dkp[i] = tonumber(dkp[i])
 				end
 			end
-			
+
 			local ValidateTimer2 = ValidateTimer2 or CreateFrame("StatusBar", nil, UIParent)
 			ValidateTimer2:SetScript("OnUpdate", function(self, elapsed)
 				timer2 = timer2 + elapsed
@@ -120,7 +120,7 @@ function CommDKP:ValidateDKPTable_DKP()
 					ValidateTimer2:SetScript("OnUpdate", nil)
 					j=1
 					timer2 = 0
-					pause = false					
+					pause = false
 					i=i+1
 					processing = false
 					timer = 0
@@ -141,7 +141,7 @@ function CommDKP:ValidateDKPTable_Final()
 	local timer = 0
 	local processing = false
 	local rectified = 0
-	
+
 	CommDKP:Print("Validating Profiles...");
 
 	local ValidateTimer = ValidateTimer or CreateFrame("StatusBar", nil, UIParent)
@@ -171,8 +171,8 @@ function CommDKP:ValidateDKPTable_Final()
 					flag = true
 				end
 			end
-			if flag then 
-				rectified = rectified + 1 
+			if flag then
+				rectified = rectified + 1
 				CommDKP:Print("DKP Profile for "..DKPTableTemp[i].player.." adjusted.");
 			end
 			i=i+1
@@ -198,7 +198,7 @@ function CommDKP:ValidateDKPHistory()
 	local i=1
 	local timer = 0
 	local processing = false
-	
+
 	local ValidateTimer = ValidateTimer or CreateFrame("StatusBar", nil, UIParent)
 	ValidateTimer:SetScript("OnUpdate", function(self, elapsed)
 		timer = timer + elapsed
@@ -206,7 +206,7 @@ function CommDKP:ValidateDKPHistory()
 			processing = true
 			-- delete duplicate entries and correct DKP (DKPHistory table)
 			local search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPHistory, true), CommDKP:GetTable(CommDKP_DKPHistory, true)[i].index, "index")
-			
+
 			if CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletes then  -- adds deltedby index to field if it was received after a delete entry was received but was sent by someone that did not have the delete entry
 				local search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPHistory, true), CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletes, "index")
 
@@ -246,7 +246,7 @@ function CommDKP:ValidateLootTable()  -- validation starts here
 	local timer = 0
 	local processing = false
 	ValInProgress = true
-	
+
 	CommDKP:Print(L["VALIDATINGTABLES"])
 	local ValidateTimer = ValidateTimer or CreateFrame("StatusBar", nil, UIParent)
 	ValidateTimer:SetScript("OnUpdate", function(self, elapsed)
@@ -254,7 +254,7 @@ function CommDKP:ValidateLootTable()  -- validation starts here
 		if timer > 0.01 and i <= #CommDKP:GetTable(CommDKP_Loot, true) and not processing then
 			processing = true
 			local search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_Loot, true), CommDKP:GetTable(CommDKP_Loot, true)[i].index, "index")
-			
+
 			if search and #search > 1 then
 				for j=2, #search do
 					table.remove(CommDKP:GetTable(CommDKP_Loot, true), search[j][1])

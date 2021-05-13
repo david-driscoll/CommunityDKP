@@ -12,7 +12,7 @@ local function DrawPercFrame(box)
   CommDKP.ConfigTab4.DefaultMinBids.SlotBox[box].perc:SetFontObject("CommDKPNormalLeft");
   CommDKP.ConfigTab4.DefaultMinBids.SlotBox[box].perc:SetPoint("LEFT", CommDKP.ConfigTab4.DefaultMinBids.SlotBox[box], "RIGHT", -15, 0);
   CommDKP.ConfigTab4.DefaultMinBids.SlotBox[box].perc:SetText("%")
-  
+
   if core.DB.modes.mode == "Minimum Bid Values" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
     CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[box].perc = CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[box]:CreateFontString(nil, "OVERLAY")
     CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[box].perc:SetFontObject("CommDKPNormalLeft");
@@ -98,14 +98,14 @@ function CommDKP:Options()
     CommDKP.ConfigTab4.description:SetFontObject("CommDKPNormalLeft");
     CommDKP.ConfigTab4.description:SetPoint("TOPLEFT", CommDKP.ConfigTab4.header, "BOTTOMLEFT", 7, -15);
     CommDKP.ConfigTab4.description:SetText("|CFFcca600"..L["DEFAULTDKPAWARDVALUES"].."|r");
-  
+
     for i=1, 6 do
       CommDKP.ConfigTab4.default[i] = CreateFrame("EditBox", nil, CommDKP.ConfigTab4)
       CommDKP.ConfigTab4.default[i]:SetAutoFocus(false)
       CommDKP.ConfigTab4.default[i]:SetMultiLine(false)
       CommDKP.ConfigTab4.default[i]:SetSize(80, 24)
       CommDKP.ConfigTab4.default[i]:SetBackdrop({
-        bgFile   = "Textures\\white.blp", tile = true,
+        bgFile   = "Textures\\white.blp",
         edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
       });
       CommDKP.ConfigTab4.default[i]:SetBackdropColor(0,0,0,0.9)
@@ -185,15 +185,15 @@ function CommDKP:Options()
     CommDKP.ConfigTab4.default[1]:SetText(core.DB.DKPBonus.OnTimeBonus)
     CommDKP.ConfigTab4.default[1].tooltipText = L["ONTIMEBONUS"]
     CommDKP.ConfigTab4.default[1].tooltipDescription = L["ONTIMEBONUSTTDESC"]
-      
+
     CommDKP.ConfigTab4.default[2]:SetText(core.DB.DKPBonus.BossKillBonus)
     CommDKP.ConfigTab4.default[2].tooltipText = L["BOSSKILLBONUS"]
     CommDKP.ConfigTab4.default[2].tooltipDescription = L["BOSSKILLBONUSTTDESC"]
-       
+
     CommDKP.ConfigTab4.default[3]:SetText(core.DB.DKPBonus.CompletionBonus)
     CommDKP.ConfigTab4.default[3].tooltipText = L["RAIDCOMPLETIONBONUS"]
     CommDKP.ConfigTab4.default[3].tooltipDescription = L["RAIDCOMPLETEBONUSTT"]
-      
+
     CommDKP.ConfigTab4.default[4]:SetText(core.DB.DKPBonus.NewBossKillBonus)
     CommDKP.ConfigTab4.default[4].tooltipText = L["NEWBOSSKILLBONUS"]
     CommDKP.ConfigTab4.default[4].tooltipDescription = L["NEWBOSSKILLTTDESC"]
@@ -269,7 +269,7 @@ function CommDKP:Options()
         CommDKP.ConfigTab4.DefaultMinBids.SlotBox[i]:SetMultiLine(false)
         CommDKP.ConfigTab4.DefaultMinBids.SlotBox[i]:SetSize(60, 24)
         CommDKP.ConfigTab4.DefaultMinBids.SlotBox[i]:SetBackdrop({
-          bgFile   = "Textures\\white.blp", tile = true,
+          bgFile   = "Textures\\white.blp",
           edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
         });
         CommDKP.ConfigTab4.DefaultMinBids.SlotBox[i]:SetBackdropColor(0,0,0,0.9)
@@ -490,7 +490,7 @@ function CommDKP:Options()
             table.insert(temptable, core.DB.MinBidBySlot)
             local teams = CommDKP:GetGuildTeamList(true);
             local teamTable = {}
-          
+
             for k, v in pairs(teams) do
               local teamIndex = tostring(v.index);
               table.insert(teamTable, {teamIndex, CommDKP:GetTable(CommDKP_MinBids, true, teamIndex)});
@@ -536,7 +536,7 @@ function CommDKP:Options()
         CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[i]:SetMultiLine(false)
         CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[i]:SetSize(60, 24)
         CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[i]:SetBackdrop({
-          bgFile   = "Textures\\white.blp", tile = true,
+          bgFile   = "Textures\\white.blp",
           edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
         });
         CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[i]:SetBackdropColor(0,0,0,0.9)
@@ -634,7 +634,7 @@ function CommDKP:Options()
       CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[1]:SetText(core.DB.MaxBidBySlot.Head)
       CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[1].tooltipText = L["HEAD"]
       CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[1].tooltipDescription = prefix.." "..L["FORHEADSLOT"].." "..L["MAXIMUMBIDTTDESC"]
-       
+
       CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[2].Header:SetText(L["NECK"]..": ")
       CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[2]:SetText(core.DB.MaxBidBySlot.Neck)
       CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[2].tooltipText = L["NECK"]
@@ -736,7 +736,7 @@ function CommDKP:Options()
             table.insert(temptable, core.DB.MaxBidBySlot)
             local teams = CommDKP:GetGuildTeamList(true);
             local teamTable = {}
-          
+
             for k, v in pairs(teams) do
               local teamIndex = tostring(v.index);
               table.insert(teamTable, {teamIndex, CommDKP:GetTable(CommDKP_MaxBids, true, teamIndex)});
@@ -792,7 +792,7 @@ function CommDKP:Options()
     CommDKP.ConfigTab4.bidTimer:SetMultiLine(false)
     CommDKP.ConfigTab4.bidTimer:SetSize(50, 18)
     CommDKP.ConfigTab4.bidTimer:SetBackdrop({
-      bgFile   = "Textures\\white.blp", tile = true,
+      bgFile   = "Textures\\white.blp",
       edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
     });
     CommDKP.ConfigTab4.bidTimer:SetBackdropColor(0,0,0,0.9)
@@ -810,7 +810,7 @@ function CommDKP:Options()
     CommDKP.ConfigTab4.bidTimer:SetScript("OnEditFocusLost", function(self)    -- clears focus on esc
       CommDKP.ConfigTab4.bidTimerSlider:SetValue(CommDKP.ConfigTab4.bidTimer:GetNumber());
     end)
-    CommDKP.ConfigTab4.bidTimer:SetPoint("TOP", CommDKP.ConfigTab4.bidTimerSlider, "BOTTOM", 0, -3)     
+    CommDKP.ConfigTab4.bidTimer:SetPoint("TOP", CommDKP.ConfigTab4.bidTimerSlider, "BOTTOM", 0, -3)
     CommDKP.ConfigTab4.bidTimer:SetText(CommDKP.ConfigTab4.bidTimerSlider:GetValue())
   end -- the end
 
@@ -843,7 +843,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.TooltipHistory:SetMultiLine(false)
   CommDKP.ConfigTab4.TooltipHistory:SetSize(50, 18)
   CommDKP.ConfigTab4.TooltipHistory:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
+    bgFile   = "Textures\\white.blp",
     edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.TooltipHistory:SetBackdropColor(0,0,0,0.9)
@@ -861,7 +861,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.TooltipHistory:SetScript("OnEditFocusLost", function(self)    -- clears focus on esc
     CommDKP.ConfigTab4.TooltipHistorySlider:SetValue(CommDKP.ConfigTab4.TooltipHistory:GetNumber());
   end)
-  CommDKP.ConfigTab4.TooltipHistory:SetPoint("TOP", CommDKP.ConfigTab4.TooltipHistorySlider, "BOTTOM", 0, -3)     
+  CommDKP.ConfigTab4.TooltipHistory:SetPoint("TOP", CommDKP.ConfigTab4.TooltipHistorySlider, "BOTTOM", 0, -3)
   CommDKP.ConfigTab4.TooltipHistory:SetText(CommDKP.ConfigTab4.TooltipHistorySlider:GetValue())
 
 
@@ -895,7 +895,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.history:SetMultiLine(false)
   CommDKP.ConfigTab4.history:SetSize(50, 18)
   CommDKP.ConfigTab4.history:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
+    bgFile   = "Textures\\white.blp",
     edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.history:SetBackdropColor(0,0,0,0.9)
@@ -913,7 +913,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.history:SetScript("OnEditFocusLost", function(self)    -- clears focus on esc
     CommDKP.ConfigTab4.historySlider:SetValue(CommDKP.ConfigTab4.history:GetNumber());
   end)
-  CommDKP.ConfigTab4.history:SetPoint("TOP", CommDKP.ConfigTab4.historySlider, "BOTTOM", 0, -3)     
+  CommDKP.ConfigTab4.history:SetPoint("TOP", CommDKP.ConfigTab4.historySlider, "BOTTOM", 0, -3)
   CommDKP.ConfigTab4.history:SetText(CommDKP.ConfigTab4.historySlider:GetValue())
 
   -- DKP History Limit Slider
@@ -942,7 +942,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.DKPHistory:SetMultiLine(false)
   CommDKP.ConfigTab4.DKPHistory:SetSize(50, 18)
   CommDKP.ConfigTab4.DKPHistory:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
+    bgFile   = "Textures\\white.blp",
     edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.DKPHistory:SetBackdropColor(0,0,0,0.9)
@@ -960,7 +960,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.DKPHistory:SetScript("OnEditFocusLost", function(self)    -- clears focus on esc
     CommDKP.ConfigTab4.DKPHistorySlider:SetValue(CommDKP.ConfigTab4.history:GetNumber());
   end)
-  CommDKP.ConfigTab4.DKPHistory:SetPoint("TOP", CommDKP.ConfigTab4.DKPHistorySlider, "BOTTOM", 0, -3)     
+  CommDKP.ConfigTab4.DKPHistory:SetPoint("TOP", CommDKP.ConfigTab4.DKPHistorySlider, "BOTTOM", 0, -3)
   CommDKP.ConfigTab4.DKPHistory:SetText(CommDKP.ConfigTab4.DKPHistorySlider:GetValue())
 
   -- Bid Timer Size Slider
@@ -975,7 +975,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.TimerSizeSlider:SetObeyStepOnDrag(true);
   getglobal(CommDKP.ConfigTab4.TimerSizeSlider:GetName().."Low"):SetText("50%")
   getglobal(CommDKP.ConfigTab4.TimerSizeSlider:GetName().."High"):SetText("200%")
-  CommDKP.ConfigTab4.TimerSizeSlider:SetScript("OnValueChanged", function(self)   
+  CommDKP.ConfigTab4.TimerSizeSlider:SetScript("OnValueChanged", function(self)
     CommDKP.ConfigTab4.TimerSize:SetText(CommDKP.ConfigTab4.TimerSizeSlider:GetValue())
     core.DB.defaults.BidTimerSize = CommDKP.ConfigTab4.TimerSizeSlider:GetValue();
     CommDKP.BidTimer:SetScale(core.DB.defaults.BidTimerSize);
@@ -991,7 +991,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.TimerSize:SetMultiLine(false)
   CommDKP.ConfigTab4.TimerSize:SetSize(50, 18)
   CommDKP.ConfigTab4.TimerSize:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
+    bgFile   = "Textures\\white.blp",
     edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.TimerSize:SetBackdropColor(0,0,0,0.9)
@@ -1009,7 +1009,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.TimerSize:SetScript("OnEditFocusLost", function(self)    -- clears focus on esc
     CommDKP.ConfigTab4.TimerSizeSlider:SetValue(CommDKP.ConfigTab4.TimerSize:GetNumber());
   end)
-  CommDKP.ConfigTab4.TimerSize:SetPoint("TOP", CommDKP.ConfigTab4.TimerSizeSlider, "BOTTOM", 0, -3)     
+  CommDKP.ConfigTab4.TimerSize:SetPoint("TOP", CommDKP.ConfigTab4.TimerSizeSlider, "BOTTOM", 0, -3)
   CommDKP.ConfigTab4.TimerSize:SetText(CommDKP.ConfigTab4.TimerSizeSlider:GetValue())
 
   -- UI Scale Size Slider
@@ -1024,7 +1024,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.CommDKPScaleSize:SetObeyStepOnDrag(true);
   getglobal(CommDKP.ConfigTab4.CommDKPScaleSize:GetName().."Low"):SetText("50%")
   getglobal(CommDKP.ConfigTab4.CommDKPScaleSize:GetName().."High"):SetText("200%")
-  CommDKP.ConfigTab4.CommDKPScaleSize:SetScript("OnValueChanged", function(self)   
+  CommDKP.ConfigTab4.CommDKPScaleSize:SetScript("OnValueChanged", function(self)
     CommDKP.ConfigTab4.UIScaleSize:SetText(CommDKP.ConfigTab4.CommDKPScaleSize:GetValue())
     core.DB.defaults.CommDKPScaleSize = CommDKP.ConfigTab4.CommDKPScaleSize:GetValue();
   end)
@@ -1039,7 +1039,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.UIScaleSize:SetMultiLine(false)
   CommDKP.ConfigTab4.UIScaleSize:SetSize(50, 18)
   CommDKP.ConfigTab4.UIScaleSize:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
+    bgFile   = "Textures\\white.blp",
     edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.UIScaleSize:SetBackdropColor(0,0,0,0.9)
@@ -1057,7 +1057,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.UIScaleSize:SetScript("OnEditFocusLost", function(self)    -- clears focus on esc
     CommDKP.ConfigTab4.CommDKPScaleSize:SetValue(CommDKP.ConfigTab4.UIScaleSize:GetNumber());
   end)
-  CommDKP.ConfigTab4.UIScaleSize:SetPoint("TOP", CommDKP.ConfigTab4.CommDKPScaleSize, "BOTTOM", 0, -3)     
+  CommDKP.ConfigTab4.UIScaleSize:SetPoint("TOP", CommDKP.ConfigTab4.CommDKPScaleSize, "BOTTOM", 0, -3)
   CommDKP.ConfigTab4.UIScaleSize:SetText(CommDKP.ConfigTab4.CommDKPScaleSize:GetValue())
 
   -- Suppress Broadcast Notifications checkbox
@@ -1166,7 +1166,7 @@ function CommDKP:Options()
     if core.DB.defaults.DecreaseDisenchantValue == nil then
       core.DB.defaults.DecreaseDisenchantValue = false
     end
-  
+
     CommDKP.ConfigTab4.DecreaseDisenchantCheckbox = CreateFrame("CheckButton", nil, CommDKP.ConfigTab4, "UICheckButtonTemplate");
     CommDKP.ConfigTab4.DecreaseDisenchantCheckbox:SetPoint("LEFT", CommDKP.ConfigTab4.CombatLogging, "RIGHT", 200, 0)
     CommDKP.ConfigTab4.DecreaseDisenchantCheckbox:SetChecked(core.DB.defaults.DecreaseDisenchantValue)
@@ -1185,7 +1185,7 @@ function CommDKP:Options()
     CommDKP.ConfigTab4.DecreaseDisenchantCheckbox:SetScript("OnLeave", function(self)
       GameTooltip:Hide()
     end)
-  
+
   end
 
   -- Save Settings Button
@@ -1226,12 +1226,12 @@ function CommDKP:Options()
         end
       end
     end
-    
+
     SaveSettings()
     CommDKP:Print(L["DEFAULTSETSAVED"])
   end)
 
-  -- Chatframe Selection 
+  -- Chatframe Selection
   CommDKP.ConfigTab4.ChatFrame = CreateFrame("FRAME", "CommDKPChatFrameSelectDropDown", CommDKP.ConfigTab4, "CommunityDKPUIDropDownMenuTemplate")
   if not core.DB.defaults.ChatFrames then core.DB.defaults.ChatFrames = {} end
 
@@ -1334,5 +1334,5 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.OptionsFooterFrame = CreateFrame("Frame", nil, CommDKP.ConfigTab4);
   CommDKP.ConfigTab4.OptionsFooterFrame:SetPoint("TOPLEFT", CommDKP.ConfigTab4.moveTimer, "BOTTOMLEFT")
   CommDKP.ConfigTab4.OptionsFooterFrame:SetSize(420, 50);
-  
+
 end

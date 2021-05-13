@@ -17,7 +17,7 @@ function CommDKP_Profile_Create(player, dkp, gained, spent, teamIndex)
 	local gained = gained or 0
 	local spent = spent or 0
 	local created = false
-	
+
 	for i=1, guildSize do
 		tempName,_,_,_,_,_,_,_,_,_,tempClass = GetGuildRosterInfo(i)
 		tempName = strsub(tempName, 1, string.find(tempName, "-")-1)			-- required to remove server name from player (can remove in classic if this is not an issue)
@@ -69,8 +69,8 @@ local function CommDKP_BroadcastFull_Status_Create()
 	f:SetSize(300, 85);
 	f:SetClampedToScreen(true)
 	f:SetBackdrop( {
-		bgFile = "Textures\\white.blp", tile = true,                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,  
+		bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f:SetBackdropColor(0,0,0,0.9);
@@ -109,7 +109,7 @@ local function CommDKP_BroadcastFull_Status_Create()
 	f.status.border:SetFrameLevel(19)
 	f.status.border:SetSize(200, 18);
 	f.status.border:SetBackdrop( {
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,  
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f.status.border:SetBackdropColor(0,0,0,0);
@@ -181,14 +181,14 @@ function CommDKP_BroadcastFull_Init()
 		if (level or 1) == 1 then
 			local numSubs = ceil(#PlayerList/20)
 			filterName.func = self.SetValue
-		
+
 			for i=1, numSubs do
 				local max = i*20;
 				if max > #PlayerList then max = #PlayerList end
 				filterName.text, filterName.checked, filterName.menuList, filterName.hasArrow = strsub(PlayerList[((i*20)-19)].player, 1, 1).."-"..strsub(PlayerList[max].player, 1, 1), curSelected >= (i*20)-19 and curSelected <= i*20, i, true
 				UIDropDownMenu_AddButton(filterName)
 			end
-			
+
 		else
 			filterName.func = self.SetValue
 			for i=ranges[menuList], ranges[menuList]+19 do
@@ -222,13 +222,13 @@ function CommDKP_BroadcastFull_Init()
 			return
 		end
 		if core.Broadcast.fullCheckbox:GetChecked() == true then
-			tempTable = { 
+			tempTable = {
 				DKPTable = CommDKP:GetTable(CommDKP_DKPTable, true),
-				DKP=CommDKP:GetTable(CommDKP_DKPHistory, true), 
-				Loot=CommDKP:GetTable(CommDKP_Loot, true), 
-				Archive=CommDKP:GetTable(CommDKP_Archive, true), 
-				MinBids=CommDKP:FormatPriceTable(), 
-				Teams=teams 
+				DKP=CommDKP:GetTable(CommDKP_DKPHistory, true),
+				Loot=CommDKP:GetTable(CommDKP_Loot, true),
+				Archive=CommDKP:GetTable(CommDKP_Archive, true),
+				MinBids=CommDKP:FormatPriceTable(),
+				Teams=teams
 			}
 		elseif core.Broadcast.mergeCheckbox:GetChecked() == true then
 			tempTable = CommDKP_MergeTable_Create()
@@ -307,8 +307,8 @@ function CommDKP_BroadcastFull_Create()
 	f:SetSize(300, 260);
 	f:SetClampedToScreen(true)
 	f:SetBackdrop( {
-		bgFile = "Textures\\white.blp", tile = true,                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,  
+		bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f:SetBackdropColor(0,0,0,1);
@@ -326,8 +326,8 @@ function CommDKP_BroadcastFull_Create()
 	f.closeContainer = CreateFrame("Frame", "CommDKPTitle", f)
 	f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
 	f.closeContainer:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 	});
 	f.closeContainer:SetBackdropColor(0,0,0,0.9)
 	f.closeContainer:SetBackdropBorderColor(1,1,1,0.2)

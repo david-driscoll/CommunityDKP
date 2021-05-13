@@ -1,5 +1,5 @@
 --[[
-	Core.lua is intended to store all core functions and variables to be used throughout the addon. 
+	Core.lua is intended to store all core functions and variables to be used throughout the addon.
 	Don't put anything in here that you don't want to be loaded immediately after the Libs but before initialization.
 --]]
 
@@ -66,22 +66,22 @@ core.WorkingTable = {};       -- table of all entries from CommDKP:GetTable(Comm
 core.EncounterList = {      -- Event IDs must be in the exact same order as core.BossList declared in localization files
 	MC = {
 		663, 664, 665,
-		666, 668, 667, 669, 
+		666, 668, 667, 669,
 		670, 671, 672
 	},
 	BWL = {
 		610, 611, 612,
-		613, 614, 615, 616, 
+		613, 614, 615, 616,
 		617
 	},
 	AQ = {
 		709, 711, 712,
-		714, 715, 717, 
+		714, 715, 717,
 		710, 713, 716
 	},
 	NAXX = {
 		1107, 1110, 1116,
-		1117, 1112, 1115, 
+		1117, 1112, 1115,
 		1113, 1109, 1121,
 		1118, 1111, 1108, 1120,
 		1119, 1114
@@ -133,7 +133,7 @@ core.FactionName = nil;
 core.RepairWorking = false;
 
 function CommDKP:GetCColors(class)
-	if core.CColors then 
+	if core.CColors then
 	local c
 		if class then
 		c = core.CColors[class] or core.CColors["UNKNOWN"];
@@ -223,7 +223,7 @@ function CommDKP:GetGuildName()
 			return L["NOGUILD"]
 		end
 	end
-	return L["NOTINGUILD"];	
+	return L["NOTINGUILD"];
 end
 
 function CommDKP:GetGuildRankIndex(player)
@@ -243,7 +243,7 @@ function CommDKP:GetGuildRankIndex(player)
 end
 
 function CommDKP:CheckOfficer()      -- checks if user is an officer IF core.IsOfficer is empty. Use before checks against core.IsOfficer
-	if not core.InitStart then 
+	if not core.InitStart then
 		return
 	end
 	if core.IsOfficer == nil then      -- used as a redundency as it should be set on load in init.lua GUILD_ROSTER_UPDATE event
@@ -295,7 +295,7 @@ function CommDKP:CheckRaidLeader()
 	local tempName,tempRank, subgroup, level, class, fileName, zone, online, isDead, role, isML, combatRole;
 
 	for i=1, 40 do
-		 
+
 		 tempName, tempRank, subgroup, level, class, fileName, zone, online, isDead, role, isML, combatRole = GetRaidRosterInfo(i);
 
 		if tempName == UnitName("player") and tempRank == 2 then
@@ -345,7 +345,7 @@ function CommDKP:PurgeLootHistory()     -- cleans old loot history beyond histor
 	end
 end
 
-function CommDKP:PurgeDKPHistory()     -- purges old entries and stores relevant data in each users CommDKP:GetTable(CommDKP_Archive, true) entry (dkp, lifetime spent, and lifetime gained) 
+function CommDKP:PurgeDKPHistory()     -- purges old entries and stores relevant data in each users CommDKP:GetTable(CommDKP_Archive, true) entry (dkp, lifetime spent, and lifetime gained)
 	local limit = core.DB.defaults.DKPHistoryLimit
 
 	if #CommDKP:GetTable(CommDKP_DKPHistory, true) > limit then
@@ -420,7 +420,7 @@ function CommDKP:CreateButton(point, relativeFrame, relativePoint, xOffset, yOff
 	btn:GetFontString():SetTextColor(1, 1, 1, 1)
 	btn:SetNormalFontObject("CommDKPSmallCenter");
 	btn:SetHighlightFontObject("CommDKPSmallCenter");
-	return btn; 
+	return btn;
 end
 
 function CommDKP:BroadcastTimer(seconds, ...)       -- broadcasts timer and starts it natively
@@ -438,7 +438,7 @@ end
 function CommDKP:CreateContainer(parent, name, header)
 	local f = CreateFrame("Frame", "CommDKP"..name, parent);
 	f:SetBackdrop( {
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,  
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f:SetBackdropColor(0,0,0,0.9);
@@ -537,7 +537,7 @@ function CommDKP:StartTimer(seconds, ...)
 end
 
 function CommDKP:StatusVerify_Update()
-	if (CommDKP.UIConfig and not CommDKP.UIConfig:IsShown()) or 
+	if (CommDKP.UIConfig and not CommDKP.UIConfig:IsShown()) or
 	   (#CommDKP:GetTable(CommDKP_DKPHistory, true, CommDKP:GetCurrentTeamIndex()) == 0 and #CommDKP:GetTable(CommDKP_Loot, true, CommDKP:GetCurrentTeamIndex()) == 0) then
 		-- blocks update if dkp window is closed. Updated when window is opened anyway
 		return;
@@ -554,7 +554,7 @@ function CommDKP:StatusVerify_Update()
 
 			local search_dkp = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPHistory, true, CommDKP:GetCurrentTeamIndex()), CommDKP:GetTable(CommDKP_DKPHistory, true, CommDKP:GetCurrentTeamIndex()).seed, "index")
 			local search_loot = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_Loot, true, CommDKP:GetCurrentTeamIndex()), CommDKP:GetTable(CommDKP_Loot, true, CommDKP:GetCurrentTeamIndex()).seed, "index")
-	
+
 			if not search_dkp then
 				core.OOD = true
 				local officer1, date1 = strsplit("-", CommDKP:GetTable(CommDKP_DKPHistory, true, CommDKP:GetCurrentTeamIndex()).seed)
@@ -565,7 +565,7 @@ function CommDKP:StatusVerify_Update()
 					missing[officer1] = date1 			-- if both missing seeds identify the same officer, it'll only list once
 				end
 			end
-			
+
 			if not search_loot and not core.OOD then
 				core.OOD = true
 				local officer2, date2 = strsplit("-", CommDKP:GetTable(CommDKP_Loot, true, CommDKP:GetCurrentTeamIndex()).seed)
@@ -652,12 +652,12 @@ end
 function CommDKP:tablelength(T)
 	local count = 0
 	for _ in pairs(T) do
-		count = count + 1 
+		count = count + 1
 	end
 	return count
 end
 
-function CommDKP:GetCurrentTeamIndex() 
+function CommDKP:GetCurrentTeamIndex()
 	local _tmpString = CommDKP:GetTable(CommDKP_DB, false)["defaults"]["CurrentTeam"] or "0"
 	return _tmpString
 end
@@ -683,7 +683,7 @@ function CommDKP:GetTeamName(index)
 	return teamName;
 end
 
-function CommDKP:GetGuildTeamList(asObject) 
+function CommDKP:GetGuildTeamList(asObject)
 	local asObject = asObject or false
 	local _list = {};
 	local _tmp = CommDKP:GetTable(CommDKP_DB, false)["teams"]
@@ -701,7 +701,7 @@ function CommDKP:GetGuildTeamList(asObject)
 	end
 	-- so, because team "index" is a string Lua doesn't give a flying fuck
 	-- about order of adding elements to "string" indexed table so we have to unfuck it
-	table.sort(_list,  
+	table.sort(_list,
 		function(a, b)
 			if asObject then
 				return a.index < b.index
@@ -719,7 +719,7 @@ function CommDKP:FormatPriceTable(minBids, convertToTable)
 	convertToTable = convertToTable or false; --false means it will convert to an array
 	local priceTable = {}
 
-	if withIds then
+	if convertToTable then
 		for i=1, #minBids do
 			priceTable[minBids[i].itemID] = minBids[i];
 		end
@@ -770,7 +770,7 @@ function CommDKP:SendTalentsAndRole()
 	local talRole;
 	table.sort(TalTrees, function(a, b)
 		return a[3] > b[3]
-	end) 
+	end)
 
 	talBuild = TalTrees[1][1].." "..talBuild;
 	talRole = TalTrees[1][4];

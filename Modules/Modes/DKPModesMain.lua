@@ -15,7 +15,7 @@ function CommDKP:DKPModes_Main()
   f.DKPModesMain.ModeDescription:SetPoint("TOPLEFT", f.DKPModesMain, "TOPLEFT", 20, -45);
   f.DKPModesMain.ModeDescription:SetWidth(400);
   f.DKPModesMain.ModeDescription:SetFontObject("CommDKPSmallLeft")
-  
+
   local MinBidDescription = L["MINBIDDESCRIPTION"]
   local StaticDescription = L["STATICDESCRIPTION"]
   local RollDescription = L["ROLLDESCRIPTION"]
@@ -35,7 +35,7 @@ function CommDKP:DKPModes_Main()
     f.DKPModesMain.ModeDescription:SetText(ZeroSumDescription)
   end
 
-  -- Mode DROPDOWN box 
+  -- Mode DROPDOWN box
   local CurMode = core.DB.modes.mode;
   local LocalMode;
 
@@ -73,10 +73,10 @@ function CommDKP:DKPModes_Main()
 
   -- Dropdown Menu Function
   function f.DKPModesMain.ModesDropDown:SetValue(newValue)
-    if curMode ~= newValue then CurMode = newValue end
+    if CurMode ~= newValue then CurMode = newValue end
 
     f.DKPModesMain.ModeDescriptionHeader:SetText(newValue)
-    
+
     if newValue == "Minimum Bid Values" then
       core.DB.modes.mode = "Minimum Bid Values";
       f.DKPModesMain.ModeDescription:SetText(MinBidDescription)
@@ -217,7 +217,7 @@ function CommDKP:DKPModes_Main()
   f.DKPModesMain.ModeHeader:SetFontObject("CommDKPSmallLeft")
   f.DKPModesMain.ModeHeader:SetText(L["DKPMODES"])
 
-  -- Rounding DROPDOWN box 
+  -- Rounding DROPDOWN box
   f.DKPModesMain.RoundDropDown = CreateFrame("FRAME", "CommDKPModeSelectDropDown", f.DKPModesMain, "CommunityDKPUIDropDownMenuTemplate")
 
   -- Create and bind the initialization function to the dropdown menu
@@ -312,7 +312,7 @@ function CommDKP:DKPModes_Main()
     f.DKPModesMain.MaxBidBehaviorDropDown:SetScript("OnLeave", function(self)
       GameTooltip:Hide()
     end)
-  
+
   f.DKPModesMain.MaxBidBehaviorHeader = f.DKPModesMain:CreateFontString(nil, "OVERLAY")
   f.DKPModesMain.MaxBidBehaviorHeader:SetPoint("BOTTOMLEFT", f.DKPModesMain.MaxBidBehaviorDropDown, "TOPLEFT", 25, 0);
   f.DKPModesMain.MaxBidBehaviorHeader:SetFontObject("CommDKPSmallLeft")
@@ -326,7 +326,9 @@ function CommDKP:DKPModes_Main()
     f.DKPModesMain.AntiSnipe:SetSize(100, 24)
     f.DKPModesMain.AntiSnipe:SetBackdrop({
       bgFile   = "Textures\\white.blp", tile = true,
-      edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 1, edgeSize = 2, 
+      edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
+      tileSize = 1,
+      edgeSize = 2,
     });
     f.DKPModesMain.AntiSnipe:SetBackdropColor(0,0,0,0.9)
     f.DKPModesMain.AntiSnipe:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -373,7 +375,7 @@ function CommDKP:DKPModes_Main()
     f.DKPModesMain.AntiSnipe.Header:SetPoint("BOTTOMLEFT", f.DKPModesMain.AntiSnipe, "TOPLEFT", 0, 2);
     f.DKPModesMain.AntiSnipe.Header:SetText(L["ANTISNIPE"])
 
-  -- Channels DROPDOWN box 
+  -- Channels DROPDOWN box
   f.DKPModesMain.ChannelsDropDown = CreateFrame("FRAME", "CommDKPModeSelectDropDown", f.DKPModesMain, "CommunityDKPUIDropDownMenuTemplate")
 
   -- Create and bind the initialization function to the dropdown menu
@@ -424,7 +426,7 @@ function CommDKP:DKPModes_Main()
   f.DKPModesMain.ChannelsHeader:SetFontObject("CommDKPSmallLeft")
   f.DKPModesMain.ChannelsHeader:SetText(L["COMMANDCHANNELS"])
 
-  -- Cost Auto Update Value DROPDOWN box 
+  -- Cost Auto Update Value DROPDOWN box
   if not core.DB.modes.CostSelection then core.DB.modes.CostSelection = "Second Bidder" end
   f.DKPModesMain.CostSelection = CreateFrame("FRAME", "CommDKPModeSelectDropDown", f.DKPModesMain, "CommunityDKPUIDropDownMenuTemplate")
   f.DKPModesMain.CostSelection:SetPoint("TOPLEFT", f.DKPModesMain.ChannelsDropDown, "BOTTOMLEFT", 0, -10)
@@ -451,8 +453,8 @@ function CommDKP:DKPModes_Main()
     CostSelect.text, CostSelect.arg1, CostSelect.checked, CostSelect.isNotRadio = L["SECONDBIDDERORMIN"], "Second Bidder or Min", "Second Bidder or Min" == core.DB.modes.CostSelection, false
     UIDropDownMenu_AddButton(CostSelect)
   end)
-  
-  
+
+
 
   UIDropDownMenu_SetWidth(f.DKPModesMain.CostSelection, 150)
   UIDropDownMenu_SetText(f.DKPModesMain.CostSelection, LocalCostSel)
@@ -501,8 +503,11 @@ function CommDKP:DKPModes_Main()
     f.DKPModesMain.Inflation:SetPoint("TOPLEFT", f.DKPModesMain.CostSelection, "BOTTOMLEFT", 20, -15)
     f.DKPModesMain.Inflation:SetSize(100, 24)
     f.DKPModesMain.Inflation:SetBackdrop({
-      bgFile   = "Textures\\white.blp", tile = true,
-      edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 1, edgeSize = 2, 
+      bgFile   = "Textures\\white.blp",
+      tile = true,
+      edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
+      tileSize = 1,
+      edgeSize = 2,
     });
     f.DKPModesMain.Inflation:SetBackdropColor(0,0,0,0.9)
     f.DKPModesMain.Inflation:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -545,7 +550,7 @@ function CommDKP:DKPModes_Main()
       f.DKPModesMain.Inflation.Header:Show()
     end
 
-    -- ZeroSum Type DROPDOWN box 
+    -- ZeroSum Type DROPDOWN box
   f.DKPModesMain.ZeroSumType = CreateFrame("FRAME", "CommDKPModeSelectDropDown", f.DKPModesMain, "CommunityDKPUIDropDownMenuTemplate")
 
   -- Create and bind the initialization function to the dropdown menu
@@ -609,7 +614,7 @@ function CommDKP:DKPModes_Main()
     f.DKPModesMain.ZeroSumTypeHeader:Hide();
   end
 
-  -- Item Cost Value DROPDOWN box 
+  -- Item Cost Value DROPDOWN box
   f.DKPModesMain.ItemCostDropDown = CreateFrame("FRAME", "CommDKPModeSelectDropDown", f.DKPModesMain, "CommunityDKPUIDropDownMenuTemplate")
 
   -- Create and bind the initialization function to the dropdown menu
@@ -622,7 +627,7 @@ function CommDKP:DKPModes_Main()
     CostValue.text, CostValue.arg1, CostValue.checked, CostValue.isNotRadio = L["PERCENT"], "Percent", "Percent" == core.DB.modes.costvalue, false
     UIDropDownMenu_AddButton(CostValue)
   end)
-  
+
   f.DKPModesMain.ItemCostDropDown:SetPoint("TOPLEFT", f.DKPModesMain.ModesDropDown, "BOTTOMLEFT", 0, -50)
   UIDropDownMenu_SetWidth(f.DKPModesMain.ItemCostDropDown, 150)
   UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L[string.upper(core.DB.modes.costvalue)])
@@ -647,7 +652,7 @@ function CommDKP:DKPModes_Main()
       UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["PERCENT"])
     end
 
-    
+
     CloseDropDownMenus()
   end
 
@@ -687,10 +692,10 @@ elseif core.DB.modes.mode == "Static Item Values" then
     if core.DB.modes.ZeroSumBidType == "Static" then
       f.DKPModesMain.MaxBidBehaviorDropDown:Hide();
       f.DKPModesMain.MaxBidBehaviorHeader:Hide();
-      core.DB.modes.MaxBehavior = "Max DKP";      
+      core.DB.modes.MaxBehavior = "Max DKP";
     else
       f.DKPModesMain.MaxBidBehaviorDropDown:Show();
-      f.DKPModesMain.MaxBidBehaviorHeader:Show();    
+      f.DKPModesMain.MaxBidBehaviorHeader:Show();
     end
   end
 
@@ -728,7 +733,7 @@ elseif core.DB.modes.mode == "Static Item Values" then
   if core.DB.modes.costvalue == "Percent" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
     f.DKPModesMain.SubZeroBidding:Hide()
   end
-  
+
   -- Allow Bids below zero Checkbox
   f.DKPModesMain.AllowNegativeBidders = CreateFrame("CheckButton", nil, f.DKPModesMain, "UICheckButtonTemplate");
   f.DKPModesMain.AllowNegativeBidders:SetChecked(core.DB.modes.AllowNegativeBidders)
@@ -766,8 +771,11 @@ elseif core.DB.modes.mode == "Static Item Values" then
   f.DKPModesMain.RollContainer:SetSize(210, 150);
   f.DKPModesMain.RollContainer:SetPoint("TOPLEFT", f.DKPModesMain.ChannelsDropDown, "BOTTOMLEFT", -10, -20)
   f.DKPModesMain.RollContainer:SetBackdrop({
-      bgFile   = "Textures\\white.blp", tile = true,
-      edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 1, edgeSize = 2, 
+      bgFile   = "Textures\\white.blp",
+      edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
+      tile = true,
+      tileSize = 1,
+      edgeSize = 2,
     });
   f.DKPModesMain.RollContainer:SetBackdropColor(0,0,0,0.9)
   f.DKPModesMain.RollContainer:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -791,8 +799,11 @@ elseif core.DB.modes.mode == "Static Item Values" then
       f.DKPModesMain.RollContainer.rollMin:SetPoint("TOPLEFT", f.DKPModesMain.RollContainer, "TOPLEFT", 20, -50)
       f.DKPModesMain.RollContainer.rollMin:SetSize(70, 24)
       f.DKPModesMain.RollContainer.rollMin:SetBackdrop({
-        bgFile   = "Textures\\white.blp", tile = true,
-        edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 1, edgeSize = 2, 
+        bgFile   = "Textures\\white.blp",
+        edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        tile = true,
+        tileSize = 1,
+        edgeSize = 2,
       });
       f.DKPModesMain.RollContainer.rollMin:SetBackdropColor(0,0,0,0.9)
       f.DKPModesMain.RollContainer.rollMin:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -803,20 +814,20 @@ elseif core.DB.modes.mode == "Static Item Values" then
       f.DKPModesMain.RollContainer.rollMin:SetText(core.DB.modes.rolls.min)
       f.DKPModesMain.RollContainer.rollMin:SetScript("OnEscapePressed", function(self)    -- clears focus on esc
         core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
+      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
       core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
         self:ClearFocus()
       end)
       f.DKPModesMain.RollContainer.rollMin:SetScript("OnTabPressed", function(self)    -- clears focus on esc
         core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
+      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
       core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
           f.DKPModesMain.RollContainer.rollMax:SetFocus()
       end)
       f.DKPModesMain.RollContainer.rollMin:SetScript("OnEnterPressed", function(self)    -- clears focus on esc
         core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
-      core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()  
+      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
+      core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
         self:ClearFocus()
       end)
       f.DKPModesMain.RollContainer.rollMin:SetScript("OnEnter", function(self)
@@ -849,8 +860,11 @@ elseif core.DB.modes.mode == "Static Item Values" then
       f.DKPModesMain.RollContainer.rollMax:SetPoint("LEFT", f.DKPModesMain.RollContainer.rollMin, "RIGHT", 24, 0)
       f.DKPModesMain.RollContainer.rollMax:SetSize(70, 24)
       f.DKPModesMain.RollContainer.rollMax:SetBackdrop({
-        bgFile   = "Textures\\white.blp", tile = true,
-        edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 1, edgeSize = 2, 
+        bgFile   = "Textures\\white.blp",
+        edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        tile = true,
+        tileSize = 1,
+        edgeSize = 2,
       });
       f.DKPModesMain.RollContainer.rollMax:SetBackdropColor(0,0,0,0.9)
       f.DKPModesMain.RollContainer.rollMax:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -861,20 +875,20 @@ elseif core.DB.modes.mode == "Static Item Values" then
       f.DKPModesMain.RollContainer.rollMax:SetText(core.DB.modes.rolls.max)
       f.DKPModesMain.RollContainer.rollMax:SetScript("OnEscapePressed", function(self)    -- clears focus on esc
         core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
-      core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()  
+      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
+      core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
         self:ClearFocus()
       end)
       f.DKPModesMain.RollContainer.rollMax:SetScript("OnTabPressed", function(self)    -- clears focus on esc
           core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
-      core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()  
+      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
+      core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
         f.DKPModesMain.RollContainer.AddMax:SetFocus()
       end)
       f.DKPModesMain.RollContainer.rollMax:SetScript("OnEnterPressed", function(self)    -- clears focus on esc
         core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
-      core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()  
+      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
+      core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
         self:ClearFocus()
       end)
       f.DKPModesMain.RollContainer.rollMax:SetScript("OnEnter", function(self)
@@ -941,8 +955,11 @@ elseif core.DB.modes.mode == "Static Item Values" then
       f.DKPModesMain.RollContainer.AddMax:SetPoint("TOP", f.DKPModesMain.RollContainer.rollMax, "BOTTOM", 0, -30)
       f.DKPModesMain.RollContainer.AddMax:SetSize(70, 24)
       f.DKPModesMain.RollContainer.AddMax:SetBackdrop({
-        bgFile   = "Textures\\white.blp", tile = true,
-        edgeFile = "Interface\\ChatFrame\\ChatFrameBackground", tile = true, tileSize = 1, edgeSize = 2, 
+        bgFile   = "Textures\\white.blp",
+        edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        tile = true,
+        tileSize = 1,
+        edgeSize = 2,
       });
       f.DKPModesMain.RollContainer.AddMax:SetBackdropColor(0,0,0,0.9)
       f.DKPModesMain.RollContainer.AddMax:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -953,19 +970,19 @@ elseif core.DB.modes.mode == "Static Item Values" then
       f.DKPModesMain.RollContainer.AddMax:SetText(core.DB.modes.rolls.AddToMax)
       f.DKPModesMain.RollContainer.AddMax:SetScript("OnEscapePressed", function(self)    -- clears focus on esc
         core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
+      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
       core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
           self:ClearFocus()
       end)
       f.DKPModesMain.RollContainer.AddMax:SetScript("OnTabPressed", function(self)    -- clears focus on esc
         core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
+      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
       core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
           f.DKPModesMain.RollContainer.rollMin:SetFocus()
       end)
       f.DKPModesMain.RollContainer.AddMax:SetScript("OnEnterPressed", function(self)    -- clears focus on esc
         core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
+      core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
       core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
           self:ClearFocus()
       end)
@@ -991,8 +1008,8 @@ elseif core.DB.modes.mode == "Static Item Values" then
   f.DKPModesMain.BroadcastSettings:SetSize(110,25)
   f.DKPModesMain.BroadcastSettings:SetScript("OnClick", function()
     core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
-    core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()  
-    core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()  
+    core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
+    core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
 
     if (core.DB.modes.rolls.min > core.DB.modes.rolls.max and core.DB.modes.rolls.max ~= 0 and core.DB.modes.rolls.UserPerc == false) or (core.DB.modes.rolls.UsePerc and (core.DB.modes.rolls.min < 0 or core.DB.modes.rolls.max > 100 or core.DB.modes.rolls.min > core.DB.modes.rolls.max)) then
       StaticPopupDialogs["NOTIFY_ROLLS"] = {

@@ -27,7 +27,7 @@ end
 local function SortItemTable(arg)
 	table.sort(arg, function(a,b)
 		-- sort table by itemName of each itemLink
-		return strsub(tostring(a), strfind(tostring(a), "%[") + 1, strfind(tostring(a), "%]") - 1) < strsub(tostring(b), strfind(tostring(b), "%[") + 1, strfind(tostring(b), "%]") - 1) 
+		return strsub(tostring(a), strfind(tostring(a), "%[") + 1, strfind(tostring(a), "%]") - 1) < strsub(tostring(b), strfind(tostring(b), "%[") + 1, strfind(tostring(b), "%]") - 1)
 	end)
 end
 
@@ -43,11 +43,11 @@ local function GetSortOptions()
 	return PlayerList;
 end
 
-local function GetItemHistoryList() 
+local function GetItemHistoryList()
 	_ItemList = {}
 	-- we look at saved variable and find every unique item looted?
 	for i=1, #CommDKP:GetTable(CommDKP_Loot, true) do
-		
+
 		--Validate that the value is ACTUALLY an item link.
 		local itemString = string.match(CommDKP:GetTable(CommDKP_Loot, true)[i].loot, "item[%-?%d:]+")
 
@@ -71,7 +71,7 @@ local function DeleteLootHistoryEntry(index)
 	local curOfficer = UnitName("player")
 	local newIndex = curOfficer.."-"..curTime
 
-	
+
 	CommDKP:StatusVerify_Update()
 	CommDKP:LootHistory_Reset()
 
@@ -156,7 +156,7 @@ local function RightClickLootMenu(self, index)  -- called by right click functio
 	EasyMenu(menu, menuFrame, "cursor", 0 , 0, "MENU");
 end
 
-function CommDKP:ClearLootHistoryFrames() 
+function CommDKP:ClearLootHistoryFrames()
 	for i=1, #CommDKP.ConfigTab5.looter do
 		CommDKP.ConfigTab5.looter[i]:SetText("")
 	end
@@ -183,7 +183,7 @@ function CommDKP:CreateSortBox()
 		local displayLimit = 20 -- control how many items will be created in Levels 2 and 3
 
 		if (level or 1) == 1 then
-			
+
 			-- made it a bit more clear to read for now
 			-- add no filter button
 			dropDownMenuItem.func = self.FilterSetValue
@@ -196,9 +196,9 @@ function CommDKP:CreateSortBox()
 			UIDropDownMenu_AddButton(dropDownMenuItem, level)
 
 			-- add deleted entries button
-			dropDownMenuItem.text = L["DELETEDENTRY"] 
-			dropDownMenuItem.value = L["DELETEDENTRY"] 
-			dropDownMenuItem.arg1 = L["DELETEDENTRY"] 
+			dropDownMenuItem.text = L["DELETEDENTRY"]
+			dropDownMenuItem.value = L["DELETEDENTRY"]
+			dropDownMenuItem.arg1 = L["DELETEDENTRY"]
 			dropDownMenuItem.arg2 = L["DELETEDENTRY"]
 			dropDownMenuItem.checked = L["DELETEDENTRY"] == curDropDownMenuFilterCategory
 			dropDownMenuItem.hasArrow = false -- should probably check if players table holds any values
@@ -212,11 +212,11 @@ function CommDKP:CreateSortBox()
 			dropDownMenuItem.isNotRadio = true
 			UIDropDownMenu_AddButton(dropDownMenuItem, level)
 			dropDownMenuItem.disabled = nil
-		
+
 			-- add players section
-			dropDownMenuItem.text =  L["PLAYERS"] 
-			dropDownMenuItem.value =  L["PLAYERS"] 
-			dropDownMenuItem.arg1 = L["PLAYERS"] 
+			dropDownMenuItem.text =  L["PLAYERS"]
+			dropDownMenuItem.value =  L["PLAYERS"]
+			dropDownMenuItem.arg1 = L["PLAYERS"]
 			dropDownMenuItem.arg2 = L["PLAYERS"]
 			dropDownMenuItem.value = L["PLAYERS"] -- for submenu handling in level 2
 			dropDownMenuItem.checked = L["PLAYERS"] == curDropDownMenuFilterCategory
@@ -225,9 +225,9 @@ function CommDKP:CreateSortBox()
 			UIDropDownMenu_AddButton(dropDownMenuItem, level)
 
 			-- add items section
-			dropDownMenuItem.text =  L["ITEMS"] 
-			dropDownMenuItem.value =  L["ITEMS"] 
-			dropDownMenuItem.arg1 = L["ITEMS"] 
+			dropDownMenuItem.text =  L["ITEMS"]
+			dropDownMenuItem.value =  L["ITEMS"]
+			dropDownMenuItem.arg1 = L["ITEMS"]
 			dropDownMenuItem.arg2 = L["ITEMS"]
 			dropDownMenuItem.value = L["ITEMS"] -- for submenu handling in level 2
 			dropDownMenuItem.checked = L["ITEMS"] == curDropDownMenuFilterCategory
@@ -239,10 +239,10 @@ function CommDKP:CreateSortBox()
 
 			if UIDROPDOWNMENU_MENU_VALUE == L["PLAYERS"] then
 
-				for i=1, ceil(#PlayerList/displayLimit) do 
+				for i=1, ceil(#PlayerList/displayLimit) do
 					local max = i*displayLimit;
 					if max > #PlayerList then max = #PlayerList end
-					dropDownMenuItem.text = strsub(PlayerList[((i*displayLimit)-(displayLimit-1))], 1, 1).."-"..strsub(PlayerList[max], 1, 1) 
+					dropDownMenuItem.text = strsub(PlayerList[((i*displayLimit)-(displayLimit-1))], 1, 1).."-"..strsub(PlayerList[max], 1, 1)
 					dropDownMenuItem.checked = curSelected >= (i*displayLimit)-(displayLimit-1) and curSelected <= i*displayLimit
 					dropDownMenuItem.menuList = i -- to know which subLevel of players we are on
 					dropDownMenuItem.value = L["PLAYERS"] -- for submenu handling in level 3
@@ -254,7 +254,7 @@ function CommDKP:CreateSortBox()
 
 			elseif UIDROPDOWNMENU_MENU_VALUE == L["ITEMS"] then
 
-				for i=1, ceil(#ItemList/displayLimit) do 
+				for i=1, ceil(#ItemList/displayLimit) do
 					local max = i*displayLimit;
 					if max > #ItemList then max = #ItemList end
 					dropDownMenuItem.text = ItemList[((i*displayLimit)-(displayLimit-1))]
@@ -279,7 +279,7 @@ function CommDKP:CreateSortBox()
 				-- for i = 1+(3-1)*20 = 41 ,  1+(3-1)*20+(20-1) = 60 do
 				for i=1+(menuList-1)*displayLimit, 1+(menuList-1)*displayLimit+(displayLimit-1) do
 					if PlayerList[i] then
-						
+
 						local classSearch = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPTable, true), PlayerList[i])
 						local c;
 
@@ -290,8 +290,8 @@ function CommDKP:CreateSortBox()
 						else
 							c = { hex="ff444444" }
 						end
-						dropDownMenuItem.text = "|c"..c.hex..PlayerList[i].."|r" 
-						dropDownMenuItem.value = "|c"..c.hex..PlayerList[i].."|r" 
+						dropDownMenuItem.text = "|c"..c.hex..PlayerList[i].."|r"
+						dropDownMenuItem.value = "|c"..c.hex..PlayerList[i].."|r"
 						dropDownMenuItem.arg1 = PlayerList[i]
 						dropDownMenuItem.arg2 = L["PLAYERS"]
 						dropDownMenuItem.isNotRadio = true
@@ -300,7 +300,7 @@ function CommDKP:CreateSortBox()
 						UIDropDownMenu_AddButton(dropDownMenuItem, level)
 					end
 				end
-				
+
 			elseif UIDROPDOWNMENU_MENU_VALUE == L["ITEMS"] then
 
 				for  i=1+(menuList-1)*displayLimit, 1+(menuList-1)*displayLimit+(displayLimit-1) do
@@ -326,18 +326,18 @@ function CommDKP:CreateSortBox()
 
   -- Dropdown Menu Function
   function sortDropdown:FilterSetValue(newValue, arg2)
- 
+
 	-- text  - display string
 	-- value - formatted string for player class color
 	-- arg1  - actual value which we filter by
 	-- arg2  - decode which filtering is going on
 	 	-- L["NOFILTER"]
-		-- L["DELETEDENTRY"] 
+		-- L["DELETEDENTRY"]
 		-- L["PLAYERS"]
 		-- L["ITEMS"]
 
-	if curDropDownMenuFilterCategory ~= arg2 then 
-		curDropDownMenuFilterCategory = arg2 
+	if curDropDownMenuFilterCategory ~= arg2 then
+		curDropDownMenuFilterCategory = arg2
 		if curfilterValue == nil or curfilterValue ~= newValue then
 			curfilterValue = newValue
 		end
@@ -349,7 +349,7 @@ function CommDKP:CreateSortBox()
 			curfilterValue = nil
 		end
 	end
-	
+
 	if curDropDownMenuFilterCategory == nil and curfilterValue == nil then
 		curSelected = 0
 		UIDropDownMenu_SetText(sortDropdown, L["NOFILTER"])
@@ -369,7 +369,7 @@ function CommDKP:CreateSortBox()
 	else
 		CommDKP:LootHistory_Update(newValue)
 	end
-    
+
     CloseDropDownMenus()
   end
 
@@ -411,8 +411,8 @@ end
 
 local LootHistTimer = LootHistTimer or CreateFrame("StatusBar", nil, UIParent)
 function CommDKP:LootHistory_Update(filter)				-- if "filter" is included in call, runs set assigned for when a filter is selected in dropdown.
-	if not CommDKP.UIConfig:IsShown() then 
-		return 
+	if not CommDKP.UIConfig:IsShown() then
+		return
 	end
 	local thedate;
 	local linesToUse = 1;
@@ -492,7 +492,7 @@ function CommDKP:LootHistory_Update(filter)				-- if "filter" is included in cal
 		    if (type(CommDKP.ConfigTab5.lootFrame[i]) ~= "table") then
 		    	CommDKP.ConfigTab5.lootFrame[i] = CreateFrame("Frame", "CommDKPLootHistoryFrame"..i, CommDKP.ConfigTab5);	-- creates line if it doesn't exist yet
 		    end
-		    -- determine line height 
+		    -- determine line height
 	    	if linesToUse == 1 then
 				CommDKP.ConfigTab5.lootFrame[i]:SetPoint("TOPLEFT", CommDKP.ConfigTab5, "TOPLEFT", 10, lineHeight-2);
 				CommDKP.ConfigTab5.lootFrame[i]:SetSize(200, 14)
@@ -541,7 +541,7 @@ function CommDKP:LootHistory_Update(filter)				-- if "filter" is included in cal
 					feedString = "  |cff616ccf"..LootTable[i]["zone"].."|r\n   |cffff0000"..LootTable[i]["boss"].."|r |cff555555("..strtrim(strsub(thedate, 10), " ")..")|r".."\n"
 					feedString = feedString.."    "..itemToLink.." "..L["WONBY"].." |c"..c.hex..LootTable[i]["player"].."|r |cff555555("..lootCost.." "..L["DKP"]..")|r"
 				end
-				        
+
 				CommDKP.ConfigTab5.looter[i]:SetText(feedString);
 				curDate = strtrim(strsub(thedate, 1, 8), " ")
 				curZone = LootTable[i]["zone"];
@@ -549,13 +549,13 @@ function CommDKP:LootHistory_Update(filter)				-- if "filter" is included in cal
 		    elseif LootTable[i]["boss"] ~= curBoss then
 		    	feedString = "   |cffff0000"..LootTable[i]["boss"].."|r |cff555555("..strtrim(strsub(thedate, 10), " ")..")|r".."\n"
 		    	feedString = feedString.."    "..itemToLink.." "..L["WONBY"].." |c"..c.hex..LootTable[i]["player"].."|r |cff555555("..lootCost.." "..L["DKP"]..")|r"
-		    	 
+
 		    	CommDKP.ConfigTab5.looter[i]:SetText(feedString);
 		    	curDate = strtrim(strsub(thedate, 1, 8), " ")
 		    	curBoss = LootTable[i]["boss"]
 		    else
 		    	feedString = "    "..itemToLink.." "..L["WONBY"].." |c"..c.hex..LootTable[i]["player"].."|r |cff555555("..lootCost.." "..L["DKP"]..")|r"
-		    	
+
 		    	CommDKP.ConfigTab5.looter[i]:SetText(feedString);
 		    	curZone = LootTable[i]["zone"];
 		    end
@@ -677,7 +677,7 @@ function CommDKP:LootHistory_Update(filter)				-- if "filter" is included in cal
 			    		ChatFrame1EditBox:SetText(ChatFrame1EditBox:GetText()..LootTable[i]["player"].." "..L["WON"].." "..select(2,GetItemInfo(itemToLink)).." "..L["OFF"].." "..LootTable[i]["boss"].." "..L["IN"].." "..LootTable[i]["zone"].." ("..date2.."/"..date3.."/"..date1..") "..L["FOR"].." "..-LootTable[i]["cost"].." "..L["DKP"])
 			    		ChatFrame1EditBox:SetFocus();
 			    	end
-	   			end		    	
+	   			end
 		    end)
 		    CommDKP.ConfigTab5.lootFrame[i]:SetScript("OnLeave", function()
 		    	tooltip:Hide()

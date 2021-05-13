@@ -97,14 +97,14 @@ local function GenerateDKPTables(table, format)
 			else
 				numrows = #CommDKP:GetTable(CommDKP_Loot, true)
 			end
-			
+
 			Headers = "player,itemName,itemNumber,zone,boss,date,cost\n"
 			ExportString = Headers.."";
 			for i=1, numrows do
 				local cur = CommDKP:GetTable(CommDKP_Loot, true)[i].loot
 				local itemNumber = strsub(cur, string.find(cur, "Hitem:")+6, string.find(cur, ":", string.find(cur, "Hitem:")+6)-1)
 				local itemName = strsub(cur, string.find(cur, "::|h%[")+5, string.find(cur, "%]", string.find(cur, "::|h%[")+5)-1)
-				
+
 				if i == numrows then
 					ExportString = ExportString..CommDKP:GetTable(CommDKP_Loot, true)[i].player..",".."\""..itemName.."\""..","..itemNumber..",".."\""..CommDKP:GetTable(CommDKP_Loot, true)[i].zone.."\""..","..CommDKP:GetTable(CommDKP_Loot, true)[i].boss..","..CommDKP:GetTable(CommDKP_Loot, true)[i].date..","..CommDKP:GetTable(CommDKP_Loot, true)[i].cost;
 				else
@@ -132,18 +132,18 @@ local function GenerateDKPTables(table, format)
 			for i=1, numrows do
 				local deletes;
 				local deletedby;
-				if CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletes == nil then 
+				if CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletes == nil then
 					deletes = ''
 				else
 					deletes = CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletes
 				end
-	
-				if CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletedby == nil then 
+
+				if CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletedby == nil then
 					deletedby = ''
 				else
 					deletedby = CommDKP:GetTable(CommDKP_DKPHistory, true)[i].deletedby
 				end
-	
+
 				ExportString = ExportString.."    <historyentry>\n        <playerstring>"..CommDKP:GetTable(CommDKP_DKPHistory, true)[i].players.."</playerstring>\n        <dkp>"..CommDKP:GetTable(CommDKP_DKPHistory, true)[i].dkp.."</dkp>\n        <timestamp>"..CommDKP:GetTable(CommDKP_DKPHistory, true)[i].date.."</timestamp>\n        <reason>"..CommDKP:GetTable(CommDKP_DKPHistory, true)[i].reason.."</reason>\n        <deletes>"..deletes.."</deletes>\n        <deletedby>"..deletedby.."</deletedby>\n    </historyentry>\n";
 			end
 			ExportString = ExportString.."</dkphistory>";
@@ -155,27 +155,27 @@ local function GenerateDKPTables(table, format)
 			else
 				numrows = #CommDKP:GetTable(CommDKP_Loot, true)
 			end
-			
+
 			ExportString = "<loothistory>\n";
 			for i=1, numrows do
 				local cur = CommDKP:GetTable(CommDKP_Loot, true)[i].loot
 				local itemNumber = strsub(cur, string.find(cur, "Hitem:")+6, string.find(cur, ":", string.find(cur, "Hitem:")+6)-1)
 				local itemName = strsub(cur, string.find(cur, "::|h%[")+5, string.find(cur, "%]", string.find(cur, "::|h%[")+5)-1)
-				
+
 				local deletes;
 				local deletedby;
-				if CommDKP:GetTable(CommDKP_Loot, true)[i].deletes == nil then 
+				if CommDKP:GetTable(CommDKP_Loot, true)[i].deletes == nil then
 					deletes = ''
 				else
 					deletes = CommDKP:GetTable(CommDKP_Loot, true)[i].deletes
 				end
-	
-				if CommDKP:GetTable(CommDKP_Loot, true)[i].deletedby == nil then 
+
+				if CommDKP:GetTable(CommDKP_Loot, true)[i].deletedby == nil then
 					deletedby = ''
 				else
 					deletedby = CommDKP:GetTable(CommDKP_Loot, true)[i].deletedby
 				end
-	
+
 				ExportString = ExportString.."    <lootentry>\n        <player>"..CommDKP:GetTable(CommDKP_Loot, true)[i].player.."</player>\n        <itemname>"..itemName.."</itemname>\n        <itemnumber>"..itemNumber.."</itemnumber>\n        <zone>"..CommDKP:GetTable(CommDKP_Loot, true)[i].zone.."</zone>\n        <boss>"..CommDKP:GetTable(CommDKP_Loot, true)[i].boss.."</boss>\n        <timestamp>"..CommDKP:GetTable(CommDKP_Loot, true)[i].date.."</timestamp>\n        <cost>"..CommDKP:GetTable(CommDKP_Loot, true)[i].cost.."</cost>\n        <deletes>"..deletes.."</deletes>\n        <deletedby>"..deletedby.."</deletedby>\n    </lootentry>\n";
 			end
 			ExportString = ExportString.."</loothistory>";
@@ -191,7 +191,7 @@ function CommDKP:ExportBox_Show(text)
         local f = CreateFrame("Frame", "CommDKPExportBox", UIParent)
         f:SetPoint("CENTER")
         f:SetSize(700, 590)
-        
+
         f:SetBackdrop({
             bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
             edgeFile = "Interface\\PVPFrame\\UI-Character-PVP-Highlight", -- this one is neat
@@ -199,7 +199,7 @@ function CommDKP:ExportBox_Show(text)
             insets = { left = 8, right = 6, top = 8, bottom = 8 },
         })
         f:SetBackdropBorderColor(0, .44, .87, 0.5) -- darkblue
-        
+
         -- Movable
         f:SetMovable(true)
         f:SetClampedToScreen(true)
@@ -214,8 +214,8 @@ function CommDKP:ExportBox_Show(text)
 		f.closeContainer = CreateFrame("Frame", "CommDKPTitle", f)
 		f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
 		f.closeContainer:SetBackdrop({
-			bgFile   = "Textures\\white.blp", tile = true,
-			edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3, 
+			bgFile   = "Textures\\white.blp",
+			edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 		});
 		f.closeContainer:SetBackdropColor(0,0,0,0.9)
 		f.closeContainer:SetBackdropBorderColor(1,1,1,0.2)
@@ -224,7 +224,7 @@ function CommDKP:ExportBox_Show(text)
 		f.closeBtn = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 		f.closeBtn:SetPoint("CENTER", f.closeContainer, "TOPRIGHT", -14, -14)
 		tinsert(UISpecialFrames, f:GetName()); -- Sets frame to close on "Escape"
-        
+
         -- ScrollFrame
         local sf = CreateFrame("ScrollFrame", "CommDKPExportBoxScrollFrame", CommDKPExportBox, "UIPanelScrollFrameTemplate")
         sf:SetPoint("LEFT", 20, 0)
@@ -238,7 +238,7 @@ function CommDKP:ExportBox_Show(text)
 		f.desc:SetPoint("TOPLEFT", sf, "BOTTOMLEFT", 10, -10);
 		f.desc:SetText("|CFFAEAEDDExport below one at a time in order. Copy all html and paste into local .html file one after the other. DKP and Loot History often take a few seconds to generate and will lock your screen briefly. As a result they are limited to the most recent 200 entries for each. All tables will be tabbed for convenience.|r");
 		f.desc:SetWidth(sf:GetWidth()-30)
-        
+
         -- EditBox
         local eb = CreateFrame("EditBox", "CommDKPExportBoxEditBox", CommDKPExportBoxScrollFrame)
         eb:SetSize(sf:GetSize())
@@ -247,19 +247,19 @@ function CommDKP:ExportBox_Show(text)
         eb:SetFontObject("ChatFontNormal")
         eb:SetScript("OnEscapePressed", function() f:Hide() end)
         sf:SetScrollChild(eb)
-        
+
         -- Resizable
         f:SetResizable(true)
         f:SetMinResize(650, 500)
-        
+
         local rb = CreateFrame("Button", "CommDKPExportBoxResizeButton", CommDKPExportBox)
         rb:SetPoint("BOTTOMRIGHT", -6, 7)
         rb:SetSize(16, 16)
-        
+
         rb:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
         rb:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
         rb:SetPushedTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down")
-        
+
         rb:SetScript("OnMouseDown", function(self, button)
             if button == "LeftButton" then
                 f:StartSizing("BOTTOMRIGHT")
@@ -269,11 +269,11 @@ function CommDKP:ExportBox_Show(text)
             f:StopMovingOrSizing()
             self:GetHighlightTexture():Show()
             eb:SetWidth(sf:GetWidth())
-            desc:SetWidth(sf:GetWidth()-30)
+            f.desc:SetWidth(sf:GetWidth()-30)
         end)
         f:Show()
 
-        -- Format DROPDOWN box 
+        -- Format DROPDOWN box
         local CurFormat;
 
 		f.FormatDropDown = CreateFrame("FRAME", "CommDKPModeSelectDropDown", f, "CommunityDKPUIDropDownMenuTemplate")
@@ -366,7 +366,7 @@ function CommDKP:ExportBox_Show(text)
 			CommDKPExportBoxEditBox:SetFocus()
 		end)
     end
-    
+
     if text then
         CommDKPExportBoxEditBox:SetText(text)
     end

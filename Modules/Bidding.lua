@@ -130,7 +130,7 @@ function CommDKP_CHAT_MSG_WHISPER(text, ...)
   local dkp;
   local seconds;
   local response = L["ERRORPROCESSING"];
-  
+
   mode = core.DB.modes.mode;
 
   if string.find(name, "-") then          -- finds and removes server name from name if exists
@@ -282,7 +282,7 @@ end
 
 function CommDKP:WhisperAvailableDKP(name, cmd)
   local cmd = cmd or name;
-  
+
   local teams = CommDKP:GetGuildTeamList(true);
   local response = "";
   local playerFound = false;
@@ -457,9 +457,9 @@ function CommDKP:ToggleBidWindow(loot, lootIcon, itemName)
       CurrItemIcon = lootIcon
       CurZone = GetRealZoneText()
 
-      
+
       if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
-        
+
         -- Max bid values
         local search_max = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_MaxBids, true), itemName)
         if search_max then
@@ -467,7 +467,7 @@ function CommDKP:ToggleBidWindow(loot, lootIcon, itemName)
         else
           maxBid = CommDKP:GetMaxBid(CurrItemForBid)
         end
-        
+
         -- search min bid value(item cost)
         local search_min = CommDKP:GetTable(CommDKP_MinBids, true)[itemID];
         if search_min then
@@ -476,7 +476,7 @@ function CommDKP:ToggleBidWindow(loot, lootIcon, itemName)
           minBid = CommDKP:GetMinBid(CurrItemForBid);
         end
       elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
-        
+
         -- search min bid value(item cost)
         local search_min = CommDKP:GetTable(CommDKP_MinBids, true)[itemID];
         if search_min then
@@ -488,7 +488,7 @@ function CommDKP:ToggleBidWindow(loot, lootIcon, itemName)
         minBid = CommDKP:GetMinBid(CurrItemForBid);
         maxBid = CommDKP:GetMaxBid(CurrItemForBid);
       end
-      
+
       if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
         core.BiddingWindow.CustomMinBid:Show();
         core.BiddingWindow.CustomMinBid:SetChecked(core.DB.defaults.CustomMinBid)
@@ -588,7 +588,7 @@ local function StartBidding()
       CommDKP:BroadcastBidTimer(core.BiddingWindow.bidTimer:GetText(), core.BiddingWindow.item:GetText().." Min Bid: "..core.BiddingWindow.minBid:GetText(), CurrItemIcon)
     end
     CommDKP.Sync:SendData("CommDKPCommand", "BidInfo#"..core.BiddingWindow.item:GetText().."#"..core.BiddingWindow.minBid:GetText().."#"..CurrItemIcon.."#"..core.BiddingWindow.maxBid:GetText())
-    
+
     CommDKP:CurrItem_Set(core.BiddingWindow.item:GetText(), core.BiddingWindow.minBid:GetText(), CurrItemIcon, core.BiddingWindow.maxBid:GetText())
 
     if core.DB.defaults.AutoOpenBid then  -- toggles bid window if option is set to
@@ -641,7 +641,7 @@ local function StartBidding()
     CommDKP:BroadcastBidTimer(core.BiddingWindow.bidTimer:GetText(), core.BiddingWindow.item:GetText().." Cost: "..core.BiddingWindow.cost:GetNumber()..perc, CurrItemIcon)
     CommDKP.Sync:SendData("CommDKPCommand", "BidInfo#"..core.BiddingWindow.item:GetText().."#"..core.BiddingWindow.cost:GetText()..perc.."#"..CurrItemIcon.."#0")
     CommDKP:BidInterface_Toggle()
-    
+
     CommDKP:CurrItem_Set(core.BiddingWindow.item:GetText(), core.BiddingWindow.cost:GetText()..perc, CurrItemIcon, 0)
   end
 
@@ -804,7 +804,7 @@ function CommDKP:StartBidTimer(seconds, title, itemIcon)
       extend = true;
     end
   end
-  
+
   CommDKP.BidTimer = CommDKP.BidTimer or CommDKP:CreateTimer();    -- recycles bid timer frame so multiple instances aren't created
   if not extend then CommDKP.BidTimer:SetShown(not CommDKP.BidTimer:IsShown()); end          -- shows if not shown
   if core.BidInterface and core.BidInterface:IsShown() == false then CommDKP.BidTimer.OpenBid:Show() end
@@ -1203,7 +1203,7 @@ function CommDKP:CreateBidWindow()
   f:SetSize(400, 500);
   f:SetClampedToScreen(true)
   f:SetBackdrop( {
-    bgFile = "Textures\\white.blp", tile = true,                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
+    bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
     edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
     insets = { left = 0, right = 0, top = 0, bottom = 0 }
   });
@@ -1243,7 +1243,7 @@ function CommDKP:CreateBidWindow()
   f.closeContainer = CreateFrame("Frame", "CommDKPBiddingWindowCloseButtonContainer", f)
   f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
   f.closeContainer:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
+    bgFile   = "Textures\\white.blp",
     edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
   });
   f.closeContainer:SetBackdropColor(0,0,0,0.9)
@@ -1266,7 +1266,7 @@ function CommDKP:CreateBidWindow()
     f.boss:SetMultiLine(false)
     f.boss:SetTextInsets(10, 15, 5, 5)
     f.boss:SetBackdrop({
-        bgFile   = "Textures\\white.blp", tile = true,
+        bgFile   = "Textures\\white.blp",
       edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
     });
     f.boss:SetBackdropColor(0,0,0,0.6)
@@ -1328,7 +1328,7 @@ function CommDKP:CreateBidWindow()
       f.minBid:SetMultiLine(false)
       f.minBid:SetSize(70, 28)
       f.minBid:SetBackdrop({
-        bgFile   = "Textures\\white.blp", tile = true,
+        bgFile   = "Textures\\white.blp",
         edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
       });
       f.minBid:SetBackdropColor(0,0,0,0.6)
@@ -1389,7 +1389,7 @@ function CommDKP:CreateBidWindow()
       f.maxBid:SetMultiLine(false)
       f.maxBid:SetSize(70, 28)
       f.maxBid:SetBackdrop({
-        bgFile   = "Textures\\white.blp", tile = true,
+        bgFile   = "Textures\\white.blp",
         edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
       });
       f.maxBid:SetBackdropColor(0,0,0,0.6)
@@ -1452,7 +1452,7 @@ function CommDKP:CreateBidWindow()
       f.bidTimer:SetMultiLine(false)
       f.bidTimer:SetSize(70, 28)
       f.bidTimer:SetBackdrop({
-        bgFile   = "Textures\\white.blp", tile = true,
+        bgFile   = "Textures\\white.blp",
         edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
       });
       f.bidTimer:SetBackdropColor(0,0,0,0.6)
@@ -1557,7 +1557,7 @@ function CommDKP:CreateBidWindow()
       f.bidTable = CreateFrame("ScrollFrame", "CommDKP_BidWindowTable", f, "FauxScrollFrameTemplate")
       f.bidTable:SetSize(width, height*numrows+3)
     f.bidTable:SetBackdrop({
-      bgFile   = "Textures\\white.blp", tile = true,
+      bgFile   = "Textures\\white.blp",
       edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
     });
     f.bidTable:SetBackdropColor(0,0,0,0.2)
@@ -1587,7 +1587,7 @@ function CommDKP:CreateBidWindow()
     f.BidTable_Headers:SetSize(370, 22)
     f.BidTable_Headers:SetPoint("BOTTOMLEFT", f.bidTable, "TOPLEFT", 0, 1)
     f.BidTable_Headers:SetBackdrop({
-      bgFile   = "Textures\\white.blp", tile = true,
+      bgFile   = "Textures\\white.blp",
       edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
     });
     f.BidTable_Headers:SetBackdropColor(0,0,0,0.8);
@@ -1668,7 +1668,7 @@ function CommDKP:CreateBidWindow()
       f.cost:SetSize(70, 28)
       f.cost:SetTextInsets(10, 10, 5, 5)
       f.cost:SetBackdrop({
-        bgFile   = "Textures\\white.blp", tile = true,
+        bgFile   = "Textures\\white.blp",
         edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
       });
       f.cost:SetBackdropColor(0,0,0,0.6)
@@ -1745,7 +1745,7 @@ function CommDKP:CreateBidWindow()
 
     f.ItemDE = CommDKP:CreateButton("LEFT", f.cost, "RIGHT", 190, 0, "DE");
     f.ItemDE:SetSize(35,25)
-    f.ItemDE:SetScript("OnClick", function () 
+    f.ItemDE:SetScript("OnClick", function ()
       CommDKP:ProcessDisenchant(CurrItemForBid)
     end);
 

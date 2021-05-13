@@ -3,7 +3,7 @@ local _G = _G;
 local CommDKP = core.CommDKP;
 local L = core.L;
 
- 
+
 local function CreateRow(parent, id) -- Create 3 buttons for each row in the list
 	local f = CreateFrame("Button", "$parentLine"..id, parent)
 	f.PriceInfo = {}
@@ -22,7 +22,7 @@ local function CreateRow(parent, id) -- Create 3 buttons for each row in the lis
 			f.PriceInfo[i].rowCounter:SetTextColor(1, 1, 1, 0.3);
 			f.PriceInfo[i].rowCounter:SetPoint("LEFT", f, "LEFT", 3, -1);
 			f.PriceInfo[i]:SetSize((370)-1, core.TableRowHeight);
-			
+
 		end
 		if (i==2) then
 			f.PriceInfo[i]:SetFontObject("CommDKPSmallLeft")
@@ -68,7 +68,7 @@ function CommDKP:ProcessDisenchant(loot)
 		core.BidInProgress = false;
 		CommDKP:BroadcastStopBidTimer()
 
-		
+
 		local search = CommDKP:GetTable(CommDKP_MinBids, true)[itemID];
 		local cost = CommDKP_round(core.BiddingWindow.cost:GetNumber(), core.DB.modes.rounding);
 		local minBid = cost;
@@ -78,12 +78,12 @@ function CommDKP:ProcessDisenchant(loot)
 		end
 		local numOfDisenchants = newItem["disenchants"] or 0;
 		local updatedDisenchants = numOfDisenchants + 1;
-		
+
 		--Figure out adjusted cost or minValue
 		if mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
-			
+
 			SendChatMessage("No bids for ".." "..itemLink.." for "..cost.." "..L["DKP"].." and will be disenchanted. This will be disenchant number "..updatedDisenchants, "RAID_WARNING");
-			
+
 			if core.DB.defaults.DecreaseDisenchantValue then
 				--If cost is 0, reset disenchants.
 				if cost == 0 then
@@ -128,7 +128,7 @@ function CommDKP:ProcessDisenchant(loot)
 			CommDKP:GetTable(CommDKP_MinBids, true)[itemID].disenchants = newItem.disenchants;
 			newItem = CommDKP:GetTable(CommDKP_MinBids, true)[itemID];
 		end
-		
+
 		CommDKP.Sync:SendData("CommDKPSetPrice", newItem);
 		core.BiddingWindow:Hide()
 
@@ -180,9 +180,9 @@ function CommDKP:PriceTable_Update(scrollOffset)
 			end
 			row.PriceInfo[1]:SetText(curItemName)
 			row.PriceInfo[1].rowCounter:SetText(index)
-		
+
 			row.PriceInfo[2]:SetText(curItemPrice)
-			
+
 			row.PriceInfo[3]:SetText(curDisenchants)
 		else
 			row:Hide()
@@ -288,7 +288,7 @@ function CommDKP:PriceTab_Create()
 		CommDKP.ConfigTab7.PriceTable:SetSize(core.TableWidth, core.TableRowHeight*numOfRows)
 	CommDKP.ConfigTab7.PriceTable:SetPoint("TOPLEFT", 0, -95)
 	CommDKP.ConfigTab7.PriceTable:SetBackdrop( {
-		bgFile = "Textures\\white.blp", tile = true,                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
+		bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
 		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
@@ -304,7 +304,7 @@ function CommDKP:PriceTab_Create()
 		CommDKP.ConfigTab7.PriceTable.Rows[i] = CreateRow(CommDKP.ConfigTab7.PriceTable, i)
 		if i==1 then
 			CommDKP.ConfigTab7.PriceTable.Rows[i]:SetPoint("TOPLEFT", CommDKP.ConfigTab7.PriceTable, "TOPLEFT", 0, -2)
-		else  
+		else
 			CommDKP.ConfigTab7.PriceTable.Rows[i]:SetPoint("TOPLEFT", CommDKP.ConfigTab7.PriceTable.Rows[i-1], "BOTTOMLEFT")
 		end
 	end
@@ -317,8 +317,8 @@ function CommDKP:PriceTab_Create()
 	CommDKP.ConfigTab7.PriceTable.Headers:SetSize(500, 22)
 	CommDKP.ConfigTab7.PriceTable.Headers:SetPoint("BOTTOMLEFT", CommDKP.ConfigTab7.PriceTable, "TOPLEFT", 0, 1)
 	CommDKP.ConfigTab7.PriceTable.Headers:SetBackdrop({
-		bgFile   = "Textures\\white.blp", tile = true,
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2, 
+		bgFile   = "Textures\\white.blp",
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 	});
 	CommDKP.ConfigTab7.PriceTable.Headers:SetBackdropColor(0,0,0,0.8);
 	CommDKP.ConfigTab7.PriceTable.Headers:SetBackdropBorderColor(1,1,1,0.5)
@@ -356,7 +356,7 @@ function CommDKP:PriceTab_Create()
 	PriceSortButtons.disenchants.t:SetTextColor(1, 1, 1, 1);
 	PriceSortButtons.disenchants.t:SetPoint("CENTER", PriceSortButtons.disenchants, "CENTER", 0, 0);
 	PriceSortButtons.disenchants.t:SetText("Disenchants");
-	
+
 	PriceSortButtons.minbid.t = PriceSortButtons.minbid:CreateFontString(nil, "OVERLAY")
 	PriceSortButtons.minbid.t:SetFontObject("CommDKPNormal")
 	PriceSortButtons.minbid.t:SetTextColor(1, 1, 1, 1);

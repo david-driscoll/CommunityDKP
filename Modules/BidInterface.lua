@@ -148,7 +148,7 @@ function CommDKP_BidInterface_Update()
     for i=1, numrows do
       row = core.BidInterface.bidTable.Rows[i]
       row:Hide()
-    end    
+    end
   if Bids_Submitted[1] and Bids_Submitted[1].bid and core.BidInterface.bidTable:IsShown() and
     (core.BidInterface.Bid:GetNumber() == nil or tonumber(core.BidInterface.Bid:GetNumber()) == nil or Bids_Submitted[1].bid > tonumber(core.BidInterface.Bid:GetNumber())) then
     core.BidInterface.Bid:SetNumber(Bids_Submitted[1].bid)
@@ -264,7 +264,7 @@ function CommDKP:BidInterface_Toggle()
       f.headerButtons.bid.t:SetText(L["BID"]);
       f.headerButtons.bid.t:Show();
     elseif mode == "Static Item Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
-      f.headerButtons.bid.t:Hide(); 
+      f.headerButtons.bid.t:Hide();
     elseif mode == "Roll Based Bidding" then
       f.headerButtons.bid.t:SetText(L["PLAYERROLL"])
       f.headerButtons.bid.t:Show()
@@ -318,7 +318,7 @@ function CommDKP:BidInterface_Toggle()
       core.BidInterface:SetHeight(504);
     end
     core.BidInterface.bidTable:Show();
-  end  
+  end
 
   core.BidInterface:SetShown(true)
 end
@@ -333,7 +333,7 @@ local function BidWindowCreateRow(parent, id) -- Create 3 buttons for each row i
     for i=1, 3 do
         f.Strings[i] = f:CreateFontString(nil, "OVERLAY");
         f.Strings[i]:SetTextColor(1, 1, 1, 1);
-        if i==1 then 
+        if i==1 then
           f.Strings[i]:SetFontObject("CommDKPNormalLeft");
         else
           f.Strings[i]:SetFontObject("CommDKPNormalCenter");
@@ -360,7 +360,7 @@ function CommDKP:CurrItem_Set(item, value, icon, value2)
   CurrItemForBid = item;
   CurrItemIcon = icon;
 
-  
+
 
   ----------------------------------------------------------------------
   -- Check if item is in the item list
@@ -371,7 +371,7 @@ function CommDKP:CurrItem_Set(item, value, icon, value2)
 
   local _,tmpLink,_,_,_,_,_,_,_,tmpIcon = GetItemInfo(item)
   local currItemInLoot = false
-  
+
   if tmpLink == nil then
     C_Timer.After(0.5, function () CommDKP:CurrItem_Set(item, value, icon, value2); end);
     return;
@@ -385,7 +385,7 @@ function CommDKP:CurrItem_Set(item, value, icon, value2)
     CommDKP:LootTable_Set({{icon=tmpIcon, link=tmpLink}})
   end
   ----------------------------------------------------------------------
-  
+
   UpdateBidderWindow()
 
   if not strfind(value, "%%") and not strfind(value, "DKP") then
@@ -393,7 +393,7 @@ function CommDKP:CurrItem_Set(item, value, icon, value2)
   else
     core.BidInterface.MinBid:SetText(value);
   end
-  
+
   if core.BidInterface.MaxBid then
     if not strfind(value2, "%%") and not strfind(value2, "DKP") then
       if value2 == "MAX" then
@@ -411,7 +411,7 @@ function CommDKP:CurrItem_Set(item, value, icon, value2)
       core.BidInterface.MaxBid:SetText(value2);
     end
   end
-  
+
   if core.BidInterface.Bid:IsShown() then
     core.BidInterface.Bid:SetNumber(value);
   end
@@ -460,7 +460,7 @@ end
 
 function CommDKP:Bids_Set(entry)
   Bids_Submitted = entry;
-  
+
   local pass, err = pcall(CommDKP_BidInterface_Update)
 
   if not pass then
@@ -493,8 +493,8 @@ function CommDKP:BidInterface_Create()
   end
   f:SetClampedToScreen(true)
   f:SetBackdrop( {
-    bgFile = "Textures\\white.blp", tile = true,                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,  
+    bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
+    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
     insets = { left = 0, right = 0, top = 0, bottom = 0 }
   });
   f:SetBackdropColor(0,0,0,0.9);
@@ -528,8 +528,8 @@ function CommDKP:BidInterface_Create()
   f.closeContainer = CreateFrame("Frame", "CommDKPBidderWindowCloseButtonContainer", f)
   f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
   f.closeContainer:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
-    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2, 
+    bgFile   = "Textures\\white.blp",
+    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
   });
   f.closeContainer:SetBackdropColor(0,0,0,0.9)
   f.closeContainer:SetBackdropBorderColor(1,1,1,0.2)
@@ -612,12 +612,12 @@ function CommDKP:BidInterface_Create()
   end
 
   f.Bid = CreateFrame("EditBox", nil, f)
-  f.Bid:SetPoint("LEFT", f.BidHeader, "RIGHT", 8, 0)   
+  f.Bid:SetPoint("LEFT", f.BidHeader, "RIGHT", 8, 0)
   f.Bid:SetAutoFocus(false)
   f.Bid:SetMultiLine(false)
   f.Bid:SetSize(70, 28)
   f.Bid:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
+    bgFile   = "Textures\\white.blp",
     edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   f.Bid:SetBackdropColor(0,0,0,0.6)
@@ -794,8 +794,8 @@ function CommDKP:BidInterface_Create()
   f.bidTable = CreateFrame("ScrollFrame", "CommDKP_BiderWindowTable", f, "FauxScrollFrameTemplate")
   f.bidTable:SetSize(width, height*numrows+3)
   f.bidTable:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
-    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2, 
+    bgFile   = "Textures\\white.blp",
+    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
   });
   f.bidTable:SetBackdropColor(0,0,0,0.2)
   f.bidTable:SetBackdropBorderColor(1,1,1,0.4)
@@ -806,7 +806,7 @@ function CommDKP:BidInterface_Create()
       f.bidTable.Rows[i] = BidWindowCreateRow(f.bidTable, i)
       if i==1 then
         f.bidTable.Rows[i]:SetPoint("TOPLEFT", f.bidTable, "TOPLEFT", 0, -3)
-      else  
+      else
         f.bidTable.Rows[i]:SetPoint("TOPLEFT", f.bidTable.Rows[i-1], "BOTTOMLEFT")
       end
   end
@@ -816,7 +816,7 @@ function CommDKP:BidInterface_Create()
 
   ---------------------------------------
   -- Header Buttons
-  --------------------------------------- 
+  ---------------------------------------
   f.headerButtons = {}
   mode = core.DB.modes.mode;
 
@@ -824,8 +824,8 @@ function CommDKP:BidInterface_Create()
   f.BidTable_Headers:SetSize(370, 22)
   f.BidTable_Headers:SetPoint("BOTTOMLEFT", f.bidTable, "TOPLEFT", 0, 1)
   f.BidTable_Headers:SetBackdrop({
-    bgFile   = "Textures\\white.blp", tile = true,
-    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2, 
+    bgFile   = "Textures\\white.blp",
+    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
   });
   f.BidTable_Headers:SetBackdropColor(0,0,0,0.8);
   f.BidTable_Headers:SetBackdropBorderColor(1,1,1,0.5)
@@ -844,7 +844,7 @@ function CommDKP:BidInterface_Create()
   f.headerButtons.player.t:SetFontObject("CommDKPNormalLeft")
   f.headerButtons.player.t:SetTextColor(1, 1, 1, 1);
   f.headerButtons.player.t:SetPoint("LEFT", f.headerButtons.player, "LEFT", 20, 0);
-  f.headerButtons.player.t:SetText(L["PLAYER"]); 
+  f.headerButtons.player.t:SetText(L["PLAYER"]);
 
   f.headerButtons.bid.t = f.headerButtons.bid:CreateFontString(nil, "OVERLAY")
   f.headerButtons.bid.t:SetFontObject("CommDKPNormal");

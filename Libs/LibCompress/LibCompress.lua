@@ -910,7 +910,8 @@ function LibCompress:GetEncodeTable(reservedChars, escapeChars, mapChars)
 	local decode_translate = {}
 	local decode_func
 	local c, r, to, from
-	local escapeCharIndex, escapeChar = 0
+	local escapeCharIndex
+	local escapeChar = 0
 
 	-- map single byte to single byte
 	if #mapChars > 0 then

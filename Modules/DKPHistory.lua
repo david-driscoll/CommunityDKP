@@ -95,14 +95,14 @@ function CommDKP:DKPHistoryFilterBox_Create()
 			UIDropDownMenu_AddButton(filterName)
 			filterName.text, filterName.arg1, filterName.arg2, filterName.checked, filterName.isNotRadio = L["DELETEDENTRY"], L["DELETEDENTRY"], L["DELETEDENTRY"], L["DELETEDENTRY"] == curfilterName, true
 			UIDropDownMenu_AddButton(filterName)
-		
+
 			for i=1, numSubs do
 				local max = i*20;
 				if max > #PlayerList then max = #PlayerList end
 				filterName.text, filterName.checked, filterName.menuList, filterName.hasArrow = strsub(PlayerList[((i*20)-19)], 1, 1).."-"..strsub(PlayerList[max], 1, 1), curSelected >= (i*20)-19 and curSelected <= i*20, i, true
 				UIDropDownMenu_AddButton(filterName)
 			end
-			
+
 		else
 			filterName.func = self.FilterSetValue
 			for i=ranges[menuList], ranges[menuList]+19 do
@@ -126,19 +126,19 @@ function CommDKP:DKPHistoryFilterBox_Create()
 
 	UIDropDownMenu_SetWidth(filterDropdown, 150)
 	UIDropDownMenu_SetText(filterDropdown, curfilterName or L["NOFILTER"])
-	
+
   -- Dropdown Menu Function
   function filterDropdown:FilterSetValue(newValue, arg2)
     if curfilterName ~= newValue then curfilterName = newValue else curfilterName = nil end
     UIDropDownMenu_SetText(filterDropdown, arg2)
-    
+
     if newValue == L["NOFILTER"] then
     	filter = nil;
-    	maxDisplayed = 10; 				
+    	maxDisplayed = 10;
     	curSelected = 0
     elseif newValue == L["DELETEDENTRY"] then
     	filter = newValue;
-    	maxDisplayed = 10; 				
+    	maxDisplayed = 10;
     	curSelected = 0
     else
 	    filter = newValue;
@@ -213,12 +213,12 @@ local function CommDKPDeleteDKPEntry(index, timestamp, item)  -- index = entry i
 							if tonumber(dkp) > 0 then
 								CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].lifetime_gained = CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].lifetime_gained + inverted
 							end
-							
+
 							dkpString = inverted;
 						end
 					end
 				end
-				
+
 				CommDKP:GetTable(CommDKP_DKPHistory, true)[search[1][1]].deletedby = newIndex
 				table.insert(CommDKP:GetTable(CommDKP_DKPHistory, true), 1, { players=CommDKP:GetTable(CommDKP_DKPHistory, true)[search[1][1]].players, dkp=dkpString, date=curTime, reason="Delete Entry", index=newIndex, deletes=index })
 				CommDKP.Sync:SendData("CommDKPDelSync", CommDKP:GetTable(CommDKP_DKPHistory, true)[1])
@@ -285,7 +285,7 @@ function CommDKP:DKPHistory_Update(reset)
 			end
 		end
 	end
-	
+
 	CommDKP.ConfigTab6.history = history;
 
 	if currentLength > #DKPHistory then currentLength = #DKPHistory end
@@ -381,8 +381,8 @@ function CommDKP:DKPHistory_Update(reset)
 					CommDKP.ConfigTab6.history[i].b:Hide()
 				end
 			end
-			
-			
+
+
 			player_table = { strsplit(",", players) } or players
 			if player_table[1] ~= nil and #player_table > 1 then	-- removes last entry in table which ends up being nil, which creates an additional comma at the end of the string
 				tremove(player_table, #player_table)
@@ -434,7 +434,7 @@ function CommDKP:DKPHistory_Update(reset)
 		    else
 		     	c = { hex="ff444444" }
 		    end
-			
+
 			if not strfind(dkp, "-") then
 				CommDKP.ConfigTab6.history[i].d:SetText("|cff00ff00"..dkp.." "..L["DKP"].."|r - |cff616ccf"..reason.."|r |cff555555("..timeofday..")|r by |c"..c.hex..curOfficer.."|r");
 			else
@@ -520,7 +520,7 @@ function CommDKP:DKPHistory_Update(reset)
 				end)
 			end
 
-			if CommDKP.ConfigTab6.loadMoreBtn and currentRow == #DKPHistory then 
+			if CommDKP.ConfigTab6.loadMoreBtn and currentRow == #DKPHistory then
 				CommDKP.ConfigTab6.loadMoreBtn:Hide();
 			elseif CommDKP.ConfigTab6.loadMoreBtn and currentRow < #DKPHistory then
 				if (#DKPHistory - currentRow) < btnText then btnText = (#DKPHistory - currentRow) end
