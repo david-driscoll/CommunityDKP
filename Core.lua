@@ -352,19 +352,45 @@ function CommDKP:GetGuildRankGroup(index)                -- returns all members 
     end
 end
 
+local function IsOfficer(name)
+    local curPlayerRank = CommDKP:GetGuildRankIndex(name)
+    if curPlayerRank then
+        return C_GuildInfo.GuildControlGetRankFlags(curPlayerRank)[12]
+    end
+    return false;
+end
+
+
 function CommDKP:CheckRaidLeader()
     local tempName,tempRank, subgroup, level, class, fileName, zone, online, isDead, role, isML, combatRole;
+    CommDKP:CheckOfficer()
+    if not core.IsOfficer then return false end;
+
+    local masterLooter
+    local raidLeader
 
     for i=1, 40 do
+        tempName, tempRank, subgroup, level, class, fileName, zone, online, isDead, role, isML, combatRole = GetRaidRosterInfo(i);
+        if isML then masterLooter = tempName end
+        if tempRank == 2 then raidLeader = tempName end
+    end
 
-         tempName, tempRank, subgroup, level, class, fileName, zone, online, isDead, role, isML, combatRole = GetRaidRosterInfo(i);
-
-        if tempName == UnitName("player") and tempRank == 2 then
-            return true
-        elseif tempName == UnitName("player") and tempRank < 2 then
-            return false
+    if masterLooter then
+        if masterLooter == UnitName("player") then
+            return true -- ml is primary communicator
+        elseif IsOfficer(masterLooter) then
+            return false -- someone else is master looter, they advertise all information
         end
     end
+
+    if raidLeader == UnitName("player") then
+        if raidLeader == UnitName("player") then
+            return true -- otherwise rl is primary communicator (no master loot?)
+        elseif IsOfficer(raidLeader) then
+            return false -- someone else is master looter, they advertise all information
+        end
+    end
+
     return false;
 end
 

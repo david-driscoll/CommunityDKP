@@ -32,7 +32,6 @@ local function tprint (tbl, indent)
     local formatting = string.rep("  ", indent) .. k .. ": "
     if type(v) == "table" then
       print(formatting)
-      tprint(v, indent+1)
     elseif type(v) == 'boolean' then
       print(formatting .. tostring(v))
     else
@@ -95,7 +94,6 @@ local function HandleBonusRoll(name, roll)
       print("maxPoints "..maxPoints);
       print("maxDiff "..maxDiff);
       print("temp "..#temp);
-      tprint(search, 2)
       local bid = Bids_Submitted[search[1][1]];
       if not bid.roll then
         bid.roll = tonumber(roll);
@@ -1211,7 +1209,6 @@ local function CalculateBonusRollItemCost()
     if not SelectedBidder["player"] then return end
     if mode ~= "Bonus Roll" then return end
 
-    tprint(SelectedBidder)
     if (SelectedBidder.command == "upgrade" or SelectedBidder.command == "offspec") then
       cost = SelectedBidder.dkp
     else

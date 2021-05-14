@@ -457,8 +457,9 @@ function CommDKP_OnEvent(self, event, arg1, ...)
             arg1 = strlower(arg1)
             if (core.BidInProgress or string.find(arg1, "!dkp") == 1 or string.find(arg1, "！dkp") == 1) then
                 CommDKP_CHAT_MSG_WHISPER(arg1, ...)
-            elseif string.find(arg1, "!standby") == 1 and core.StandbyActive then
+            elseif string.find(arg1, "!standby") == 1 or string.find(arg1, "!wl") == 1 then
                 CommDKP_Standby_Handler(arg1, ...)
+                CommDKP.Sync:SendData("CommDKPStand", CommDKP:GetTable(CommDKP_Standby, true))
             end
         end
     elseif event == "GUILD_ROSTER_UPDATE" then
@@ -473,7 +474,7 @@ function CommDKP_OnEvent(self, event, arg1, ...)
     elseif event == "CHAT_MSG_RAID" or event == "CHAT_MSG_RAID_LEADER" then
         CommDKP:CheckOfficer()
         arg1 = strlower(arg1)
-        if (core.BidInProgress or string.find(arg1, "!dkp") == 1 or string.find(arg1, "!standby") == 1 or string.find(arg1, "！dkp") == 1) and core.IsOfficer == true then
+        if (core.BidInProgress or string.find(arg1, "!dkp") == 1 or string.find(arg1, "!standby") or string.find(arg1, "!wl") == 1 or string.find(arg1, "！dkp") == 1) and core.IsOfficer == true then
             CommDKP_CHAT_MSG_WHISPER(arg1, ...)
         end
     elseif event == "UPDATE_INSTANCE_INFO" then
@@ -531,8 +532,11 @@ function CommDKP_OnEvent(self, event, arg1, ...)
             arg1 = strlower(arg1)
             if (core.BidInProgress or string.find(arg1, "!dkp") == 1 or string.find(arg1, "！dkp") == 1) and core.DB.modes.channels.guild then
                 CommDKP_CHAT_MSG_WHISPER(arg1, ...)
-            elseif string.find(arg1, "!standby") == 1 and core.StandbyActive then
+            elseif string.find(arg1, "!standby") == 1 or string.find(arg1, "!wl") == 1 then
                 CommDKP_Standby_Handler(arg1, ...)
+                if CommDKP:CheckRaidLeader() then
+                    CommDKP.Sync:SendData("CommDKPStand", CommDKP:GetTable(CommDKP_Standby, true))
+                end
             end
         end
     --elseif event == "CHAT_MSG_SYSTEM" then
