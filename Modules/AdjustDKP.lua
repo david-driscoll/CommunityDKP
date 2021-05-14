@@ -368,8 +368,24 @@ function CommDKP:AdjustDKPTab_Create()
             core.CurrentRaidZone = core.ZoneList[6]
         elseif CommDKP:Table_Search(core.EncounterList.ONYXIA, newValue) then
             core.CurrentRaidZone = core.ZoneList[7]
+        elseif CommDKP:Table_Search(core.EncounterList.KARAZHAN, newValue) then
+            core.CurrentRaidZone = core.ZoneList[9]
         --elseif CommDKP:Table_Search(core.EncounterList.WORLD, newValue) then         -- encounter IDs not known yet
             --core.CurrentRaidZone = core.ZoneList[8]
+        elseif CommDKP:Table_Search(core.EncounterList.GRUUL, newValue) then
+            core.CurrentRaidZone = core.ZoneList[10]
+        elseif CommDKP:Table_Search(core.EncounterList.MAGTHERIDON, newValue) then
+            core.CurrentRaidZone = core.ZoneList[11]
+        elseif CommDKP:Table_Search(core.EncounterList.SSC, newValue) then
+            core.CurrentRaidZone = core.ZoneList[12]
+        elseif CommDKP:Table_Search(core.EncounterList.TK, newValue) then
+            core.CurrentRaidZone = core.ZoneList[13]
+        elseif CommDKP:Table_Search(core.EncounterList.HYJAL, newValue) then
+            core.CurrentRaidZone = core.ZoneList[14]
+        elseif CommDKP:Table_Search(core.EncounterList.BT, newValue) then
+            core.CurrentRaidZone = core.ZoneList[15]
+        elseif CommDKP:Table_Search(core.EncounterList.SUNWELL, newValue) then
+            core.CurrentRaidZone = core.ZoneList[16]
         end
 
         if search then

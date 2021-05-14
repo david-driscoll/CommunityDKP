@@ -34,11 +34,84 @@ core.BossList = {
   ONYXIA = {"Onyxia"},
   WORLD = {
     "Azuregos", "Lord Kazzak", "Emeriss", "Lethon", "Ysondre", "Taerar"
+  },
+  KARAZHAN = {
+    "Attumen the Huntsman", "Attumen the Huntsman",
+    "Moroes", "Moroes",
+    "Maiden of Virtue", "Maiden of Virtue",
+    "The Opera Event", "The Opera Event",
+    "The Curator", "The Curator",
+    "Chess Event", "Chess Event",
+    "Terestian Illhoof", "Terestian Illhoof",
+    "Shade of Aran", "Shade of Aran",
+    "Netherspite", "Netherspite",
+    "Nightbane", "Nightbane",
+    "Prince Malchezaar", "Prince Malchezaar"
+  },
+  GRUUL = {
+    "High King Maulgar", "High King Maulgar",
+    "Gruul the Dragonkiller", "Gruul the Dragonkiller",
+  },
+  MAGTHERIDON = {
+    "Magtheridon", "Magtheridon"
+  },
+  SSC = {
+    "Hydross the Unstable", "Hydross the Unstable",
+    "The Lurker Below", "The Lurker Below",
+    "Leotheras the Blind", "Leotheras the Blind",
+    "Fathom-Lord Karathress", "Fathom-Lord Karathress",
+    "Morogrim Tidewalker", "Morogrim Tidewalker",
+    "Lady Vashj", "Lady Vashj"
+  },
+  TK = {
+    "Void Reaver", "Void Reaver",
+    "Al'ar", "Al'ar",
+    "High Astromancer Solarian", "High Astromancer Solarian",
+    "Kael'thas Sunstrider", "Kael'thas Sunstrider"
+  },
+  HYJAL = {
+    "Rage Winterchill", "Rage Winterchill",
+    "Anetheron", "Anetheron",
+    "Kaz'rogal", "Kaz'rogal",
+    "Azgalor", "Azgalor",
+    "Archimonde", "Archimonde"
+  },
+  BT = {
+    "High Warlord Naj'entus","High Warlord Naj'entus",
+    "Supremus","Supremus",
+    "Shade of Akama","Shade of Akama",
+    "Teron Gorefiend","Teron Gorefiend",
+    "Gurtogg Bloodboil","Gurtogg Bloodboil",
+    "Reliquary of Souls","Reliquary of Souls",
+    "Mother Shahraz","Mother Shahraz",
+    "The Illidari Council","The Illidari Council",
+    "Illidan Stormrage","Illidan Stormrage"
+  },
+  SUNWELL = {
+    "Kalecgos", "Kalecgos",
+    "Brutallus", "Brutallus",
+    "Felmyst", "Felmyst",
+    "Eredar Twins", "Eredar Twins",
+    "M'uru", "M'uru",
+    "Kil'jaeden", "Kil'jaeden"
   }
 }
 
 core.ZoneList = {
-  "Molten Core", "Blackwing Lair", "Temple of Ahn'Qiraj", "Naxxramas", "Zul'Gurub", "Ruins of Ahn'Qiraj", "Onyxia's Lair", "World Bosses"
+  "Molten Core",
+  "Blackwing Lair",
+  "Temple of Ahn'Qiraj",
+  "Naxxramas",
+  "Zul'Gurub",
+  "Ruins of Ahn'Qiraj",
+  "Onyxia's Lair",
+  "World Bosses",
+  "Gruul's Lair",
+  "Magtheridon's Lair",
+  "Serpentshrine Cavern",
+  "Hyjal Summit",
+  "Black Temple",
+  "Sunwell Plateau"
 }
 
 core.L = {
