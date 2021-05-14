@@ -26,6 +26,21 @@ function CommDKPApi:SetPriceListApi(api)
   return false
 end
 
+local function tprint (tbl, indent)
+  if not indent then indent = 0 end
+  for k, v in pairs(tbl) do
+    local formatting = string.rep("  ", indent) .. k .. ": "
+    if type(v) == "table" then
+      print(formatting)
+      tprint(v, indent+1)
+    elseif type(v) == 'boolean' then
+      print(formatting .. tostring(v))
+    else
+      print(formatting .. v)
+    end
+  end
+end
+
 local function UpdateBidWindow()
   core.BiddingWindow.item:SetText(CurrItemForBid)
   core.BiddingWindow.itemIcon:SetTexture(CurrItemIcon)
@@ -39,8 +54,64 @@ function CommDKP:BidsSubmitted_Clear()
   Bids_Submitted = {};
 end
 
+local function BroadcastShare()
+  if core.DB.modes.BroadcastBids then
+    CommDKP.Sync:SendData("CommDKPBidShare", Bids_Submitted)
+  end
+  if core.DB.modes.BroadcastOfficerBids then
+    CommDKP.Sync:SendData("CommDKPBidOffic", Bids_Submitted)
+  end
+end
+
+local function HandleBonusRoll(name, roll)
+  if core.BidInProgress then
+    SendChatMessage(L["BONUSROLLPLEASEWAIT"], "WHISPER", nil, name)
+    return
+  end
+  local search = CommDKP:Table_Search(Bids_Submitted, name, "player")
+
+  if search then
+
+    CommDKP:Print("found");
+    local temp = {}
+    local maxPoints = 0
+    local maxDiff = core.DB.modes.bonus.maxDiff
+    for k,v in pairs(Bids_Submitted) do
+      if v.dkp > maxPoints then
+        maxPoints = v.dkp;
+      end
+    end
+
+    for k,v in pairs(Bids_Submitted) do
+      if (v.dkp + maxDiff) >= maxPoints then
+        temp[#temp+1] = v;
+      end
+    end
+
+    local s = CommDKP:Table_Search(temp, name, "player")
+    if not s then
+      SendChatMessage(L["BONUSROLLOUTSIDERANGE"], "WHISPER", nil, name)
+    else
+      print("maxPoints "..maxPoints);
+      print("maxDiff "..maxDiff);
+      print("temp "..#temp);
+      tprint(search, 2)
+      local bid = Bids_Submitted[search[1][1]];
+      if not bid.roll then
+        bid.roll = tonumber(roll);
+      else
+        SendChatMessage(L["BONUSROLLALREADYROLLED"], "WHISPER", nil, name)
+      end
+    end
+  elseif #Bids_Submitted > 0 and core.BiddingWindow:IsShown() then
+    SendChatMessage(L["BONUSROLLNOTACCEPTED"], "WHISPER", nil, name)
+  end
+  BroadcastShare()
+  CommDKP:BidScrollFrame_Update()
+end
+
 local function Roll_OnEvent(self, event, arg1, ...)
-  if event == "CHAT_MSG_SYSTEM" and core.BidInProgress then
+  if event == "CHAT_MSG_SYSTEM" then
 
     if GetLocale() == 'deDE' then RANDOM_ROLL_RESULT = "%s w\195\188rfelt. Ergebnis: %d (%d-%d)" end  -- corrects roll pattern for german clients
     local pattern = string.gsub(RANDOM_ROLL_RESULT, "[%(%)-]", "%%%1")
@@ -48,40 +119,47 @@ local function Roll_OnEvent(self, event, arg1, ...)
     pattern = string.gsub(pattern, "%%d", "%(%%d+%)")
 
     for name, roll, low, high in string.gmatch(arg1, pattern) do
+      if mode == "Bonus Roll" then
+        HandleBonusRoll(name, roll);
+        return;
+      end
+      if not core.BidInProgress then
+        return
+      end
       local search = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPTable, true), name)
       local minRoll;
-          local maxRoll;
+      local maxRoll;
 
-          if core.DB.modes.rolls.UsePerc then
-            if core.DB.modes.rolls.min == 0 or core.DB.modes.rolls.min == 1 then
-              minRoll = 1;
-            else
-              minRoll = CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].dkp * (core.DB.modes.rolls.min / 100);
-            end
-            maxRoll = CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].dkp * (core.DB.modes.rolls.max / 100) + core.DB.modes.rolls.AddToMax;
-          elseif not core.DB.modes.rolls.UsePerc then
-            minRoll = core.DB.modes.rolls.min;
+      if core.DB.modes.rolls.UsePerc then
+        if core.DB.modes.rolls.min == 0 or core.DB.modes.rolls.min == 1 then
+          minRoll = 1;
+        else
+          minRoll = CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].dkp * (core.DB.modes.rolls.min / 100);
+        end
+        maxRoll = CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].dkp * (core.DB.modes.rolls.max / 100) + core.DB.modes.rolls.AddToMax;
+      elseif not core.DB.modes.rolls.UsePerc then
+        minRoll = core.DB.modes.rolls.min;
 
-            if core.DB.modes.rolls.max == 0 then
-              maxRoll = CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].dkp + core.DB.modes.rolls.AddToMax;
-            else
-              maxRoll = core.DB.modes.rolls.max + core.DB.modes.rolls.AddToMax;
-            end
-          end
-          if tonumber(minRoll) < 1 then minRoll = 1 end
-          if tonumber(maxRoll) < 1 then maxRoll = 1 end
-          if tonumber(low) > tonumber(minRoll) or tonumber(high) > tonumber(maxRoll) then
-            SendChatMessage(L["ROLLDECLINED"].." "..math.floor(minRoll).."-"..math.floor(maxRoll)..".", "WHISPER", nil, name)
-            return;
-          end
+        if core.DB.modes.rolls.max == 0 then
+          maxRoll = CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].dkp + core.DB.modes.rolls.AddToMax;
+        else
+          maxRoll = core.DB.modes.rolls.max + core.DB.modes.rolls.AddToMax;
+        end
+      end
+      if tonumber(minRoll) < 1 then minRoll = 1 end
+      if tonumber(maxRoll) < 1 then maxRoll = 1 end
+      if tonumber(low) > tonumber(minRoll) or tonumber(high) > tonumber(maxRoll) then
+        SendChatMessage(L["ROLLDECLINED"].." "..math.floor(minRoll).."-"..math.floor(maxRoll)..".", "WHISPER", nil, name)
+        return;
+      end
 
           --math.floor(minRoll).."-"..math.floor(maxRoll)
 
       if search and mode == "Roll Based Bidding" and core.BiddingWindow.cost:GetNumber() > CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].dkp and not core.DB.modes.SubZeroBidding and core.DB.modes.costvalue ~= "Percent" then
-            SendChatMessage(L["ROLLNOTACCEPTED"].." "..CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].dkp.." "..L["DKP"]..".", "WHISPER", nil, name)
+          SendChatMessage(L["ROLLNOTACCEPTED"].." "..CommDKP:GetTable(CommDKP_DKPTable, true)[search[1][1]].dkp.." "..L["DKP"]..".", "WHISPER", nil, name)
 
-            return;
-            end
+          return;
+      end
 
       if not CommDKP:Table_Search(Bids_Submitted, name) and search then
         if core.DB.modes.AnnounceBid and ((Bids_Submitted[1] and Bids_Submitted[1].roll < roll) or not Bids_Submitted[1]) then
@@ -97,9 +175,7 @@ local function Roll_OnEvent(self, event, arg1, ...)
           end
         end
         table.insert(Bids_Submitted, {player=name, roll=roll, range=" ("..low.."-"..high..")"})
-        if core.DB.modes.BroadcastBids then
-          CommDKP.Sync:SendData("CommDKPBidShare", Bids_Submitted)
-        end
+        BroadcastShare()
       else
         if not search then
           SendChatMessage(L["NAMENOTFOUND"], "WHISPER", nil, name)
@@ -124,6 +200,92 @@ local function BidCmd(...)
   return cmd;
 end
 
+local function ClearPlayer(name)
+  local flag = false
+  for i=1, #Bids_Submitted do
+    if Bids_Submitted[i] and Bids_Submitted[i].player == name then
+      table.remove(Bids_Submitted, i)
+      flag = true
+      --SendChatMessage(response, "WHISPER", nil, name)
+      --return;
+    end
+  end
+  return flag
+end
+
+local function HandleRollPass(name)
+  local flagCanceled  = ClearPlayer(name)
+  local response
+  if flagCanceled then
+    response = L["BIDCANCELLED"]
+  else
+    response = L["NOTSUBMITTEDBID"]
+  end
+  BroadcastShare()
+  SendChatMessage(response, "WHISPER", nil, name)
+end
+
+local function HandleBidRoll(name, cmd)
+  if not core.BidInProgress then
+    SendChatMessage(L["NOBIDINPROGRESS"], "WHISPER", nil, name)
+    return
+  end
+  local dkp
+  if cmd == "upgrade" then dkp = core.DB.modes.bonus.upgradeCost
+  elseif cmd == "offspec" then dkp = core.DB.modes.bonus.offspecCost
+  else dkp  = CommDKP:GetPlayerDKP(name) end
+  ClearPlayer(name)
+
+  if core.DB.modes.AnnounceBid then
+    local msgTarget = "RAID";
+    if core.DB.modes.AnnounceRaidWarning then
+      msgTarget = "RAID_WARNING";
+    end
+
+    -- TODO:
+    -- if not core.DB.modes.AnnounceBidName then
+    --   SendChatMessage(L["NEWHIGHBID"].." "..dkp.." DKP", msgTarget)
+    -- else
+    --   SendChatMessage(L["NEWHIGHBIDDER"].." "..name.." ("..dkp.." DKP)", msgTarget)
+    -- end
+  end
+  table.insert(Bids_Submitted, {player=name, dkp=dkp, command=cmd})
+  BroadcastShare()
+  response = L["BIDWASACCEPTED"]
+
+  if Timer ~= 0 and Timer > (core.BiddingWindow.bidTimer:GetText() - 10) and core.DB.modes.AntiSnipe > 0 then
+    seconds = core.BiddingWindow.bidTimer:GetText().."{"..core.DB.modes.AntiSnipe
+    CommDKP:BroadcastBidTimer(seconds, core.BiddingWindow.item:GetText().." Extended", core.BiddingWindow.itemIcon:GetTexture());
+  end
+  SendChatMessage(response, "WHISPER", nil, name)
+end
+
+local function HandleBonusRollChatWhisper(name, text)
+  local cmd
+  if string.find(text, "!bid") == 1 then
+    cmd = BidCmd(text)
+    if (cmd == "cancel") then
+      HandleRollPass(name);
+    else
+      HandleBidRoll(name, "bonus")
+    end
+  end
+  if string.find(text, "!bonus") == 1 or string.find(text, "!upgrade") or string.find(text, "!offspec") then
+    local cmd, _ = string.trim(string.split(" ", text, 2), '!')
+    local bidCmd = BidCmd(text)
+    DEFAULT_CHAT_FRAME:AddMessage(cmd)
+    if (bidCmd == "cancel") then
+      HandleRollPass(name);
+    else
+      HandleBidRoll(name, cmd)
+    end
+  end
+  if string.find(text, "!pass") == 1 then
+    HandleRollPass(name);
+  end
+  CommDKP:BidScrollFrame_Update()
+end
+
 function CommDKP_CHAT_MSG_WHISPER(text, ...)
   local name = ...;
   local cmd;
@@ -138,7 +300,7 @@ function CommDKP_CHAT_MSG_WHISPER(text, ...)
     name = strsub(name, 1, dashPos-1)
   end
 
-  if string.find(text, "!bid") == 1 and core.IsOfficer == true then
+  if mode ~= "Bonus Roll" and string.find(text, "!bid") == 1 and core.IsOfficer == true then
     if core.BidInProgress then
       cmd = BidCmd(text)
       if (mode == "Static Item Values" and cmd ~= "cancel") or (mode == "Zero Sum" and cmd ~= "cancel" and core.DB.modes.ZeroSumBidType == "Static") then
@@ -149,9 +311,7 @@ function CommDKP_CHAT_MSG_WHISPER(text, ...)
         for i=1, #Bids_Submitted do           -- !bid cancel will cancel their bid
           if Bids_Submitted[i] and Bids_Submitted[i].player == name then
             table.remove(Bids_Submitted, i)
-            if core.DB.modes.BroadcastBids then
-              CommDKP.Sync:SendData("CommDKPBidShare", Bids_Submitted)
-            end
+            BroadcastShare()
             CommDKP:BidScrollFrame_Update()
             response = L["BIDCANCELLED"]
             flagCanceled = true
@@ -202,9 +362,7 @@ function CommDKP_CHAT_MSG_WHISPER(text, ...)
                   table.insert(Bids_Submitted, {player=name, bid=cmd})
                   response = L["YOURBIDOF"].." "..cmd.." "..L["DKPWASACCEPTED"].."."
                 end
-                if core.DB.modes.BroadcastBids then
-                  CommDKP.Sync:SendData("CommDKPBidShare", Bids_Submitted)
-                end
+                BroadcastShare()
                 if Timer ~= 0 and Timer > (core.BiddingWindow.bidTimer:GetText() - 10) and core.DB.modes.AntiSnipe > 0 then
                   seconds = core.BiddingWindow.bidTimer:GetText().."{"..core.DB.modes.AntiSnipe
                   if core.BiddingWindow.maxBid:GetNumber() ~= 0 then
@@ -227,9 +385,7 @@ function CommDKP_CHAT_MSG_WHISPER(text, ...)
                   end
                 end
                 table.insert(Bids_Submitted, {player=name, dkp=dkp})
-                if core.DB.modes.BroadcastBids then
-                  CommDKP.Sync:SendData("CommDKPBidShare", Bids_Submitted)
-                end
+                BroadcastShare()
                 response = L["BIDWASACCEPTED"]
 
                 if Timer ~= 0 and Timer > (core.BiddingWindow.bidTimer:GetText() - 10) and core.DB.modes.AntiSnipe > 0 then
@@ -275,10 +431,11 @@ function CommDKP_CHAT_MSG_WHISPER(text, ...)
     end
 
     SendChatMessage(response, "WHISPER", nil, name)
+  elseif mode == "Bonus Roll" and string.find(text, "!") == 1 and core.IsOfficer == true then
+    HandleBonusRollChatWhisper(name, text);
   end
-
-
 end
+
 
 function CommDKP:WhisperAvailableDKP(name, cmd)
   local cmd = cmd or name;
@@ -421,10 +578,15 @@ function CommDKP:ToggleBidWindow(loot, lootIcon, itemName)
 
   if core.IsOfficer then
     if core.BiddingWindow == nil then
-      print("Bidding Window is Nil")
+      -- print("Bidding Window is Nil")
     end
 
     core.BiddingWindow = core.BiddingWindow or CommDKP:CreateBidWindow();
+
+    if mode == "Bonus Roll" then
+      events:RegisterEvent("CHAT_MSG_SYSTEM")
+      events:SetScript("OnEvent", Roll_OnEvent);
+    end
 
     if core.DB.bidpos then
        core.BiddingWindow:ClearAllPoints()
@@ -449,9 +611,7 @@ function CommDKP:ToggleBidWindow(loot, lootIcon, itemName)
     if loot then
       _, _, _, _, itemID, _, _, _, _, _, _, _, _, _ = string.find(loot,"|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
        Bids_Submitted = {}
-      if core.DB.modes.BroadcastBids then
-        CommDKP.Sync:SendData("CommDKPBidShare", Bids_Submitted)
-      end
+       BroadcastShare()
 
       CurrItemForBid = loot;
       CurrItemIcon = lootIcon
@@ -519,6 +679,28 @@ function CommDKP:ToggleBidWindow(loot, lootIcon, itemName)
           end
           core.DB.defaults.CustomMaxBid = self:GetChecked();
         end)
+      elseif mode == "Bonus Roll" then
+        core.BiddingWindow.CustomMinBid:Show();
+        core.BiddingWindow.CustomMinBid:SetChecked(core.DB.defaults.CustomMinBid)
+        core.BiddingWindow.CustomMinBid:SetScript("OnClick", function(self)
+          if self:GetChecked() == true then
+            core.BiddingWindow.minBid:SetText(CommDKP_round(minBid, core.DB.modes.rounding))
+          else
+            core.BiddingWindow.minBid:SetText(CommDKP:GetMinBid(CurrItemForBid))
+          end
+          core.DB.defaults.CustomMinBid = self:GetChecked();
+        end)
+
+        core.BiddingWindow.CustomMaxBid:Show();
+        core.BiddingWindow.CustomMaxBid:SetChecked(core.DB.defaults.CustomMaxBid)
+        core.BiddingWindow.CustomMaxBid:SetScript("OnClick", function(self)
+          if self:GetChecked() == true then
+            core.BiddingWindow.maxBid:SetText(CommDKP_round(maxBid, core.DB.modes.rounding))
+          else
+            core.BiddingWindow.maxBid:SetText(CommDKP:GetMaxBid(CurrItemForBid), core.DB.modes.rounding)
+          end
+          core.DB.defaults.CustomMaxBid = self:GetChecked();
+        end)
       elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
         core.BiddingWindow.CustomMinBid:Show();
         core.BiddingWindow.CustomMinBid:SetChecked(core.DB.defaults.CustomMinBid)
@@ -548,6 +730,9 @@ function CommDKP:ToggleBidWindow(loot, lootIcon, itemName)
         else
           core.BiddingWindow.maxBid:SetText(CommDKP_round(maxBid, core.DB.modes.rounding))
         end
+      elseif mode == "Bonus Roll" then
+        core.BiddingWindow.minBid:SetText(CommDKP_round(minBid, core.DB.modes.rounding))
+        core.BiddingWindow.maxBid:SetText(CommDKP_round(maxBid, core.DB.modes.rounding))
       end
 
       core.BiddingWindow.cost:SetText(CommDKP_round(minBid, core.DB.modes.rounding))
@@ -580,9 +765,12 @@ local function StartBidding()
   mode = core.DB.modes.mode;
   core.BidInProgress = true;
 
-  if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+  if CommDKP:UseMinAndMaxValues() then
     core.BiddingWindow.cost:SetNumber(CommDKP_round(core.BiddingWindow.minBid:GetNumber(), core.DB.modes.rounding))
-    if core.BiddingWindow.maxBid:GetNumber() ~= 0 then
+    if mode == "Bonus Roll" then
+      core.BiddingWindow.cost:SetNumber(0)
+      CommDKP:BroadcastBidTimer(core.BiddingWindow.bidTimer:GetText(), core.BiddingWindow.item:GetText(), CurrItemIcon)
+    elseif core.BiddingWindow.maxBid:GetNumber() ~= 0 then
       CommDKP:BroadcastBidTimer(core.BiddingWindow.bidTimer:GetText(), core.BiddingWindow.item:GetText().." Min Bid: "..core.BiddingWindow.minBid:GetText().." Max Bid: "..core.BiddingWindow.maxBid:GetText(), CurrItemIcon)
     else
       CommDKP:BroadcastBidTimer(core.BiddingWindow.bidTimer:GetText(), core.BiddingWindow.item:GetText().." Min Bid: "..core.BiddingWindow.minBid:GetText(), CurrItemIcon)
@@ -679,6 +867,9 @@ local function StartBidding()
         SendChatMessage(L["TAKINGBIDSON"].." "..core.BiddingWindow.item:GetText().." ("..core.BiddingWindow.minBid:GetText().." "..L["DKPMINBID"]..")", "RAID_WARNING")
       end
       SendChatMessage(L["TOBIDUSE"].." "..channelText.." "..L["TOSEND"].." !bid <"..L["VALUE"].."> (ex: !bid "..core.BiddingWindow.minBid:GetText().."). "..L["OR"].." !bid cancel "..L["TOWITHDRAWBID"], "RAID_WARNING")
+    elseif mode == "Bonus Roll" then
+      SendChatMessage(L["TAKINGBIDSON"].." "..core.BiddingWindow.item:GetText().." ("..core.BiddingWindow.minBid:GetText().." "..L["MINCOST"].." "..core.BiddingWindow.maxBid:GetText().." "..L["MAXCOST"]..")", "RAID_WARNING")
+      SendChatMessage(L["TOBIDUSE"].." "..channelText.." "..L["TOSEND"].." !bonus / !upgrade / !offspec / !pass", "RAID_WARNING")
     elseif mode == "Static Item Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
       SendChatMessage(L["TAKINGBIDSON"].." "..core.BiddingWindow.item:GetText().." ("..core.BiddingWindow.cost:GetText()..perc..")", "RAID_WARNING")
       SendChatMessage(L["TOBIDUSE"].." "..channelText.." "..L["TOSEND"].." !bid. "..L["OR"].." !bid cancel "..L["TOWITHDRAWBID"], "RAID_WARNING")
@@ -709,7 +900,9 @@ local function ToggleTimerBtn(self)
     core.BidAuctioneer = false;
     self:SetText(L["STARTBIDDING"])
     SendChatMessage(L["BIDDINGCLOSED"], "RAID_WARNING")
-    events:UnregisterEvent("CHAT_MSG_SYSTEM")
+    if mode ~= "Bonus Roll" then
+      events:UnregisterEvent("CHAT_MSG_SYSTEM")
+    end
     CommDKP:BroadcastStopBidTimer()
   end
 end
@@ -719,11 +912,9 @@ function CommDKP:ClearBidWindow()
   CurrItemIcon = "";
   Bids_Submitted = {}
   SelectedBidder = {}
-  if core.DB.modes.BroadcastBids then
-    CommDKP.Sync:SendData("CommDKPBidShare", Bids_Submitted)
-  end
+  BroadcastShare()
   core.BiddingWindow.cost:SetText("")
-  core.BiddingWindow.CustomMinBid:Hide();
+  -- core.BiddingWindow.CustomMinBid:Hide();
 
   core.BiddingWindow.ItemTooltipButton:SetSize(0,0)
   CommDKP:BidScrollFrame_Update()
@@ -761,7 +952,8 @@ function CommDKP:ClearBidWindow()
   timerToggle = 0;
   if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
     core.BiddingWindow.minBid:SetText("")
-    core.BiddingWindow.CustomMaxBid:Hide();
+    core.BiddingWindow.minBid:ClearFocus();
+    -- core.BiddingWindow.CustomMaxBid:Hide(); -- not sure
     core.BiddingWindow.maxBid:ClearFocus();
     core.BiddingWindow.maxBid:SetText("")
   end
@@ -889,7 +1081,9 @@ function CommDKP:StartBidTimer(seconds, title, itemIcon)
     if timer >= duration then
       if CurrItemForBid and core.BidInProgress then
         SendChatMessage(L["BIDDINGCLOSED"], "RAID_WARNING")
-        events:UnregisterEvent("CHAT_MSG_SYSTEM")
+        if mode ~= "Bonus Roll" then
+          events:UnregisterEvent("CHAT_MSG_SYSTEM")
+        end
       end
       core.BidInProgress = false;
       if _G["CommDKPBiddingStartBiddingButton"] then
@@ -1012,8 +1206,27 @@ function CommDKP:CreateTimer()
   return f;
 end
 
+local function CalculateBonusRollItemCost()
+    local cost
+    if not SelectedBidder["player"] then return end
+    if mode ~= "Bonus Roll" then return end
+
+    tprint(SelectedBidder)
+    if (SelectedBidder.command == "upgrade" or SelectedBidder.command == "offspec") then
+      cost = SelectedBidder.dkp
+    else
+      local min = core.BiddingWindow.minBid:GetNumber()
+      local max = core.BiddingWindow.maxBid:GetNumber()
+      local total = CommDKP_round(CommDKP:GetPlayerDKP(SelectedBidder.player) / 2, core.DB.modes.rounding);
+      cost = math.min(max, math.max(min, total))
+    end
+
+    core.BiddingWindow.cost:SetNumber(cost)
+end
+
 local function BidRow_OnClick(self)
-  if SelectedBidder.player == strsub(self.Strings[1]:GetText(), 1, strfind(self.Strings[1]:GetText(), " ")-1) then
+  local player = strsub(self.Strings[1]:GetText(), 1, strfind(self.Strings[1]:GetText(), " ")-1);
+  if SelectedBidder.player == player then
     for i=1, numrows do
       core.BiddingWindow.bidTable.Rows[i]:SetNormalTexture("Interface\\COMMON\\talent-blue-glow")
       core.BiddingWindow.bidTable.Rows[i]:GetNormalTexture():SetAlpha(0.2)
@@ -1024,15 +1237,27 @@ local function BidRow_OnClick(self)
       core.BiddingWindow.bidTable.Rows[i]:SetNormalTexture("Interface\\COMMON\\talent-blue-glow")
       core.BiddingWindow.bidTable.Rows[i]:GetNormalTexture():SetAlpha(0.2)
     end
-      self:SetNormalTexture("Interface\\AddOns\\CommunityDKP\\Media\\Textures\\ListBox-Highlight");
-      self:GetNormalTexture():SetAlpha(0.7)
+    self:SetNormalTexture("Interface\\AddOns\\CommunityDKP\\Media\\Textures\\ListBox-Highlight");
+    self:GetNormalTexture():SetAlpha(0.7)
 
-      if core.DB.modes.costvalue == "Percent" then
-        SelectedBidder = {player=strsub(self.Strings[1]:GetText(), 1, strfind(self.Strings[1]:GetText(), " ")-1), dkp=tonumber(self.Strings[3]:GetText())}
-      else
-        SelectedBidder = {player=strsub(self.Strings[1]:GetText(), 1, strfind(self.Strings[1]:GetText(), " ")-1), bid=tonumber(self.Strings[2]:GetText())}
+    if mode == "Bonus Roll" then
+      local p;
+      for k,v in pairs(Bids_Submitted) do
+        if v.player == player then
+          p = v;
+          break
+        end
       end
+      SelectedBidder = {player=player, dkp=p.dkp, command=p.command}
+    elseif core.DB.modes.costvalue == "Percent" then
+      SelectedBidder = {player=player, dkp=tonumber(self.Strings[3]:GetText())}
+    else
+      SelectedBidder = {player=player, bid=tonumber(self.Strings[2]:GetText())}
     end
+  end
+  if mode == "Bonus Roll" then
+    CalculateBonusRollItemCost();
+  end
 end
 
 local function RightClickMenu(self)
@@ -1046,9 +1271,7 @@ local function RightClickMenu(self)
         SendChatMessage(L["YOURBID"].." "..L["MANUALLYDENIED"], "WHISPER", nil, Bids_Submitted[self.index].player)
       end
       table.remove(Bids_Submitted, self.index)
-      if core.DB.modes.BroadcastBids then
-        CommDKP.Sync:SendData("CommDKPBidShare", Bids_Submitted)
-      end
+      BroadcastShare()
       SelectedBidder = {}
       for i=1, #core.BiddingWindow.bidTable.Rows do
         core.BiddingWindow.bidTable.Rows[i]:SetNormalTexture("Interface\\COMMON\\talent-blue-glow")
@@ -1101,18 +1324,20 @@ end
 local function SortBidTable()             -- sorts the Loot History Table by date
   mode = core.DB.modes.mode;
   table.sort(Bids_Submitted, function(a, b)
-      if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
         return a["bid"] > b["bid"]
       elseif mode == "Static Item Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
         return a["dkp"] > b["dkp"]
       elseif mode == "Roll Based Bidding" then
         return a["roll"] > b["roll"]
+      elseif mode == "Bonus Roll" then
+        return (a["dkp"] + (a["roll"] or 0)) > (b["dkp"] + (b["roll"] or 0))
       end
     end)
 end
 
 function CommDKP:BidScrollFrame_Update()
-  print("Updating bidscroll");
+  -- print("Updating bidscroll");
   local numOptions = #Bids_Submitted;
   local index, row
     local offset = FauxScrollFrame_GetOffset(core.BiddingWindow.bidTable) or 0
@@ -1143,6 +1368,9 @@ function CommDKP:BidScrollFrame_Update()
             if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
               row.Strings[2]:SetText(Bids_Submitted[i].bid)
               row.Strings[3]:SetText(CommDKP_round(CommDKP:GetTable(CommDKP_DKPTable, true)[dkp_total[1][1]].dkp, core.DB.modes.rounding))
+            elseif mode == "Bonus Roll" then
+              row.Strings[2]:SetText(Bids_Submitted[i].dkp)
+              row.Strings[3]:SetText(Bids_Submitted[i].roll or Bids_Submitted[i].command)
             elseif mode == "Roll Based Bidding" then
               local minRoll;
               local maxRoll;
@@ -1191,8 +1419,10 @@ function CommDKP:BidScrollFrame_Update()
           core.BiddingWindow.cost:SetText(core.BiddingWindow.minBid:GetText())
         end
       end
-  end
+    end
     --FauxScrollFrame_Update(core.BiddingWindow.bidTable, numOptions, numrows, height, nil, nil, nil, nil, nil, nil, true) -- alwaysShowScrollBar= true to stop frame from hiding
+
+    CalculateBonusRollItemCost();
 end
 
 function CommDKP:CreateBidWindow()
@@ -1252,6 +1482,11 @@ function CommDKP:CreateBidWindow()
 
   f.closeBtn = CreateFrame("Button", nil, f, "UIPanelCloseButton")
   f.closeBtn:SetPoint("CENTER", f.closeContainer, "TOPRIGHT", -14, -14)
+  f.closeBtn:HookScript("OnClick", function()
+    if mode == "Bonus Roll" then
+      events:UnregisterEvent("CHAT_MSG_SYSTEM")
+    end
+  end)
 
   if core.IsOfficer then
     f.bossHeader = f:CreateFontString(nil, "OVERLAY")
@@ -1318,7 +1553,7 @@ function CommDKP:CreateBidWindow()
     f.minBidHeader:SetScale(0.7)
     f.minBidHeader:SetPoint("TOP", f.itemHeader, "BOTTOM", -30, -25);
 
-    if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if mode == "Minimum Bid Values" or mode == "Bonus Roll" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
       -- Min Bid
       f.minBidHeader:SetText(L["MINIMUMBID"]..": ")
 
@@ -1376,7 +1611,7 @@ function CommDKP:CreateBidWindow()
     end)
 
     -- Max Bid
-    if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if mode == "Minimum Bid Values" or mode == "Bonus Roll" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
       f.maxBidHeader = f:CreateFontString(nil, "OVERLAY")
       f.maxBidHeader:SetFontObject("CommDKPLargeRight");
       f.maxBidHeader:SetScale(0.7)
@@ -1439,7 +1674,7 @@ function CommDKP:CreateBidWindow()
     f.bidTimerHeader = f:CreateFontString(nil, "OVERLAY")
     f.bidTimerHeader:SetFontObject("CommDKPLargeRight");
     f.bidTimerHeader:SetScale(0.7)
-  if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if mode == "Minimum Bid Values" or mode == "Bonus Roll" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
     f.bidTimerHeader:SetPoint("TOP", f.maxBidHeader, "BOTTOM", 13, -25);
   else
     f.bidTimerHeader:SetPoint("TOP", f.minBidHeader, "BOTTOM", 13, -25);
@@ -1600,28 +1835,33 @@ function CommDKP:CreateBidWindow()
     headerButtons.dkp = CreateFrame("Button", "$ParentSuttonDkp", f.BidTable_Headers)
 
     headerButtons.player:SetPoint("LEFT", f.BidTable_Headers, "LEFT", 2, 0)
+    headerButtons.player:SetSize((width/2)-1, height)
     headerButtons.bid:SetPoint("LEFT", headerButtons.player, "RIGHT", 0, 0)
+    headerButtons.bid:SetSize((width/4)-1, height)
     headerButtons.dkp:SetPoint("RIGHT", f.BidTable_Headers, "RIGHT", -1, 0)
+    headerButtons.dkp:SetSize((width/4)-1, height)
 
-    for k, v in pairs(headerButtons) do
-      v:SetHighlightTexture("Interface\\BUTTONS\\BlueGrad64_faded.blp");
-      if k == "player" then
-        if mode == "Minimum Bid Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
-          v:SetSize((width/2)-1, height)
-        elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
-          v:SetSize((width*0.75)-1, height)
-        end
-      else
-        if mode == "Minimum Bid Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
-          v:SetSize((width/4)-1, height)
-        elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
-          if k == "bid" then
-            v:Hide()
-          else
-            v:SetSize((width/4)-1, height)
+    if (mode ~= "Bonus Roll") then
+      for k, v in pairs(headerButtons) do
+        v:SetHighlightTexture("Interface\\BUTTONS\\BlueGrad64_faded.blp");
+        if k == "player" then
+          if mode == "Minimum Bid Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+            v:SetSize((width/2)-1, height)
+          elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
+            v:SetSize((width*0.75)-1, height)
           end
-        end
+        else
+          if mode == "Minimum Bid Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+            v:SetSize((width/4)-1, height)
+          elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
+            if k == "bid" then
+              v:Hide()
+            else
+              v:SetSize((width/4)-1, height)
+            end
+          end
 
+        end
       end
     end
 
@@ -1638,6 +1878,8 @@ function CommDKP:CreateBidWindow()
 
     if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
       headerButtons.bid.t:SetText(L["BID"]);
+    elseif mode == "Bonus Roll" then
+      headerButtons.bid.t:SetText("DKP")
     elseif mode == "Static Item Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
       headerButtons.bid.t:Hide();
     elseif mode == "Roll Based Bidding" then
@@ -1651,6 +1893,8 @@ function CommDKP:CreateBidWindow()
 
     if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
       headerButtons.dkp.t:SetText(L["TOTALDKP"]);
+    elseif mode == "Bonus Roll" then
+      headerButtons.dkp.t:SetText("Roll")
     elseif mode == "Static Item Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
       headerButtons.dkp.t:SetText(L["DKP"]);
     elseif mode == "Roll Based Bidding" then
@@ -1703,7 +1947,7 @@ function CommDKP:CreateBidWindow()
       f.cost:SetTextInsets(10, 15, 5, 5)
     end
 
-    if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if mode == "Minimum Bid Values" or mode == "Bonus Roll" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
       f.CustomMinBid:SetPoint("LEFT", f.minBid, "RIGHT", 10, 0);
       f.CustomMaxBid:SetPoint("LEFT", f.maxBid, "RIGHT", 10, 0);
     elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
@@ -1713,7 +1957,9 @@ function CommDKP:CreateBidWindow()
     f.StartBidding = CommDKP:CreateButton("LEFT", f.cost, "RIGHT", 80, 0, L["AWARDITEM"]);
     f.StartBidding:SetSize(90,25)
     f.StartBidding:SetScript("OnClick", function ()  -- confirmation dialog to remove user(s)
+
       if SelectedBidder["player"] then
+        CalculateBonusRollItemCost();
         if strlen(strtrim(core.BiddingWindow.boss:GetText(), " ")) < 1 then       -- verifies there is a boss name
           StaticPopupDialogs["VALIDATE_BOSS"] = {
             text = L["INVALIDBOSSNAME"],

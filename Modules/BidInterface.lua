@@ -25,12 +25,14 @@ end
 local function SortBidTable()
   mode = core.DB.modes.mode;
   table.sort(Bids_Submitted, function(a, b)
-      if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
         return a["bid"] > b["bid"]
       elseif mode == "Static Item Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
         return a["dkp"] > b["dkp"]
       elseif mode == "Roll Based Bidding" then
         return a["roll"] > b["roll"]
+      elseif mode == "Bonus Roll" then
+        return (a["dkp"] + (a["roll"] or 0)) > (b["dkp"] + (b["roll"] or 0))
       end
     end)
 end
@@ -107,23 +109,37 @@ local function UpdateBidderWindow()
 		core.BidInterface.MinBidHeader:SetText(L["MINIMUMBID"]..":")
 		core.BidInterface.SubmitBid:SetPoint("LEFT", core.BidInterface.Bid, "RIGHT", 8, 0)
 		core.BidInterface.SubmitBid:SetText(L["SUBMITBID"])
+		core.BidInterface.CancelBid:SetText(L["CANCELBID"])
 		core.BidInterface.Bid:Show();
 		core.BidInterface.CancelBid:Show();
+		core.BidInterface.Pass:Hide();
+		core.BidInterface.Offspec:Hide();
+	elseif mode == "Bonus Roll" then
+		core.BidInterface.MinBidHeader:SetText(L["MINIMUMBID"]..":")
+		core.BidInterface.SubmitBid:SetPoint("LEFT", core.BidInterface.Bid, "RIGHT", 8, 0)
+		core.BidInterface.SubmitBid:SetText(L["BONUS"])
+		core.BidInterface.CancelBid:Show();
+		core.BidInterface.CancelBid:SetText(L["UPGRADE"])
+		core.BidInterface.Bid:Hide();
 		core.BidInterface.Pass:Show();
-	elseif mode == "Roll Based Bidding" then
+		core.BidInterface.Offspec:Show();
+	elseif mode == "Roll Based Bidding" or mode == "Bonus Roll" then
 		core.BidInterface.MinBidHeader:SetText(L["ITEMCOST"]..":")
 		core.BidInterface.SubmitBid:SetPoint("LEFT", core.BidInterface.BidHeader, "RIGHT", 8, 0)
 		core.BidInterface.SubmitBid:SetText(L["ROLL"])
 		core.BidInterface.Bid:Hide();
 		core.BidInterface.CancelBid:Hide();
-		core.BidInterface.Pass:Hide();
+		core.BidInterface.Pass:Show();
+		core.BidInterface.Offspec:Hide();
 	else
 		core.BidInterface.MinBidHeader:SetText(L["ITEMCOST"]..":")
 		core.BidInterface.SubmitBid:SetPoint("LEFT", core.BidInterface.BidHeader, "RIGHT", 8, 0)
 		core.BidInterface.SubmitBid:SetText(L["SUBMITBID"])
+		core.BidInterface.CancelBid:SetText(L["CANCELBID"])
 		core.BidInterface.Bid:Hide();
 		core.BidInterface.CancelBid:Show();
-		core.BidInterface.Pass:Show();
+		core.BidInterface.Pass:Hide();
+		core.BidInterface.Offspec:Hide();
 	end
 
 
@@ -180,6 +196,11 @@ function CommDKP_BidInterface_Update()
             if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
               row.Strings[2]:SetText(Bids_Submitted[i].bid)
               row.Strings[3]:SetText(CommDKP_round(CommDKP:GetTable(CommDKP_DKPTable, true)[dkp_total[1][1]].dkp, core.DB.modes.rounding))
+            elseif mode == "Bonus Roll" then
+              local minRoll = 1;
+              local maxRoll = 100;
+              row.Strings[2]:SetText(Bids_Submitted[i].roll..Bids_Submitted[i].range)
+              row.Strings[3]:SetText(math.floor(minRoll).."-"..math.floor(maxRoll))
             elseif mode == "Roll Based Bidding" then
               local minRoll;
               local maxRoll;
@@ -229,7 +250,7 @@ function CommDKP:BidInterface_Toggle()
   if core.BidInterface:IsShown() then core.BidInterface:Hide(); end
   if CommDKP.BidTimer.OpenBid and CommDKP.BidTimer.OpenBid:IsShown() then CommDKP.BidTimer.OpenBid:Hide() end
   if core.DB.modes.BroadcastBids and not core.BiddingWindow then
-    if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if CommDKP:UseMinAndMaxValues() then
       core.BidInterface:SetHeight(532);
     else
       core.BidInterface:SetHeight(504);
@@ -238,18 +259,18 @@ function CommDKP:BidInterface_Toggle()
     for k, v in pairs(f.headerButtons) do
       v:SetHighlightTexture("Interface\\BUTTONS\\BlueGrad64_faded.blp");
       if k == "player" then
-        if mode == "Minimum Bid Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+        if mode == "Minimum Bid Values" or mode == "Roll Based Bidding" or mode == "Bonus Roll" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
           v:SetSize((width/2)-1, height)
           v:Show()
-        elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
+        elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or mode == "Bonus Roll" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
           v:SetSize((width*0.75)-1, height)
           v:Show()
         end
       else
-        if mode == "Minimum Bid Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+        if mode == "Minimum Bid Values" or mode == "Roll Based Bidding" or mode == "Bonus Roll" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
           v:SetSize((width/4)-1, height)
           v:Show();
-        elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
+        elseif mode == "Static Item Values" or mode == "Roll Based Bidding" or mode == "Bonus Roll" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
           if k == "bid" then
             v:Hide()
           else
@@ -265,6 +286,8 @@ function CommDKP:BidInterface_Toggle()
       f.headerButtons.bid.t:Show();
     elseif mode == "Static Item Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
       f.headerButtons.bid.t:Hide();
+    elseif mode == "Bonus Roll" then
+      f.headerButtons.bid.t:Hide();
     elseif mode == "Roll Based Bidding" then
       f.headerButtons.bid.t:SetText(L["PLAYERROLL"])
       f.headerButtons.bid.t:Show()
@@ -274,6 +297,9 @@ function CommDKP:BidInterface_Toggle()
       f.headerButtons.dkp.t:SetText(L["TOTALDKP"]);
       f.headerButtons.dkp.t:Show();
     elseif mode == "Static Item Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Static") then
+      f.headerButtons.dkp.t:SetText(L["DKP"]);
+      f.headerButtons.dkp.t:Show()
+    elseif mode == "Bonus Roll" then
       f.headerButtons.dkp.t:SetText(L["DKP"]);
       f.headerButtons.dkp.t:Show()
     elseif mode == "Roll Based Bidding" then
@@ -305,14 +331,14 @@ function CommDKP:BidInterface_Toggle()
   end
 
   if not core.DB.modes.BroadcastBids or core.BiddingWindow then
-    if core.DB.modes.mode == "Minimum Bid Values" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if CommDKP:UseMinAndMaxValues() then
       core.BidInterface:SetHeight(259);
     else
       core.BidInterface:SetHeight(231);
     end
     core.BidInterface.bidTable:Hide();
   else
-    if core.DB.modes.mode == "Minimum Bid Values" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if CommDKP:UseMinAndMaxValues() then
       core.BidInterface:SetHeight(532);
     else
       core.BidInterface:SetHeight(504);
@@ -416,7 +442,19 @@ function CommDKP:CurrItem_Set(item, value, icon, value2)
     core.BidInterface.Bid:SetNumber(value);
   end
 
-  if core.DB.modes.mode ~= "Roll Based Bidding" then
+  if core.DB.modes.mode == "Bonus Roll" then
+    core.BidInterface.SubmitBid:SetScript("OnClick", function()
+      local message;
+      message = "!bonus";
+      CommDKP.Sync:SendData("CommDKPBidder", tostring(message))
+      core.BidInterface.Bid:ClearFocus();
+    end)
+
+    core.BidInterface.CancelBid:SetScript("OnClick", function()
+      CommDKP.Sync:SendData("CommDKPBidder", "!upgrade")
+      core.BidInterface.Bid:ClearFocus();
+    end)
+  elseif core.DB.modes.mode ~= "Roll Based Bidding" then
     core.BidInterface.SubmitBid:SetScript("OnClick", function()
       local message;
 
@@ -442,14 +480,14 @@ function CommDKP:CurrItem_Set(item, value, icon, value2)
   end
 
   if not core.DB.modes.BroadcastBids or core.BidInProgress then
-    if core.DB.modes.mode == "Minimum Bid Values" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if CommDKP:UseMinAndMaxValues() then
       core.BidInterface:SetHeight(259);
     else
       core.BidInterface:SetHeight(231);
     end
     core.BidInterface.bidTable:Hide();
   else
-    if core.DB.modes.mode == "Minimum Bid Values" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if CommDKP:UseMinAndMaxValues() then
       core.BidInterface:SetHeight(532);
     else
       core.BidInterface:SetHeight(504);
@@ -486,7 +524,7 @@ function CommDKP:BidInterface_Create()
   local f = CreateFrame("Frame", "CommDKP_BidderWindow", UIParent, "ShadowOverlaySmallTemplate");
   local mode = core.DB.modes.mode;
   f:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 700, -200);
-  if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+  if CommDKP:UseMinAndMaxValues() then
     f:SetSize(400, 532);
   else
     f:SetSize(400, 504);
@@ -588,7 +626,7 @@ function CommDKP:BidInterface_Create()
   f.MinBid:SetPoint("LEFT", f.MinBidHeader, "RIGHT", 8, 0);
   f.MinBid:SetSize(200, 28)
 
-  if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+  if CommDKP:UseMinAndMaxValues() then
     f.MaxBidHeader = f:CreateFontString(nil, "OVERLAY")
     f.MaxBidHeader:SetFontObject("CommDKPLargeRight");
     f.MaxBidHeader:SetScale(0.7)
@@ -605,7 +643,7 @@ function CommDKP:BidInterface_Create()
   f.BidHeader:SetFontObject("CommDKPLargeRight");
   f.BidHeader:SetScale(0.7)
   f.BidHeader:SetText(L["BID"]..":")
-  if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+  if CommDKP:UseMinAndMaxValues() then
     f.BidHeader:SetPoint("TOPRIGHT", f.MaxBidHeader, "BOTTOMRIGHT", 0, -20);
   else
     f.BidHeader:SetPoint("TOPRIGHT", f.MinBidHeader, "BOTTOMRIGHT", 0, -20);
@@ -728,7 +766,7 @@ function CommDKP:BidInterface_Create()
     end
   end)
 
-    f.SubmitBid = CreateFrame("Button", nil, f, "CommunityDKPButtonTemplate")
+  f.SubmitBid = CreateFrame("Button", nil, f, "CommunityDKPButtonTemplate")
   f.SubmitBid:SetPoint("LEFT", f.Bid, "RIGHT", 8, 0);
   f.SubmitBid:SetSize(90,25)
   f.SubmitBid:SetText(L["SUBMITBID"]);
@@ -749,7 +787,7 @@ function CommDKP:BidInterface_Create()
   end)
 
   f.Pass = CreateFrame("Button", nil, f, "CommunityDKPButtonTemplate")
-  f.Pass:SetPoint("TOPLEFT", f.SubmitBid, "BOTTOM", 5, -5);
+  f.Pass:SetPoint("TOPLEFT", f.CancelBid, "BOTTOMLEFT", 0, -5);
   f.Pass:SetSize(90,25)
   f.Pass:SetText(L["PASS"]);
   f.Pass:GetFontString():SetTextColor(1, 1, 1, 1)
@@ -757,8 +795,20 @@ function CommDKP:BidInterface_Create()
   f.Pass:SetHighlightFontObject("CommDKPSmallCenter");
   f.Pass:SetScript("OnClick", function()
     f.Bid:ClearFocus();
-    CommDKP.Sync:SendData("CommDKPBidder", "pass")
+    CommDKP.Sync:SendData("CommDKPBidder", "!pass")
     core.BidInterface:Hide()
+  end)
+
+  f.Offspec = CreateFrame("Button", nil, f, "CommunityDKPButtonTemplate")
+  f.Offspec:SetPoint("TOPLEFT", f.SubmitBid, "BOTTOMLEFT", 0, -5);
+  f.Offspec:SetSize(90,25)
+  f.Offspec:SetText(L["OFFSPEC"]);
+  f.Offspec:GetFontString():SetTextColor(1, 1, 1, 1)
+  f.Offspec:SetNormalFontObject("CommDKPSmallCenter");
+  f.Offspec:SetHighlightFontObject("CommDKPSmallCenter");
+  f.Offspec:SetScript("OnClick", function()
+    CommDKP.Sync:SendData("CommDKPBidder", "!offspec")
+    core.BidInterface.Bid:ClearFocus();
   end)
 
   if core.DB.defaults.AutoOpenBid == nil then
@@ -858,7 +908,7 @@ function CommDKP:BidInterface_Create()
 
   if not core.DB.modes.BroadcastBids then
     f.bidTable:Hide();
-    if mode == "Minimum Bid Values" or (mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if CommDKP:UseMinAndMaxValues() then
       f:SetHeight(259);
     else
       f:SetHeight(231);

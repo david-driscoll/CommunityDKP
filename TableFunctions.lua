@@ -678,7 +678,7 @@ local function CreateRow(parent, id) -- Create 3 buttons for each row in the lis
 				f.DKPInfo[i].adjusted:SetTextColor(1, 1, 1, 0.6);
 				f.DKPInfo[i].adjusted:SetPoint("LEFT", f.DKPInfo[3], "RIGHT", 3, -1);
 
-				if core.DB.modes.mode == "Roll Based Bidding" then
+				if core.DB.modes.mode == "Roll Based Bidding" or core.DB.modes.mode == "Bonus Roll" then
 					f.DKPInfo[i].rollrange = f:CreateFontString(nil, "OVERLAY");
 					f.DKPInfo[i].rollrange:SetFontObject("CommDKPSmallOutlineLeft")
 					f.DKPInfo[i].rollrange:SetScale("0.8")

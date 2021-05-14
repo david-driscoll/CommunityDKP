@@ -4,22 +4,22 @@ local CommDKP = core.CommDKP;
 core.BossList = {
   MC = {
     "Lucifron", "Magmadar", "Gehennas",
-    "Garr", "Baron Geddon", "Shazzrah", "Sulfuron Harbinger", 
+    "Garr", "Baron Geddon", "Shazzrah", "Sulfuron Harbinger",
     "Golemagg the Incinerator", "Majordomo Executus", "Ragnaros"
   },
   BWL = {
     "Razorgore the Untamed", "Vaelastrasz the Corrupt", "Broodlord Lashlayer",
-    "Firemaw", "Ebonroc", "Flamegor", "Chromaggus", 
+    "Firemaw", "Ebonroc", "Flamegor", "Chromaggus",
     "Nefarian"
   },
   AQ = {
     "The Prophet Skeram", "Battleguard Sartura", "Fankriss the Unyielding",
-    "Princess Huhuran", "Twin Emperors", "C'Thun", 
+    "Princess Huhuran", "Twin Emperors", "C'Thun",
     "Bug Family", "Viscidus", "Ouro"
   },
   NAXX = {
     "Anub'Rekhan", "Grand Widow Faerlina", "Maexxna",
-    "Noth the Plaguebringer", "Heigan the Unclean", "Loatheb", 
+    "Noth the Plaguebringer", "Heigan the Unclean", "Loatheb",
     "Instructor Razuvious", "Gothik the Harvester", "The Four Horsemen",
     "Patchwerk", "Grobbulus", "Gluth", "Thaddius",
     "Sapphiron", "Kel'Thuzad"
@@ -599,7 +599,7 @@ core.L = {
   TEAMMANAGEMENTHEADER = "Guild team management section",
   TEAMSELECT = "Select Team",
   TEAMCHANGERAIDINPROGRESS = "You can't change currently selected team while raid is in progress!",
-  NOTEAMCHOSEN = "Please pick a team from drop down to change it's name", 
+  NOTEAMCHOSEN = "Please pick a team from drop down to change it's name",
   TENSECONDSTOBID = "10 Seconds left to bid!",
   THISWILLREFUND = "This will refund",
   TIMEELAPSED = "Time Elapsed",
@@ -692,6 +692,8 @@ core.L = {
   NEWHIGHBID = "New highest bid is",
   NEWHIGHBIDDER = "New highest bidder is",
   SUBMITBID = "Submit Bid",
+  UPGRADE = "Upgrade",
+  OFFSPEC = "Offspec",
   CANCELBID = "Cancel Bid",
   CANTCANCELROLL = "You don't have permission to cancel a roll.",
   ROLL = "Roll",
@@ -757,7 +759,7 @@ core.L = {
   ONLINEONLYTTDESC = "This will only award raid DKP to players that are online. (For use with auto award, raid timer and zero sum distribution)",
   INZONEONLY = "In Same Zone",
   INZONEONLYTTDESC = "This will only award raid DKP to players that are in the same zone as you. (For use with auto award, raid timer and zero sum distribution)",
-  
+
   UPDATING = "Updating: ",
   WIPETABLES = "Wipe Tables",
   WIPETABLESCONF = "Are you sure you'd like to delete all tables? You can retrieve all information from an officer when one is online.",

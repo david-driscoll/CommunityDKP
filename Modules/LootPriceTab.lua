@@ -102,7 +102,9 @@ function CommDKP:ProcessDisenchant(loot)
 
 			newItem.lastbid = cost;
 			newItem.disenchants = updatedDisenchants;
-
+		elseif mode == "Bonus Roll" then
+			SendChatMessage("No bids for ".." "..itemLink.." and will be disenchanted.", "RAID_WARNING");
+			return
 		else
 			minBid = CommDKP_round(core.BiddingWindow.minBid:GetNumber(), core.DB.modes.rounding);
 			newItem.minbid = minBid;

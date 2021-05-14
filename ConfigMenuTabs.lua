@@ -7,17 +7,17 @@ local L = core.L;
 --  When clicking a box off, unchecks "All" as well and flags checkAll to false
 --
 local checkAll = true;                    -- changes to false when less than all of the boxes are checked
-local curReason;                          -- stores user input in dropdown 
+local curReason;                          -- stores user input in dropdown
 
 local function ScrollFrame_OnMouseWheel(self, delta)          -- scroll function for all but the DKPTable frame
 	local newValue = self:GetVerticalScroll() - (delta * 20);   -- DKPTable frame uses FauxScrollFrame_OnVerticalScroll()
-	
+
 	if (newValue < 0) then
 		newValue = 0;
 	elseif (newValue > self:GetVerticalScrollRange()) then
 		newValue = self:GetVerticalScrollRange();
 	end
-	
+
 	self:SetVerticalScroll(newValue);
 end
 
@@ -53,7 +53,7 @@ end
 
 local function Tab_OnClick(self)
 	PanelTemplates_SetTab(self:GetParent(), self:GetID());
-	
+
 	if self:GetID() > 4 then
 		self:GetParent().ScrollFrame.ScrollBar:Show()
 	elseif self:GetID() == 4 and core.IsOfficer == true then
@@ -76,7 +76,7 @@ local function Tab_OnClick(self)
 	if (scrollChild) then
 		scrollChild:Hide();
 	end
-	
+
 	PlaySound(808)
 	self:GetParent().ScrollFrame:SetScrollChild(self.content);
 	self.content:Show();
@@ -85,38 +85,38 @@ end
 
 function CommDKP:SetTabs(frame, numTabs, width, height, ...)
 	frame.numTabs = numTabs;
-	
+
 	local contents = {};
 	local frameName = frame:GetName();
-	
-	for i = 1, numTabs do 
+
+	for i = 1, numTabs do
 		local tab = CreateFrame("Button", frameName.."Tab"..i, frame, "CommDKPTabButtonTemplate");
 		tab:SetID(i);
 		tab:SetText(select(i, ...));
 		tab:GetFontString():SetFontObject("CommDKPSmallOutlineCenter")
 		tab:GetFontString():SetTextColor(0.7, 0.7, 0.86, 1)
 		tab:SetScript("OnClick", Tab_OnClick);
-		
+
 		tab.content = CreateFrame("Frame", nil, frame.ScrollFrame);
 		tab.content:SetSize(width, height);
 		tab.content:Hide();
-				
+
 		table.insert(contents, tab.content);
-		
+
 		if (i == 1) then
 			tab:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", -5, 1);
 		else
 			tab:SetPoint("TOPLEFT", _G[frameName.."Tab"..(i - 1)], "TOPRIGHT", -17, 0);
-		end 
+		end
 	end
-	
+
 	Tab_OnClick(_G[frameName.."Tab1"]);
-	
+
 	return unpack(contents);
 end
 
 ---------------------------------------
--- Populate Tabs 
+-- Populate Tabs
 ---------------------------------------
 function CommDKP:ConfigMenuTabs()
 	---------------------------------------
@@ -126,7 +126,7 @@ function CommDKP:ConfigMenuTabs()
 	CommDKP.UIConfig.TabMenu:SetPoint("TOPRIGHT", CommDKP.UIConfig, "TOPRIGHT", -25, -25); --Moves the entire tabframe (defaults -25, -25)
 	CommDKP.UIConfig.TabMenu:SetSize(535, 510);  --default: 477,510
 	CommDKP.UIConfig.TabMenu:SetBackdrop( {
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,  
+		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	CommDKP.UIConfig.TabMenu:SetBackdropColor(0,0,0,0.9);
@@ -145,14 +145,18 @@ function CommDKP:ConfigMenuTabs()
 	CommDKP.UIConfig.TabMenu.ScrollFrame:SetPoint("BOTTOMRIGHT", CommDKP.UIConfig.TabMenu, "BOTTOMRIGHT", -3, 4);
 	CommDKP.UIConfig.TabMenu.ScrollFrame:SetClipsChildren(false);
 	CommDKP.UIConfig.TabMenu.ScrollFrame:SetScript("OnMouseWheel", ScrollFrame_OnMouseWheel);
-	
+
 	CommDKP.UIConfig.TabMenu.ScrollFrame.ScrollBar:Hide();
 	CommDKP.UIConfig.TabMenu.ScrollFrame.ScrollBar = CreateFrame("Slider", nil, CommDKP.UIConfig.TabMenu.ScrollFrame, "UIPanelScrollBarTrimTemplate")
 	CommDKP.UIConfig.TabMenu.ScrollFrame.ScrollBar:ClearAllPoints();
 	CommDKP.UIConfig.TabMenu.ScrollFrame.ScrollBar:SetPoint("TOPLEFT", CommDKP.UIConfig.TabMenu.ScrollFrame, "TOPRIGHT", -20, -12);
 	CommDKP.UIConfig.TabMenu.ScrollFrame.ScrollBar:SetPoint("BOTTOMRIGHT", CommDKP.UIConfig.TabMenu.ScrollFrame, "BOTTOMRIGHT", -2, 15);
 
-	CommDKP.ConfigTab1, CommDKP.ConfigTab2, CommDKP.ConfigTab3, CommDKP.ConfigTab4, CommDKP.ConfigTab5, CommDKP.ConfigTab6, CommDKP.ConfigTab7 = CommDKP:SetTabs(CommDKP.UIConfig.TabMenu, 7, 533, 490, L["FILTERS"], L["ADJUSTDKP"], L["MANAGE"], L["OPTIONS"], L["LOOTHISTORY"], L["DKPHISTORY"], L["PRICETAB"]);
+	if core.DB.modes.mode == "Bonus Roll" then
+		CommDKP.ConfigTab1, CommDKP.ConfigTab2, CommDKP.ConfigTab3, CommDKP.ConfigTab4, CommDKP.ConfigTab5, CommDKP.ConfigTab6 = CommDKP:SetTabs(CommDKP.UIConfig.TabMenu, 6, 533, 490, L["FILTERS"], L["ADJUSTDKP"], L["MANAGE"], L["OPTIONS"], L["LOOTHISTORY"], L["DKPHISTORY"]);
+	else
+		CommDKP.ConfigTab1, CommDKP.ConfigTab2, CommDKP.ConfigTab3, CommDKP.ConfigTab4, CommDKP.ConfigTab5, CommDKP.ConfigTab6, CommDKP.ConfigTab7 = CommDKP:SetTabs(CommDKP.UIConfig.TabMenu, 7, 533, 490, L["FILTERS"], L["ADJUSTDKP"], L["MANAGE"], L["OPTIONS"], L["LOOTHISTORY"], L["DKPHISTORY"], L["PRICETAB"]);
+	end
 
 	---------------------------------------
 	-- MENU TAB 1
@@ -249,7 +253,9 @@ function CommDKP:ConfigMenuTabs()
 	---------------------------------------
 	-- Price  TAB
 	---------------------------------------
-	CommDKP:PriceTab_Create()
+	if core.DB.modes.mode ~= "Bonus Roll" then
+		CommDKP:PriceTab_Create()
+	end
 
 	---------------------------------------
 	-- Manage DKP TAB

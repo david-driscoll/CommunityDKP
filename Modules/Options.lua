@@ -13,7 +13,7 @@ local function DrawPercFrame(box)
   CommDKP.ConfigTab4.DefaultMinBids.SlotBox[box].perc:SetPoint("LEFT", CommDKP.ConfigTab4.DefaultMinBids.SlotBox[box], "RIGHT", -15, 0);
   CommDKP.ConfigTab4.DefaultMinBids.SlotBox[box].perc:SetText("%")
 
-  if core.DB.modes.mode == "Minimum Bid Values" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+  if CommDKP:UseMinAndMaxValues() then
     CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[box].perc = CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[box]:CreateFontString(nil, "OVERLAY")
     CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[box].perc:SetFontObject("CommDKPNormalLeft");
     CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[box].perc:SetPoint("LEFT", CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[box], "RIGHT", -15, 0);
@@ -55,7 +55,7 @@ local function SaveSettings()
     core.DB.MinBidBySlot.Range = CommDKP.ConfigTab4.DefaultMinBids.SlotBox[16]:GetNumber()
     core.DB.MinBidBySlot.Other = CommDKP.ConfigTab4.DefaultMinBids.SlotBox[17]:GetNumber()
 
-    if core.DB.modes.mode == "Minimum Bid Values" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if CommDKP:UseMinAndMaxValues() then
       core.DB.MaxBidBySlot.Head = CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[1]:GetNumber()
       core.DB.MaxBidBySlot.Neck = CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[2]:GetNumber()
       core.DB.MaxBidBySlot.Shoulders = CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[3]:GetNumber()
@@ -376,6 +376,13 @@ function CommDKP:Options()
         elseif core.DB.modes.costvalue == "Percent" then
           prefix = L["PERCENTCOST"]
         end
+      elseif core.DB.modes.mode == "Bonus Roll" then
+        CommDKP.ConfigTab4.DefaultMinBids.description:SetText("|CFFcca600"..L["DEFAULTMINBIDVALUES"].."|r");
+        if core.DB.modes.costvalue == "Integer" then
+          prefix = L["DKPPRICE"]
+        elseif core.DB.modes.costvalue == "Percent" then
+          prefix = L["PERCENTCOST"]
+        end
       elseif core.DB.modes.mode == "Zero Sum" then
         CommDKP.ConfigTab4.DefaultMinBids.description:SetText("|CFFcca600"..L["DEFAULTITEMCOSTS"].."|r");
         if core.DB.modes.costvalue == "Integer" then
@@ -517,7 +524,7 @@ function CommDKP:Options()
         GameTooltip:Hide()
       end)
     -- Default Maximum Bids Container Frame
-    if core.DB.modes.mode == "Minimum Bid Values" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if CommDKP:UseMinAndMaxValues() then
       CommDKP.ConfigTab4.DefaultMaxBids = CreateFrame("Frame", nil, CommDKP.ConfigTab4);
       CommDKP.ConfigTab4.DefaultMaxBids:SetPoint("TOPLEFT", CommDKP.ConfigTab4.DefaultMinBids, "BOTTOMLEFT", 0, -52)
       CommDKP.ConfigTab4.DefaultMaxBids:SetSize(420, 410);
@@ -765,7 +772,7 @@ function CommDKP:Options()
     end
     -- Bid Timer Slider
     CommDKP.ConfigTab4.bidTimerSlider = CreateFrame("SLIDER", "$parentBidTimerSlider", CommDKP.ConfigTab4, "CommDKPOptionsSliderTemplate");
-    if core.DB.modes.mode == "Minimum Bid Values" or (core.DB.modes.mode == "Zero Sum" and core.DB.modes.ZeroSumBidType == "Minimum Bid") then
+    if CommDKP:UseMinAndMaxValues() then
       CommDKP.ConfigTab4.bidTimerSlider:SetPoint("TOPLEFT", CommDKP.ConfigTab4.DefaultMaxBids, "BOTTOMLEFT", 54, -40);
     else
       CommDKP.ConfigTab4.bidTimerSlider:SetPoint("TOPLEFT", CommDKP.ConfigTab4.DefaultMinBids, "BOTTOMLEFT", 54, -40);

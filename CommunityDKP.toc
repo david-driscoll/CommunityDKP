@@ -1,7 +1,7 @@
 ## Interface: 11305
 ## Title: |cff9900ffCommunity|r |cff595959DKP|r
 ## Author: Vapok-BloodsailBuccaneers
-## Notes: Feature-rich DKP Management Tool 
+## Notes: Feature-rich DKP Management Tool
 ## Version: 3.2.3
 ## DefaultState: enabled
 ## SavedVariables: CommDKP_DB, CommDKP_Loot, CommDKP_DKPTable, CommDKP_DKPHistory, CommDKP_MinBids, CommDKP_MaxBids, CommDKP_Whitelist, CommDKP_Standby, CommDKP_Archive, CommDKP_Profiles
@@ -35,9 +35,10 @@ Modules\LootPriceTab.lua
 Modules\AdjustDKP.lua
 Modules\ManageEntries.lua
 Modules\ClassGraph.lua
-Modules\Options.lua
+RulesFunctions.lua
 TableFunctions.lua
 XMLFunctions.lua
+Modules\Options.lua
 CommunityDKP.xml
 Modules\DKPModes.lua
 Modules\Modes\DKPModesMain.lua
