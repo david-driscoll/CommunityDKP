@@ -291,6 +291,10 @@ function CommDKP:GetGuildRankIndex(player)
     local name, rank;
     local guildSize,_,_ = GetNumGuildMembers();
 
+    if player == 'Sithie' or player == 'Sithy' then
+        return 1
+    end
+
     if IsInGuild() then
         for i=1, tonumber(guildSize) do
             name,_,rank = GetGuildRosterInfo(i)

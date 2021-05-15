@@ -1354,9 +1354,9 @@ function CommDKP:BidScrollFrame_Update()
         row = core.BiddingWindow.bidTable.Rows[i]
         index = offset + i
         local dkp_total = CommDKP:Table_Search(CommDKP:GetTable(CommDKP_DKPTable, true), Bids_Submitted[i].player)
-        local c = CommDKP:GetCColors(CommDKP:GetTable(CommDKP_DKPTable, true)[dkp_total[1][1]].class)
-        rank = CommDKP:GetGuildRank(Bids_Submitted[i].player)
-        if Bids_Submitted[index] then
+        if dkp_total and Bids_Submitted[index] then
+            local c = CommDKP:GetCColors(CommDKP:GetTable(CommDKP_DKPTable, true)[dkp_total[1][1]].class)
+            rank = CommDKP:GetGuildRank(Bids_Submitted[i].player)
             row:Show()
             row.index = index
             row.Strings[1]:SetText(Bids_Submitted[i].player.." |cff666666("..rank..")|r")

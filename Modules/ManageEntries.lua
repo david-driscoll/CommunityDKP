@@ -71,7 +71,7 @@ local function Remove_Entries()
 	end
 end
 
-local function AddRaidToDKPTable()
+function CommDKP:AddRaidToDKPTable()
 	local GroupType = "none";
 
 	if IsInRaid() then
@@ -522,7 +522,7 @@ function CommDKP:ManageEntries()
 				button1 = L["YES"],
 				button2 = L["NO"],
 				OnAccept = function()
-					AddRaidToDKPTable()
+					CommDKP:AddRaidToDKPTable()
 				end,
 				timeout = 0,
 				whileDead = true,
