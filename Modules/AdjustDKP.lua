@@ -757,6 +757,7 @@ function CommDKP:AdjustDKPTab_Create()
                         button1 = L["YES"],
                         button2 = L["NO"],
                         OnAccept = function()
+                            CommDKP:AddRaidToDKPTable()
                             local setInterval = CommDKP.ConfigTab2.RaidTimerContainer.interval:GetNumber();
                             local setBonus = CommDKP.ConfigTab2.RaidTimerContainer.bonusvalue:GetNumber();
                             local setOnTime = tostring(CommDKP.ConfigTab2.RaidTimerContainer.StartBonus:GetChecked());
