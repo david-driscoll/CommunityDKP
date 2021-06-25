@@ -38,7 +38,22 @@ core.BossList = {
 }
 
 core.ZoneList = {
-  "Molten Core", "Blackwing Lair", "Temple of Ahn'Qiraj", "Naxxramas", "Zul'Gurub", "Ruins of Ahn'Qiraj", "Onyxia's Lair", "World Bosses"
+  "Molten Core", 
+  "Blackwing Lair", 
+  "Temple of Ahn'Qiraj", 
+  "Naxxramas", 
+  "Zul'Gurub", 
+  "Ruins of Ahn'Qiraj", 
+  "Onyxia's Lair", 
+  "World Bosses",
+  "Karazhan",
+  "Gruul's Lair",
+  "Magtheridon's Lair",
+  "Coilfang: Serpentshrine Cavern",
+  "Tempest Keep",
+  "Zul'Aman",
+  "Black Temple",
+  "The Sunwell"
 }
 
 core.L = {
@@ -795,14 +810,14 @@ core.L = {
   MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.",
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.4-r62",
-    CHANGELOG2 = "fixed history display on mouseover",
-    CHANGELOG3 = "",
-    CHANGELOG4 = "",
-    CHANGELOG5 = "",
-    CHANGELOG6 = "",
-    CHANGELOG7 = "Taidtuskecyh @ Gehennas",
-    CHANGELOG8 = "CommunityDKP Discord: https://discord.gg/dXXK4vH",
-    CHANGELOG9 = "",
-    CHANGELOG10 = ""
+  CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
+  CHANGELOG2 = " - fixed class filters (shamans / paladins)",
+  CHANGELOG3 = " - fixed class graph (9th class)",
+  CHANGELOG4 = " - updated version in the header",
+  CHANGELOG5 = " - added TBC zones and encounters",
+  CHANGELOG6 = " - added localizations to TBC zones and encounters",
+  CHANGELOG7 = " - added auto award loot PR#174",
+  CHANGELOG8 = "",
+  CHANGELOG9 = "Taidtuskecyh @ Gehennas",
+  CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
 }

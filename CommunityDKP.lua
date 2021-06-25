@@ -12,17 +12,17 @@ function CommDKP_RestoreFilterOptions()  		-- restores default filter selections
     core.WorkingTable = CopyTable(CommDKP:GetTable(CommDKP_DKPTable, true))
     core.CurView = "all"
     core.CurSubView = "all"
-    for i=1, 9 do
+	for i=1, 10 do
         CommDKP.ConfigTab1.checkBtn[i]:SetChecked(true)
     end
-    CommDKP.ConfigTab1.checkBtn[10]:SetChecked(false)
     CommDKP.ConfigTab1.checkBtn[11]:SetChecked(false)
     CommDKP.ConfigTab1.checkBtn[12]:SetChecked(false)
+	CommDKP.ConfigTab1.checkBtn[13]:SetChecked(false)
     CommDKPFilterChecks(CommDKP.ConfigTab1.checkBtn[1])
 end
 
 function CommDKP:Toggle()        -- toggles IsShown() state of CommDKP.UIConfig, the entire addon window
-    core.CommDKPUI = CommDKP.UIConfig or CommDKP:CreateMenu();
+	core.CommDKPUI =  core.CommDKPUI or CommDKP:CreateMenu();
     core.CommDKPUI:SetShown(not core.CommDKPUI:IsShown())
     CommDKP.UIConfig:SetFrameLevel(10)
     CommDKP.UIConfig:SetClampedToScreen(true)
@@ -116,7 +116,7 @@ function CommDKP:FilterDKPTable(sort, reset)          -- filters core.WorkingTab
             end
         end
 
-        if CommDKP.ConfigTab1.checkBtn[11]:GetChecked() then
+		if CommDKP.ConfigTab1.checkBtn[12]:GetChecked() then
             local guildSize,_,_ = GetNumGuildMembers();
             for i=1, guildSize do
                 local name,_,_,_,_,_,_,_,online = GetGuildRosterInfo(i)
@@ -129,22 +129,22 @@ function CommDKP:FilterDKPTable(sort, reset)          -- filters core.WorkingTab
             end
         end
         if(core.classFiltered[parentTable[k]["class"]] == true) and searchFilter == true then
-            if CommDKP.ConfigTab1.checkBtn[10]:GetChecked() or CommDKP.ConfigTab1.checkBtn[12]:GetChecked() then
+			if CommDKP.ConfigTab1.checkBtn[11]:GetChecked() or CommDKP.ConfigTab1.checkBtn[13]:GetChecked() then
                 for i=1, 40 do
                     tempName,_,_,_,_,tempClass = GetRaidRosterInfo(i)
-                    if tempName and tempName == v.player and CommDKP.ConfigTab1.checkBtn[10]:GetChecked() then
+					if tempName and tempName == v.player and CommDKP.ConfigTab1.checkBtn[11]:GetChecked() then
                         tinsert(core.WorkingTable, v)
-                    elseif tempName and tempName == v.player and CommDKP.ConfigTab1.checkBtn[12]:GetChecked() then
+					elseif tempName and tempName == v.player and CommDKP.ConfigTab1.checkBtn[13]:GetChecked() then
                         InRaid = true;
                     end
                 end
             else
-                if ((CommDKP.ConfigTab1.checkBtn[11]:GetChecked() and IsOnline) or not CommDKP.ConfigTab1.checkBtn[11]:GetChecked()) then
+				if ((CommDKP.ConfigTab1.checkBtn[12]:GetChecked() and IsOnline) or not CommDKP.ConfigTab1.checkBtn[12]:GetChecked()) then
                     tinsert(core.WorkingTable, v)
                 end
             end
-            if CommDKP.ConfigTab1.checkBtn[12]:GetChecked() and InRaid == false then
-                if CommDKP.ConfigTab1.checkBtn[11]:GetChecked() then
+			if CommDKP.ConfigTab1.checkBtn[13]:GetChecked() and InRaid == false then
+				if CommDKP.ConfigTab1.checkBtn[12]:GetChecked() then
                     if IsOnline then
                         tinsert(core.WorkingTable, v)
                     end
@@ -239,7 +239,12 @@ end
 
 function CommDKP:CreateMenu()
 
-    CommDKP.UIConfig = CreateFrame("Frame", "CommDKPConfig", UIParent, "ShadowOverlaySmallTemplate")  --UIPanelDialogueTemplate, ShadowOverlaySmallTemplate
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		CommDKP.UIConfig = CreateFrame("Frame", "CommDKPConfig", UIParent, "ShadowOverlaySmallTemplate")
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.UIConfig = CreateFrame("Frame", "CommDKPConfig", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)  --UIPanelDialogueTemplate, ShadowOverlaySmallTemplate
+	end
+
     CommDKP.UIConfig:SetPoint("CENTER", UIParent, "CENTER", -250, 100);
     CommDKP.UIConfig:SetSize(550, 590);
     CommDKP.UIConfig:SetBackdrop({
@@ -249,9 +254,6 @@ function CommDKP:CreateMenu()
     CommDKP.UIConfig:SetBackdropColor(0,0,0,0.8);
     CommDKP.UIConfig:SetMovable(true);
     CommDKP.UIConfig:EnableMouse(true);
-    --CommDKP.UIConfig:SetResizable(true);
-    --CommDKP.UIConfig:SetMaxResize(1400, 875)
-    --CommDKP.UIConfig:SetMinResize(1000, 590)
     CommDKP.UIConfig:RegisterForDrag("LeftButton");
     CommDKP.UIConfig:SetScript("OnDragStart", CommDKP.UIConfig.StartMoving);
     CommDKP.UIConfig:SetScript("OnDragStop", CommDKP.UIConfig.StopMovingOrSizing);
@@ -263,17 +265,34 @@ function CommDKP:CreateMenu()
         if core.BiddingWindow then core.BiddingWindow:SetFrameLevel(2) end
     end)
     -- Close Button
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.UIConfig.closeContainer = CreateFrame("Frame", "CommDKPTitle", CommDKP.UIConfig)
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.UIConfig.closeContainer = CreateFrame("Frame", "CommDKPTitle", CommDKP.UIConfig, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     CommDKP.UIConfig.closeContainer:SetPoint("CENTER", CommDKP.UIConfig, "TOPRIGHT", -4, 0)
+
+	if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		Mixin(CommDKP.UIConfig.closeContainer, BackdropTemplateMixin)
+	end
+
     CommDKP.UIConfig.closeContainer:SetBackdrop({
         bgFile   = "Textures\\white.blp",
         edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
     });
+
     CommDKP.UIConfig.closeContainer:SetBackdropColor(0,0,0,0.9)
     CommDKP.UIConfig.closeContainer:SetBackdropBorderColor(1,1,1,0.2)
     CommDKP.UIConfig.closeContainer:SetSize(28, 28)
 
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.UIConfig.closeBtn = CreateFrame("Button", nil, CommDKP.UIConfig, "UIPanelCloseButton")
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.UIConfig.closeBtn = CreateFrame("Button", nil, CommDKP.UIConfig, "UIPanelCloseButton", BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     CommDKP.UIConfig.closeBtn:SetPoint("CENTER", CommDKP.UIConfig.closeContainer, "TOPRIGHT", -14, -14)
     tinsert(UISpecialFrames, CommDKP.UIConfig:GetName()); -- Sets frame to close on "Escape"
     ---------------------------------------
@@ -285,9 +304,20 @@ function CommDKP:CreateMenu()
     ---------------------------------------
     -- DKP Table Header and Sort Buttons
     ---------------------------------------
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.DKPTable_Headers = CreateFrame("Frame", "CommDKPDKPTableHeaders", CommDKP.UIConfig)
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.DKPTable_Headers = CreateFrame("Frame", "CommDKPDKPTableHeaders", CommDKP.UIConfig, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     CommDKP.DKPTable_Headers:SetSize(500, 22)
     CommDKP.DKPTable_Headers:SetPoint("BOTTOMLEFT", CommDKP.DKPTable, "TOPLEFT", 0, 1)
+
+	if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		Mixin(CommDKP.DKPTable_Headers, BackdropTemplateMixin)
+	end
+
     CommDKP.DKPTable_Headers:SetBackdrop({
         bgFile   = "Textures\\white.blp",
         edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
@@ -298,9 +328,17 @@ function CommDKP:CreateMenu()
     ---------------------------------------
     -- Sort Buttons
     ---------------------------------------
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     SortButtons.player = CreateFrame("Button", "$ParentSortButtonPlayer", CommDKP.DKPTable_Headers)
     SortButtons.class = CreateFrame("Button", "$ParentSortButtonClass", CommDKP.DKPTable_Headers)
     SortButtons.dkp = CreateFrame("Button", "$ParentSortButtonDkp", CommDKP.DKPTable_Headers)
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		SortButtons.player = CreateFrame("Button", "$ParentSortButtonPlayer", CommDKP.DKPTable_Headers, BackdropTemplateMixin and "BackdropTemplate" or nil)
+		SortButtons.class = CreateFrame("Button", "$ParentSortButtonClass", CommDKP.DKPTable_Headers, BackdropTemplateMixin and "BackdropTemplate" or nil)
+		SortButtons.dkp = CreateFrame("Button", "$ParentSortButtonDkp", CommDKP.DKPTable_Headers, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     SortButtons.class:SetPoint("BOTTOM", CommDKP.DKPTable_Headers, "BOTTOM", 0, 2)
     SortButtons.player:SetPoint("RIGHT", SortButtons.class, "LEFT")
     SortButtons.dkp:SetPoint("LEFT", SortButtons.class, "RIGHT")
@@ -395,7 +433,13 @@ function CommDKP:CreateMenu()
     ------------------------------
     -- Search Box
     ------------------------------
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.UIConfig.search = CreateFrame("EditBox", nil, CommDKP.UIConfig)
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.UIConfig.search = CreateFrame("EditBox", nil, CommDKP.UIConfig, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     CommDKP.UIConfig.search:SetPoint("BOTTOMLEFT", CommDKP.UIConfig, "BOTTOMLEFT", 50, 18)
     CommDKP.UIConfig.search:SetAutoFocus(false)
     CommDKP.UIConfig.search:SetMultiLine(false)
@@ -535,7 +579,13 @@ function CommDKP:CreateMenu()
     ---------------------------------------
     -- Expand / Collapse Arrow
     ---------------------------------------
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.UIConfig.expand = CreateFrame("Frame", "CommDKPTitle", CommDKP.UIConfig)
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.UIConfig.expand = CreateFrame("Frame", "CommDKPTitle", CommDKP.UIConfig, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     CommDKP.UIConfig.expand:SetPoint("LEFT", CommDKP.UIConfig, "RIGHT", 0, 0)
     CommDKP.UIConfig.expand:SetBackdrop({
         bgFile   = "Textures\\white.blp",
@@ -567,7 +617,13 @@ function CommDKP:CreateMenu()
     end)
 
     -- Title Frame (top/center)
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.UIConfig.TitleBar = CreateFrame("Frame", "CommDKPTitle", CommDKP.UIConfig, "ShadowOverlaySmallTemplate")
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.UIConfig.TitleBar = CreateFrame("Frame", "CommDKPTitle", CommDKP.UIConfig, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     CommDKP.UIConfig.TitleBar:SetPoint("BOTTOM", SortButtons.class, "TOP", 0, 10)
     CommDKP.UIConfig.TitleBar:SetBackdrop({
         bgFile   = "Textures\\white.blp",
@@ -586,7 +642,12 @@ function CommDKP:CreateMenu()
     -- CHANGE LOG WINDOW
     ---------------------------------------
     if core.DB.defaults.HideChangeLogs < core.BuildNumber then
+
+		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         CommDKP.ChangeLogDisplay = CreateFrame("Frame", "CommDKP_ChangeLogDisplay", UIParent, "ShadowOverlaySmallTemplate");
+		elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			CommDKP.ChangeLogDisplay = CreateFrame("Frame", "CommDKP_ChangeLogDisplay", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
+		end
 
         CommDKP.ChangeLogDisplay:SetPoint("TOP", UIParent, "TOP", 0, -200);
         CommDKP.ChangeLogDisplay:SetSize(600, 100);
@@ -631,7 +692,13 @@ function CommDKP:CreateMenu()
         CommDKP.ChangeLogDisplay.ChangeLogText:SetPoint("TOPLEFT", CommDKP.ChangeLogDisplay.VerNumber, "BOTTOMLEFT", 5, -0);
 
         -- Change Log Close Button
+
+		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         CommDKP.ChangeLogDisplay.closeContainer = CreateFrame("Frame", "CommDKPChangeLogClose", CommDKP.ChangeLogDisplay)
+		elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			CommDKP.ChangeLogDisplay.closeContainer = CreateFrame("Frame", "CommDKPChangeLogClose", CommDKP.ChangeLogDisplay, BackdropTemplateMixin and "BackdropTemplate" or nil)
+		end
+
         CommDKP.ChangeLogDisplay.closeContainer:SetPoint("CENTER", CommDKP.ChangeLogDisplay, "TOPRIGHT", -4, 0)
         CommDKP.ChangeLogDisplay.closeContainer:SetBackdrop({
             bgFile   = "Textures\\white.blp",
@@ -671,6 +738,7 @@ function CommDKP:CreateMenu()
 
         local logHeight = CommDKP.ChangeLogDisplay.ChangeLogHeader:GetHeight() + CommDKP.ChangeLogDisplay.Notes:GetHeight() + CommDKP.ChangeLogDisplay.VerNumber:GetHeight() + CommDKP.ChangeLogDisplay.ChangeLogText:GetHeight();
         CommDKP.ChangeLogDisplay:SetSize(800, logHeight);  -- resize container
+
     end
     ---------------------------------------
     -- VERSION IDENTIFIER

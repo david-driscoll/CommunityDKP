@@ -35,11 +35,88 @@ if GetLocale() == "zhTW" then
     ONYXIA = {"奧妮克希亞"},
     WORLD = {
       "艾索雷苟斯", "卡札克領主", "艾莫莉絲", "雷索", "伊索德雷", "泰拉爾",
+    },
+    -- TBC Classic 2.5.1.38757
+    KARAZHAN = { -- 532
+      "獵人阿圖曼",
+      "摩洛",
+      "貞潔聖女",
+      "歌劇大廳",
+      "館長",
+      "泰瑞斯提安·疫蹄",
+      "埃蘭之影",
+      "尼德斯",
+      "西洋棋事件",
+      "莫克札王子",
+      "夜禍"
+    },
+    GRULLSLAIR = { -- 565
+      "大君王莫卡爾",
+      "弒龍者戈魯爾"
+    },
+    MAGTHERIDONSLAIR = { -- 544
+      "瑪瑟里頓"
+    },
+    SERPENTSHRINECAVERN = { -- 548
+      "不穩定者海卓司",
+      "海底潛伏者",
+      "『盲目者』李奧薩拉斯",
+      "深淵之王卡拉薩瑞斯",
+      "莫洛葛利姆·潮行者",
+      "瓦許女士"
+    },
+    TEMPESTKEEP = { -- 550
+      "歐爾",
+      "虛無搶奪者",
+      "高階星術師索拉瑞恩",
+      "凱爾薩斯·逐日者"
+    },
+    ZULAMAN = { -- 568
+      "阿奇爾森",
+      "納羅拉克",
+      "賈納雷",
+      "哈拉齊",
+      "妖術領主瑪拉克雷斯",
+      "達卡拉"
+    },
+    BLACKTEMPLE = { -- 564 map id
+      "高階督軍納珍塔斯",
+      "瑟普莫斯",
+      "阿卡瑪的黑暗面",
+      "泰朗·血魔",
+      "葛塔格·血沸",
+      "靈魂聖匣",
+      "薩拉茲女士",
+      "伊利達瑞議事",
+      "伊利丹·怒風"
+    },
+    SUNWELLPLATEAU = { -- 580
+      "卡雷苟斯", 
+      "布魯托魯斯",
+      "魔龍謎霧",
+      "埃雷達爾雙胞胎s",
+      "莫魯",
+      "基爾加丹"
     }
   }
   
   core.ZoneList = {
-    "熔火之心", "黑翼之巢", "安其拉神廟", "納克薩瑪斯", "祖爾格拉布", "安琪拉遺址", "奧妮西亞的巢穴", "世界老闆",
+    "熔火之心", 
+    "黑翼之巢", 
+    "安其拉神廟", 
+    "納克薩瑪斯", 
+    "祖爾格拉布", 
+    "安琪拉遺址", 
+    "奧妮西亞的巢穴", 
+    "世界老闆",
+    "卡拉贊", -- 532
+    "戈魯爾之巢", -- 565
+    "瑪瑟里頓的巢穴", -- 544
+    "盤牙:毒蛇神殿洞穴", -- 548
+    "風暴要塞", -- 550
+    "祖阿曼", -- 568
+    "黑暗神廟", -- 564,
+    "太陽之井" -- 580
   }
 
   core.L = {
@@ -97,6 +174,8 @@ if GetLocale() == "zhTW" then
     ARTINFLATTTDESC = "分配給每個玩家的DKP的TOP積分，在各個玩家之間分配。銀行價值除後，此值將添加到他們的收入DKP中。",
     AUTOAWARD = "汽車獎DKP",
     AUTOAWARDTTDESC = "Automatically awards Boss Kill Bonus DKP (set in Options tab) when a boss is killed. Only the raid leader will distribute points with this. Raid must be initialized on the Adjust DKP tab.", -- NEED TRANSLATION
+    AUTOAWARDLOOT = "Auto Award Loot",
+    AUTOAWARDLOOTDESC = "When checked loot will be automatically awarded to the winner. If looting they will be master looted to the winner. If awarding from your bags they will be inserted into the next trade window with the winner.",
     AUTOCOMBATLOG = "自動戰鬥記錄",
     AUTOCOMBATLOGTTDESC = "在突襲中進入突襲區域或在遭遇突襲時進入戰鬥時自動激活/ combatlog。",
     AUTOCOMBATLOGTTWARN = "如果尚未激活“高級戰鬥日誌”，則仍必須在系統>網絡中手動激活它。",
@@ -820,15 +899,16 @@ if GetLocale() == "zhTW" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.4-r62",
-    CHANGELOG2 = "fixed history display on mouseover",
+    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
+    CHANGELOG2 = " - fixed UI for classic era realms",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
-    CHANGELOG7 = "Taidtuskecyh @ Gehennas",
-    CHANGELOG8 = "CommunityDKP Discord: https://discord.gg/dXXK4vH",
-    CHANGELOG9 = "",
-    CHANGELOG10 = ""
+    CHANGELOG7 = "",
+    CHANGELOG8 = "",
+    CHANGELOG8 = "",
+    CHANGELOG9 = "Taidtuskecyh @ Gehennas",
+    CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
         }
 end

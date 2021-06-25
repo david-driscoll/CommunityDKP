@@ -32,17 +32,18 @@ for class,friendlyClass in pairs(API_CLASSES) do
     -- Nor is there an API that identifies a specific class to a specific faction.
     -- I'd love to not hard code this though, but I seem to be out of luck.
 
-    if core.faction == "Horde" then
-        if class ~= "PALADIN" then
-            addColor = true;
-        end
-    end
+	-- if core.faction == "Horde" then
+	-- 	if class ~= "PALADIN" then
+	-- 		addColor = true;
+	-- 	end
+	-- end
 
-    if core.faction == "Alliance" then
-        if class ~= "SHAMAN" then
+	-- if core.faction == "Alliance" then
+	-- 	if class ~= "SHAMAN" then
+	-- 		addColor = true;
+	-- 	end
+	-- end
             addColor = true;
-        end
-    end
 
     if addColor then
         colorTable.class = friendlyClass;
@@ -60,6 +61,11 @@ local defaults = {
     theme = { r = 0.6823, g = 0.6823, b = 0.8666, hex = "aeaedd" },
     theme2 = { r = 1, g = 0.37, b = 0.37, hex = "ff6060" }
 }
+
+--------------------------------------
+-- Encounter ID's Library
+--------------------------------------
+
 
 core.PriceSortButtons = {}
 core.WorkingTable = {};       -- table of all entries from CommDKP:GetTable(CommDKP_DKPTable, true) that are currently visible in the window. From CommDKP:GetTable(CommDKP_DKPTable, true)
@@ -96,74 +102,74 @@ core.EncounterList = {      -- Event IDs must be in the exact same order as core
     ONYXIA = {1084},
     WORLD = {     -- No encounter IDs have been identified for these world bosses yet
         "Azuregos", "Lord Kazzak", "Emeriss", "Lethon", "Ysondre", "Taerar"
-    },
-    KARAZHAN = {
-        652, 2444,
-        653, 2445,
-        654, 2446,
-        655, 2447,
-        656, 2448,
-        660, 2452,
-        657, 2449,
-        658, 2450,
-        659, 2451,
-        662, 2454,
-        661, 2453
-    },
-    GRUUL = {
-        649, 2455,
-        650, 2456,
-    },
-    MAGTHERIDON = {
-        651, 2457
-    },
-    SSC = {
-        623, 2458,
-        624, 2459,
-        625, 2460,
-        626, 2461,
-        627, 2462,
-        628, 2463
-    },
-    TK = {
-        731, 2465,
-        730, 2464,
-        732, 2466,
-        733, 2467
-    },
-    HYJAL = {
-        618, 2468,
-        619, 2469,
-        620, 2470,
-        621, 2471,
-        622, 2472
-    },
-    BT = {
-        601, 2473,
-        602, 2474,
-        603, 2475,
-        604, 2476,
-        605, 2477,
-        606, 2478,
-        607, 2479,
-        608, 2480,
-        609, 2481
-    },
-    SUNWELL = {
-        724, 2488,
-        725, 2489,
-        726, 2490,
-        727, 2491,
-        728, 2492,
-        728, 2492,
-        729, 2493,
+	},
+	KARAZHAN = {
+		652, -- "Attumen the Huntsman",
+		653, -- "Moroes",
+		654, -- "Maiden of Virtue",
+		655, -- "Opera Hall",
+		656, -- "The Curator",
+		657, -- "Terestian Illhoof",
+		658, -- "Shade of Aran",
+		659, -- "Netherspite",
+		660, -- "Chess Event",
+		661, -- "Prince Malchezaar",
+		662 -- "Nightbane"
+	  },
+	  GRULLSLAIR = {
+		649, -- "High King Maulgar",
+		650 -- "Gruul the Dragonkiller"
+	  },
+	  MAGTHERIDONSLAIR = {
+		651 -- "Magtheridon"
+	  },
+	  SERPENTSHRINECAVERN = {
+		632, -- "Hydross the Unstable",
+		624, -- "The Lurker Below",
+		625, -- "Leotheras the Blind",
+		626, -- "Fathom-Lord Karathress",
+		627, -- "Morogrim Tidewalker",
+		628 -- "Lady Vashj"
+	  },
+	  TEMPESTKEEP = {
+		730, -- "Al'ar",
+		731, -- "Void Reaver",
+		732, -- "High Astromancer Solarian",
+		733 -- "Kael'thas Sunstrider"
+	  },
+	  ZULAMAN = {
+		1189, -- "Akil'zon"
+		1190, -- Nalorakk
+		1191, -- Jan'alai
+		1192, -- Halazzi,
+		1193, -- Hex Lord Malacrass
+		1194 -- Daakara
+	  },
+	  BLACKTEMPLE = {
+		601, -- High Warlord Naj'entus,
+		602, -- Supremus
+		603, -- Shade of Akama
+		604, -- Teron Gorefiend,
+		605, -- Gurtogg Bloodboil
+		606, -- Reliquary of Souls
+		607, -- Mother Shahraz
+		608, -- The Illidari Council
+		609 -- Illidan Stormrage
+	  },
+	  SUNWELLPLATEAU = {
+		724, -- "Kalecgos",
+		725, -- "Brutallus",
+		726, -- "Felmyst",
+		727, -- "Eredar Twins",
+		728, -- "M'uru",
+		729 -- "Kil'jaeden"
     }
 }
 
 core.CommDKPUI = {}        -- global storing entire Configuration UI to hide/show UI
-core.MonVersion = "v3.2.4";
-core.BuildNumber = 30204;
-core.ReleaseNumber = 62
+core.MonVersion = "v3.2.8";
+core.BuildNumber = 30208;
+core.ReleaseNumber = 69
 core.defaultTable = "__default";
 core.SemVer = core.MonVersion.."-r"..tostring(core.ReleaseNumber);
 core.UpgradeSchema = false;
@@ -311,6 +317,7 @@ function CommDKP:CheckOfficer()      -- checks if user is an officer IF core.IsO
     if not core.InitStart then
         return
     end
+
     if core.IsOfficer == nil then      -- used as a redundency as it should be set on load in init.lua GUILD_ROSTER_UPDATE event
         if CommDKP:GetGuildRankIndex(UnitName("player")) == 1 then       -- automatically gives permissions above all settings if player is guild leader
             core.IsOfficer = true
@@ -334,6 +341,7 @@ function CommDKP:CheckOfficer()      -- checks if user is an officer IF core.IsO
             core.IsOfficer = false;
         end
     end
+
 end
 
 function CommDKP:GetGuildRankGroup(index)                -- returns all members within a specific rank index as well as their index in the guild list (for use with GuildRosterSetPublicNote(index, "msg") and GuildRosterSetOfficerNote)
@@ -527,7 +535,16 @@ function CommDKP:BroadcastTimer(seconds, ...)       -- broadcasts timer and star
 end
 
 function CommDKP:CreateContainer(parent, name, header)
-    local f = CreateFrame("Frame", "CommDKP"..name, parent);
+
+	local f;
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		f = CreateFrame("Frame", "CommDKP"..name, parent);
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		f = CreateFrame("Frame", "CommDKP"..name, parent, BackdropTemplateMixin and "BackdropTemplate" or nil);
+	end
+
+
     f:SetBackdrop( {
         edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
         insets = { left = 0, right = 0, top = 0, bottom = 0 }
@@ -535,7 +552,12 @@ function CommDKP:CreateContainer(parent, name, header)
     f:SetBackdropColor(0,0,0,0.9);
     f:SetBackdropBorderColor(1,1,1,0.5)
 
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f.header = CreateFrame("Frame", "CommDKP"..name.."Header", f)
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		f.header = CreateFrame("Frame", "CommDKP"..name.."Header", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     f.header:SetBackdrop( {
         bgFile = "Textures\\white.blp", tile = true,                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
         insets = { left = 0, right = 0, top = 0, bottom = 0 }

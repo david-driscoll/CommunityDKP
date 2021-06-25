@@ -83,6 +83,68 @@ if GetLocale() == "frFR" then
       "Léthon",
       "Ysondre",
       "Taerar",
+    },
+    -- TBC Classic 2.5.1.38757
+    KARAZHAN = { -- 532
+      "Attumen le Veneur",
+      "Moroes",
+      "Damoiselle de vertu",
+      "L’Opéra",
+      "Le conservateur",
+      "Terestian Malsabot",
+      "Ombre d'Aran",
+      "Dédain-du-Néant",
+      "Évènement de l’échiquier",
+      "Prince Malchezaar",
+      "Plaie-de-nuit"
+    },
+    GRULLSLAIR = { -- 565
+      "Haut Roi Maulgar",
+      "Gruul le Tue-dragon"
+    },
+    MAGTHERIDONSLAIR = { -- 544
+      "Magtheridon"
+    },
+    SERPENTSHRINECAVERN = { -- 548
+      "Hydross l'Instable",
+      "Le Rôdeur d'En bas",
+      "Leotheras l'Aveugle",
+      "Seigneur des fonds Karathress	",
+      "Morogrim Marcheur-des-flots	",
+      "Dame Vashj"
+    },
+    TEMPESTKEEP = { -- 550
+      "Al'ar",
+      "Saccageur du Vide",
+      "Grande astromancienne Solarian",
+      "Kael'thas Haut-soleil"
+    },
+    ZULAMAN = { -- 568
+      "Akil'zon",
+      "Nalorakk",
+      "Jan'alai",
+      "Halazzi",
+      "Seigneur des maléfices Malacrass",
+      "Daakara"
+    },
+    BLACKTEMPLE = { -- 564 map id
+      "Grand seigneur de guerre Naj'entus",
+      "Supremus",
+      "Ombre d'Akama",
+      "Teron Fielsang",
+      "Gurtogg Fièvresang",
+      "Reliquaire des âmes",
+      "Mère Shahraz",
+      "Le conseil illidari",
+      "Illidan Hurlorage"
+    },
+    SUNWELLPLATEAU = { -- 580
+      "Kalecgos", 
+      "Brutallus",
+      "Gangrebrume",
+      "Jumelles érédars",
+      "M'uru",
+      "Kil'jaeden"
     }
   }
   
@@ -95,6 +157,14 @@ if GetLocale() == "frFR" then
     "Ruines d'Ahn'Qiraj",
     "Repaire d'Onyxia",
     "Boss Mondial",
+    "Karazhan", -- 532
+    "Repaire de Gruul", -- 565
+    "Le repaire de Magtheridon", -- 544
+    "Glissecroc : caverne du sanctuaire du Serpent", -- 548
+    "Donjon de la Tempête", -- 550
+    "Zul'Aman", -- 568
+    "Temple noir", -- 564,
+    "Le Puits de soleil" -- 580
   }
 
   core.L = {
@@ -152,6 +222,8 @@ if GetLocale() == "frFR" then
     ARTINFLATTTDESC = "Points à donner à chaque joueur SUR LE DKP divisé et réparti entre eux. Cette valeur est ajoutée à leur DKP gagné APRÈS que la valeur mise en banque soit divisée.",
     AUTOAWARD = "Prix ​​Auto DKP",
     AUTOAWARDTTDESC = "Attribue automatiquement des DKP de Boss tué (réglés dans l'onglet Options) lorsqu'un boss est tué. Seul le Chef de Raid distribuera ces points. Le raid doit être en cours (via l'onglet Ajuster les DKP).",
+    AUTOAWARDLOOT = "Auto Award Loot",
+    AUTOAWARDLOOTDESC = "When checked loot will be automatically awarded to the winner. If looting they will be master looted to the winner. If awarding from your bags they will be inserted into the next trade window with the winner.",
     AUTOCOMBATLOG = "Journal de combat automatique",
     AUTOCOMBATLOGTTDESC = "Active automatiquement /combatlog lorsque vous êtes dans un raid et que vous entrez dans une zone de raid ou entrez dans un combat avec un boss de raid.",
     AUTOCOMBATLOGTTWARN = "Vous devez toujours activer manuellement la journalisation de combat avancée dans Système > Réseau (si vous ne l'avez pas déjà fait).",
@@ -873,15 +945,16 @@ if GetLocale() == "frFR" then
     MIGRATIONCOMPLETED    = "Migration réussie.|n|nVeuillez désactiver MonolithDKP et recharger votre interface (/reload).", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.4-r62",
-    CHANGELOG2 = "fixed history display on mouseover",
+    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
+    CHANGELOG2 = " - fixed UI for classic era realms",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
-    CHANGELOG7 = "Taidtuskecyh @ Gehennas",
-    CHANGELOG8 = "CommunityDKP Discord: https://discord.gg/dXXK4vH",
-    CHANGELOG9 = "",
-    CHANGELOG10 = ""
+    CHANGELOG7 = "",
+    CHANGELOG8 = "",
+    CHANGELOG8 = "",
+    CHANGELOG9 = "Taidtuskecyh @ Gehennas",
+    CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
           } 
 end

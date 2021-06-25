@@ -35,83 +35,88 @@ core.BossList = {
   WORLD = {
     "Azuregos", "Lord Kazzak", "Emeriss", "Lethon", "Ysondre", "Taerar"
   },
-  KARAZHAN = {
-    "Attumen the Huntsman", "Attumen the Huntsman",
-    "Moroes", "Moroes",
-    "Maiden of Virtue", "Maiden of Virtue",
-    "The Opera Event", "The Opera Event",
-    "The Curator", "The Curator",
-    "Chess Event", "Chess Event",
-    "Terestian Illhoof", "Terestian Illhoof",
-    "Shade of Aran", "Shade of Aran",
-    "Netherspite", "Netherspite",
-    "Nightbane", "Nightbane",
-    "Prince Malchezaar", "Prince Malchezaar"
+
+  -- TBC Classic 2.5.1.38757
+  KARAZHAN = { -- 532
+    "Attumen the Huntsman",
+    "Moroes",
+    "Maiden of Virtue",
+    "Opera Hall",
+    "The Curator",
+    "Terestian Illhoof",
+    "Shade of Aran",
+    "Netherspite",
+    "Chess Event",
+    "Prince Malchezaar",
+    "Nightbane"
   },
-  GRUUL = {
-    "High King Maulgar", "High King Maulgar",
-    "Gruul the Dragonkiller", "Gruul the Dragonkiller",
+  GRULLSLAIR = { -- 565
+    "High King Maulgar",
+    "Gruul the Dragonkiller"
   },
-  MAGTHERIDON = {
-    "Magtheridon", "Magtheridon"
+  MAGTHERIDONSLAIR = { -- 544
+    "Magtheridon"
   },
-  SSC = {
-    "Hydross the Unstable", "Hydross the Unstable",
-    "The Lurker Below", "The Lurker Below",
-    "Leotheras the Blind", "Leotheras the Blind",
-    "Fathom-Lord Karathress", "Fathom-Lord Karathress",
-    "Morogrim Tidewalker", "Morogrim Tidewalker",
-    "Lady Vashj", "Lady Vashj"
+  SERPENTSHRINECAVERN = { -- 548
+    "Hydross the Unstable",
+    "The Lurker Below",
+    "Leotheras the Blind",
+    "Fathom-Lord Karathress",
+    "Morogrim Tidewalker",
+    "Lady Vashj"
   },
-  TK = {
-    "Void Reaver", "Void Reaver",
-    "Al'ar", "Al'ar",
-    "High Astromancer Solarian", "High Astromancer Solarian",
-    "Kael'thas Sunstrider", "Kael'thas Sunstrider"
+  TEMPESTKEEP = { -- 550
+    "Al'ar",
+    "Void Reaver",
+    "High Astromancer Solarian",
+    "Kael'thas Sunstrider"
   },
-  HYJAL = {
-    "Rage Winterchill", "Rage Winterchill",
-    "Anetheron", "Anetheron",
-    "Kaz'rogal", "Kaz'rogal",
-    "Azgalor", "Azgalor",
-    "Archimonde", "Archimonde"
+  ZULAMAN = { -- 568
+    "Akil'zon",
+    "Nalorakk",
+    "Jan'alai",
+    "Halazzi",
+    "Hex Lord Malacrass",
+    "Daakara"
   },
-  BT = {
-    "High Warlord Naj'entus","High Warlord Naj'entus",
-    "Supremus","Supremus",
-    "Shade of Akama","Shade of Akama",
-    "Teron Gorefiend","Teron Gorefiend",
-    "Gurtogg Bloodboil","Gurtogg Bloodboil",
-    "Reliquary of Souls","Reliquary of Souls",
-    "Mother Shahraz","Mother Shahraz",
-    "The Illidari Council","The Illidari Council",
-    "Illidan Stormrage","Illidan Stormrage"
+  BLACKTEMPLE = { -- 564 map id
+    "High Warlord Naj'entus",
+    "Supremus",
+    "Shade of Akama",
+    "Teron Gorefiend",
+    "Gurtogg Bloodboil",
+    "Reliquary of Souls",
+    "Mother Shahraz",
+    "The Illidari Council",
+    "Illidan Stormrage"
   },
-  SUNWELL = {
-    "Kalecgos", "Kalecgos",
-    "Brutallus", "Brutallus",
-    "Felmyst", "Felmyst",
-    "Eredar Twins", "Eredar Twins",
-    "M'uru", "M'uru",
-    "Kil'jaeden", "Kil'jaeden"
+  SUNWELLPLATEAU = { -- 580
+    "Kalecgos",
+    "Brutallus",
+    "Felmyst",
+    "Eredar Twins",
+    "M'uru",
+    "Kil'jaeden"
   }
 }
 
 core.ZoneList = {
-  "Molten Core",
-  "Blackwing Lair",
-  "Temple of Ahn'Qiraj",
-  "Naxxramas",
-  "Zul'Gurub",
-  "Ruins of Ahn'Qiraj",
-  "Onyxia's Lair",
-  "World Bosses",
-  "Gruul's Lair",
-  "Magtheridon's Lair",
-  "Serpentshrine Cavern",
-  "Hyjal Summit",
-  "Black Temple",
-  "Sunwell Plateau"
+  "Molten Core", -- 1
+  "Blackwing Lair", -- 2
+  "Temple of Ahn'Qiraj", -- 3
+  "Naxxramas",  -- 4
+  "Zul'Gurub", -- 5
+  "Ruins of Ahn'Qiraj",  -- 6
+  "Onyxia's Lair", -- 7
+  "World Bosses", -- 8
+  "Karazhan", -- 9
+  "Gruul's Lair", -- 10
+  "Magtheridon's Lair", -- 11
+  "Coilfang: Serpentshrine Cavern", -- 12
+  "Tempest Keep", -- 13
+  "Zul'Aman", -- 14
+  "Black Temple", -- 15
+  "The Sunwell" -- 16
 }
 
 core.L = {
@@ -827,6 +832,8 @@ core.L = {
   CONFIRMMIGRATE = "Are you certain you wish to be the officer conducting the migration? This is a non-reversable process.",
   AUTOOPEN = "Auto Open Bid Window",
   AUTOOPENTTDESC = "When checked, bidding window will automatically open when a new item is being auctioned. If unchecked, you will be required to open it manually when needed with \"/dkp bid\".",
+  AUTOAWARDLOOT = "Auto Award Loot",
+  AUTOAWARDLOOTDESC = "When checked loot will be automatically awarded to the winner. If looting they will be master looted to the winner. If awarding from your bags they will be inserted into the next trade window with the winner.",
   DECREASEDISENCHANT = "Decrease Disenchant Value",
   DECREASEDISENCHANTTTDESC = "Decrease Disenchant Value after 3 disenchants by half every disenchant afterwards until a minimum of 5 DKP",
   DELETETABLES = "Delete Tables",
@@ -889,14 +896,14 @@ core.L = {
   MIGRATIONCANCELED     = "Migration canceled.|n|nPlease disable MonolithDKP and /reload the UI if you want to continue with CommunityDKP without using your current tables and settings.",
   MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.",
 
-  CHANGELOG1 = "CommunityDKP - v3.2.4-r62",
-    CHANGELOG2 = "fixed history display on mouseover",
-    CHANGELOG3 = "",
-    CHANGELOG4 = "",
-    CHANGELOG5 = "",
-    CHANGELOG6 = "",
-    CHANGELOG7 = "Taidtuskecyh @ Gehennas",
-    CHANGELOG8 = "CommunityDKP Discord: https://discord.gg/dXXK4vH",
-    CHANGELOG9 = "",
-    CHANGELOG10 = ""
+  CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
+  CHANGELOG2 = " - fixed UI for classic era realms",
+  CHANGELOG3 = "",
+  CHANGELOG4 = "",
+  CHANGELOG5 = "",
+  CHANGELOG6 = "",
+  CHANGELOG7 = "",
+  CHANGELOG8 = "",
+  CHANGELOG9 = "Taidtuskecyh @ Gehennas",
+  CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
 }

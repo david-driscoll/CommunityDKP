@@ -14,7 +14,6 @@ CommDKP.Commands = {
   ["config"] = function()
     if core.Initialized then
       local pass, err = pcall(CommDKP.Toggle)
-
       if not pass then
         CommDKP:Print(err)
         core.CommDKPUI:SetShown(false)
@@ -275,7 +274,6 @@ local function DoInit(event, arg1)
     if CommDKP:MonolithMigration() then
         return -- Legacy MonolithDKP addon detected: don't initialise any further!
     end
-
     CommDKP:OnInitialize(event, arg1);
 end
 
@@ -289,7 +287,7 @@ local function DoGuildUpdate()
             CommDKP:CheckOfficer()
             CommDKP:SortLootTable()
             CommDKP:SortDKPHistoryTable()
-            CommDKP:Print(L["VERSION"].." "..core.MonVersion..", "..L["CREATEDMAINTAIN"].." Vapok@BloodsailBuccaneers-Classic");
+			CommDKP:Print(L["VERSION"].." "..core.MonVersion..", "..L["CREATEDMAINTAIN"].." Vapok@BloodsailBuccaneers-Classic & Taidtuskecyh@Gehennas");
             CommDKP:Print(L["LOADED"].." "..#CommDKP:GetTable(CommDKP_DKPTable, true).." "..L["PLAYERRECORDS"]..", "..#CommDKP:GetTable(CommDKP_Loot, true).." "..L["LOOTHISTRECORDS"].." "..#CommDKP:GetTable(CommDKP_DKPHistory, true).." "..L["DKPHISTRECORDS"]..".");
             CommDKP:Print(L["USE"].." /dkp ? "..L["SUBMITBUGS"].." @ https://github.com/Vapok/CommunityDKP/issues");
             CommDKP.Sync:SendData("CommDKPBuild", tostring(core.BuildNumber)) -- broadcasts build number to guild to check if a newer version is available
@@ -354,7 +352,6 @@ function CommDKP:SendSeedData()
 end
 
 function CommDKP_OnEvent(self, event, arg1, ...)
-
     if event == "ADDON_LOADED" then
         if (arg1 ~= "CommunityDKP") then return end
         core.IsOfficer = nil
@@ -399,7 +396,6 @@ function CommDKP_OnEvent(self, event, arg1, ...)
         CommDKP:CheckOfficer()
         if core.IsOfficer and IsInRaid() then
             local boss_name = ...;
-
             if CommDKP:Table_Search(core.EncounterList, arg1) then
                 CommDKP.ConfigTab2.BossKilledDropdown:SetValue(arg1)
 
@@ -623,6 +619,73 @@ function CommDKP_OnEvent(self, event, arg1, ...)
                 CommDKP:LootTable_Set(lootList)
             end
         end
+	elseif core.DB.defaults.AutoAwardLoot and event == "TRADE_SHOW" then
+		local traderName = UnitName("npc")
+		if traderName == nil or core.DB.pendingLoot == nil or core.DB.pendingLoot[traderName] == nil then
+			return
+		end
+		core.DB.pendingTradePlayer = traderName
+		core.DB.pendingTrade = {}
+		local pendingLoot = core.DB.pendingLoot[traderName]
+
+		for i, lootLink in pairs(pendingLoot) do
+			local awarded = false
+			for containerSlot = 0, NUM_BAG_FRAMES do
+				for bagSlot = 1, GetContainerNumSlots(containerSlot) do
+					local containerLink = GetContainerItemLink(containerSlot, bagSlot)
+
+					if not awarded and containerLink ~= nil and containerLink == lootLink then
+						ClearCursor()
+						PickupContainerItem(containerSlot, bagSlot)
+						local tradeSlot = TradeFrame_GetAvailableSlot()
+						if tradeSlot ~= nil and tradeSlot <= 6 then
+							ClickTradeButton(tradeSlot)
+							pendingLoot[i] = nil
+							tinsert(core.DB.pendingTrade, lootLink)
+							awarded = true
+						end
+					end
+				end
+			end
+		end
+	elseif core.DB.defaults.AutoAwardLoot and event == "TRADE_ACCEPT_UPDATE" then
+		local arg2 = ...
+		local traderName = UnitName("npc")
+		if traderName == nil or core.DB.pendingLoot == nil or core.DB.pendingLoot[traderName] == nil then
+			return
+		end
+		if arg1 ~= nil and arg1 == 1 then
+			local pendingLoot = core.DB.pendingLoot[traderName]
+			if core.DB.pendingTrade == nil then
+				core.DB.pendingTrade = {}
+			end
+			for tradeSlot = 1, 6 do
+				local tradeLink = GetTradePlayerItemLink(tradeSlot)
+				for i, lootLink in pairs(pendingLoot) do
+					if tradeLink ~= nil and tradeLink == lootLink then
+						tinsert(core.DB.pendingTrade, tradeLink)
+					end
+				end
+			end
+		end
+	elseif core.DB.defaults.AutoAwardLoot and event == "TRADE_CLOSED" then
+		local traderName = UnitName("npc")
+		if traderName == nil or core.DB.pendingTrade == nil or core.DB.pendingLoot == nil or core.DB.pendingLoot[traderName] == nil then
+			return
+		end
+		local pendingLoot = core.DB.pendingLoot[traderName]
+		for _, tradeLink in pairs(core.DB.pendingTrade) do
+			for i, lootLink in pairs(pendingLoot) do
+				if tradeLink == lootLink then
+					pendingLoot[i] = nil
+				end
+			end
+		end
+		if #pendingLoot <= 0 then
+			core.DB.pendingLoot[traderName] = nil
+		end
+		core.DB.pendingTrade = {}
+		core.DB.pendingTradePlayer = nil
     end
 end
 
@@ -654,6 +717,8 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
         C_Timer.After(5, function ()
             core.CommDKPUI = CommDKP.UIConfig or CommDKP:CreateMenu();		-- creates main menu after 5 seconds (trying to initialize after raid frames are loaded)
             core.KeyEventUI = CreateFrame("Frame","KeyEventFrame", UIParent);
+
+			-- on every key down ? really?
             core.KeyEventUI:SetScript("OnKeyDown", function(self, key)
                 if core.Initialized and core.IsOfficer then
                     if MouseIsOver(MultiBarLeft) or MouseIsOver(MultiBarRight) or MouseIsOver(MultiBarBottomLeft) or MouseIsOver(MultiBarBottomRight) or MouseIsOver(MainMenuBar) then
@@ -681,11 +746,12 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
                     end
                 end
             end);
+
             core.KeyEventUI:SetPropagateKeyboardInput(true);
         end)
         ------------------------------------------------
         -- Verify DB Schemas
-        ------------------------------------------------
+		------------------------------------------------\
         if not CommDKP:VerifyDBSchema(CommDKP_DB) then CommDKP_DB = CommDKP:UpgradeDBSchema(CommDKP_DB, CommDKP_DB, false, "CommDKP_DB") end;
 
         -- Verify that the DB table has been initialized.
@@ -747,7 +813,6 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
 
             return a["item"] < b["item"]
         end)
-
         CommDKP:StartBidTimer("seconds", nil)						-- initiates timer frame for use
 
         if CommDKP.BidTimer then CommDKP.BidTimer:SetScript("OnUpdate", nil) end
@@ -758,6 +823,7 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
         if #CommDKP:GetTable(CommDKP_DKPHistory, true) > core.DB.defaults.DKPHistoryLimit then
             CommDKP:PurgeDKPHistory()									-- purges DKP History entries that exceed the "DKPHistoryLimit" option variable (oldest entries) and populates CommDKP_Archive with deleted values
         end
+		core.DB.pendingLoot = {}
     end
 end
 
@@ -1263,4 +1329,7 @@ events:RegisterEvent("GUILD_ROSTER_UPDATE")
 events:RegisterEvent("PLAYER_ENTERING_WORLD")
 events:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 events:RegisterEvent("BOSS_KILL")
+events:RegisterEvent("TRADE_SHOW")
+events:RegisterEvent("TRADE_ACCEPT_UPDATE")
+events:RegisterEvent("TRADE_CLOSED")
 events:SetScript("OnEvent", CommDKP_OnEvent); -- calls the above CommDKP_OnEvent function to determine what to do with the event

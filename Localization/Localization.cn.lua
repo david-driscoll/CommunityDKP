@@ -35,11 +35,89 @@ if GetLocale() == "zhCN" then
     ONYXIA = {"奥妮克希亚"},
     WORLD = {
       "艾索雷苟斯", "卡札克领主", "艾莫莉丝", "雷索", "伊索德雷", "泰拉尔",
+    },
+
+    -- TBC Classic 2.5.1.38757
+    KARAZHAN = { -- 532
+      "猎手阿图门",
+      "莫罗斯",
+      "贞节圣女",
+      "歌剧院",
+      "馆长",
+      "特雷斯坦·邪蹄",
+      "埃兰之影",
+      "虚空幽龙",
+      "国际象棋",
+      "玛克扎尔王子",
+      "夜之魇"
+    },
+    GRULLSLAIR = { -- 565
+      "莫加尔大王",
+      "屠龙者格鲁尔"
+    },
+    MAGTHERIDONSLAIR = { -- 544
+      "玛瑟里顿"
+    },
+    SERPENTSHRINECAVERN = { -- 548
+      "不稳定的海度斯",
+      "鱼斯拉",
+      "盲眼者莱欧瑟拉斯",
+      "深水领主卡拉瑟雷斯",
+      "莫洛格里·踏潮者",
+      "瓦丝琪"
+    },
+    TEMPESTKEEP = { -- 550
+      "奥",
+      "空灵机甲",
+      "大星术师索兰莉安",
+      "凯尔萨斯·逐日者"
+    },
+    ZULAMAN = { -- 568
+      "埃基尔松",
+      "纳洛拉克",
+      "加亚莱",
+      "哈尔拉兹",
+      "妖术领主玛拉卡斯",
+      "达卡拉"
+    },
+    BLACKTEMPLE = { -- 564 map id
+      "高阶督军纳因图斯",
+      "苏普雷姆斯",
+      "阿卡玛之影",
+      "塔隆·血魔",
+      "古尔图格·血沸",
+      "灵魂之匣",
+      "莎赫拉丝主母",
+      "伊利达雷议会",
+      "伊利丹·怒风"
+    },
+    SUNWELLPLATEAU = { -- 580
+      "卡雷苟斯", 
+      "布鲁塔卢斯",
+      "菲米丝",
+      "艾瑞达双子",
+      "穆鲁",
+      "基尔加丹"
     }
   }
-
+  -- 532, 565, 544, 548, 550, 568, 564, 580
   core.ZoneList = {
-    "熔火之心", "黑翼巢穴", "安其拉神庙", "纳克萨玛斯", "祖尔古鲁布", "安其拉废墟", "奥妮克希亚的巢穴", "世界老板",
+    "熔火之心", 
+    "黑翼巢穴", 
+    "安其拉神庙", 
+    "纳克萨玛斯", 
+    "祖尔古鲁布", 
+    "安其拉废墟", 
+    "奥妮克希亚的巢穴", 
+    "世界老板",
+    "卡拉贊", -- 532
+    "戈魯爾之巢", -- 565
+    "瑪瑟里頓的巢穴", -- 544
+    "盤牙:毒蛇神殿洞穴", -- 548
+    "風暴要塞", -- 550
+    "祖阿曼", -- 568
+    "黑暗神廟", -- 564,
+    "太陽之井" -- 580
   }
 
   core.L = {
@@ -102,6 +180,8 @@ if GetLocale() == "zhCN" then
     AUTOCOMBATLOGTTWARN = "如果尚未激活，请在系统>网络中手动激活高级战斗日志。",
     AUTOOPEN = "自动打开出价窗口",
     AUTOOPENTTDESC = "选中该选项后，将在拍卖新项目时自动打开投标窗口。 如果未选中，则需要使用“/dkp bid”手动将其打开。",
+    AUTOAWARDLOOT = "Auto Award Loot",
+    AUTOAWARDLOOTDESC = "When checked loot will be automatically awarded to the winner. If looting they will be master looted to the winner. If awarding from your bags they will be inserted into the next trade window with the winner.",
     DECREASEDISENCHANT = "降低分解價值",
     DECREASEDISENCHANTTTDESC = "3次分解後將分解值降低一半，之後每次分解至少減少5個DKP",
     AWARDBONUS = "奖励奖金",
@@ -820,15 +900,16 @@ if GetLocale() == "zhCN" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.4-r62",
-    CHANGELOG2 = "fixed history display on mouseover",
+    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
+    CHANGELOG2 = " - fixed UI for classic era realms",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
-    CHANGELOG7 = "Taidtuskecyh @ Gehennas",
-    CHANGELOG8 = "CommunityDKP Discord: https://discord.gg/dXXK4vH",
-    CHANGELOG9 = "",
-    CHANGELOG10 = ""
-      }
+    CHANGELOG7 = "",
+    CHANGELOG8 = "",
+    CHANGELOG8 = "",
+    CHANGELOG9 = "Taidtuskecyh @ Gehennas",
+    CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
+    }
 end

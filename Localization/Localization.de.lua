@@ -35,11 +35,89 @@ if GetLocale() == "deDE" then
     ONYXIA = {"Onyxia"},
     WORLD = {
       "Azuregos", "Lord Kazzak", "Smariss", "Lethon", "Ysondre", "Taerar",
+    },
+
+    -- TBC Classic 2.5.1.38757
+    KARAZHAN = { -- 532
+      "Attumen der Jäger",
+      "Moroes",
+      "Tugendhafte Maid",
+      "Opernsaal",
+      "Der Kurator",
+      "Terestian Siechhuf",
+      "Arans Schemen",
+      "Nethergroll",
+      "Das Schachspiel",
+      "Prinz Malchezaar",
+      "Schrecken der Nacht"
+    },
+    GRULLSLAIR = { -- 565
+      "Hochkönig Maulgar",
+      "Gruul der Drachenschlächter"
+    },
+    MAGTHERIDONSLAIR = { -- 544
+      "Magtheridon"
+    },
+    SERPENTSHRINECAVERN = { -- 548
+      "Hydross der Unstete",
+      "Das Grauen aus der Tiefe",
+      "Leotheras der Blinde",
+      "Tiefenlord Karathress",
+      "Morogrim Gezeitenwandler",
+      "Lady Vashj"
+    },
+    TEMPESTKEEP = { -- 550
+      "Al'ar",
+      "Leerhäscher",
+      "Hochastromantin Solarian",
+      "Kael'thas Sonnenwanderer"
+    },
+    ZULAMAN = { -- 568
+      "Akil'zon",
+      "Nalorakk",
+      "Jan'alai",
+      "Halazzi",
+      "Hexlord Malacrass",
+      "Daakara"
+    },
+    BLACKTEMPLE = { -- 564 map id
+      "Oberster Kriegsfürst Naj'entus",
+      "Supremus",
+      "Akamas Schemen",
+      "Teron Blutschatten",
+      "Gurtogg Siedeblut",
+      "Reliquiar der Seelen",
+      "Mutter Shahraz",
+      "Der Rat der Illidari",
+      "Illidan Sturmgrimm"
+    },
+    SUNWELLPLATEAU = { -- 580
+      "Kalecgos", 
+      "Brutallus",
+      "Teufelsruch",
+      "Eredarzwillinge",
+      "M'uru",
+      "Kil'jaeden"
     }
   }
 
   core.ZoneList = {
-    "Geschmolzener Kern", "Pechschwingenhort", "Tempel von Ahn'Qiraj", "Naxxramas", "Zul'Gurub", "Ruinen von Ahn'Qiraj", "Onyxias Versteck", "Weltbosse",
+    "Geschmolzener Kern", 
+    "Pechschwingenhort", 
+    "Tempel von Ahn'Qiraj", 
+    "Naxxramas", 
+    "Zul'Gurub", 
+    "Ruinen von Ahn'Qiraj", 
+    "Onyxias Versteck", 
+    "Weltbosse",
+    "Karazhan", -- 532
+    "Gruuls Unterschlupf", -- 565
+    "Magtheridons Kammer", -- 544
+    "Echsenkessel: Höhle des Schlangenschreins", -- 548
+    "Festung der Stürme", -- 550
+    "Zul'Aman", -- 568
+    "Der Schwarze Tempel", -- 564,
+    "Der Sonnenbrunnen" -- 580
   }
 
   core.L = {
@@ -102,6 +180,8 @@ if GetLocale() == "deDE" then
     AUTOCOMBATLOGTTWARN = "Sie müssen Advanced Combat Logging immer noch manuell unter System> Netzwerk aktivieren, falls Sie dies noch nicht getan haben.",
     AUTOOPEN = "Gebotsfenster automatisch öffnen",
     AUTOOPENTTDESC = "Wenn diese Option aktiviert ist, wird das Gebotsfenster automatisch geöffnet, wenn ein neuer Artikel versteigert wird. Wenn das Kontrollkästchen deaktiviert ist, müssen Sie es bei Bedarf mit \"/dkp bid\" manuell öffnen.",
+    AUTOAWARDLOOT = "Auto Award Loot",
+    AUTOAWARDLOOTDESC = "When checked loot will be automatically awarded to the winner. If looting they will be master looted to the winner. If awarding from your bags they will be inserted into the next trade window with the winner.",
     DECREASEDISENCHANT = "Entzaubern-Wert verringern",
     DECREASEDISENCHANTTTDESC = "Verringere den Entzaubern-Wert nach drei Entzauberungen um die Hälfte bei jeder weiteren Entzauberung bis zu einem Mindestwert von 5 DKP",
     AWARDBONUS = "Bonusprämie",
@@ -814,15 +894,16 @@ if GetLocale() == "deDE" then
     MIGRATIONCOMPLETED    = "Migration abgeschlossen.|n|nBitte deaktivieren Sie MonolithDKP und laden Sie das UI neu. (/reload)",
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.4-r62",
-    CHANGELOG2 = "fixed history display on mouseover",
+    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
+    CHANGELOG2 = " - fixed UI for classic era realms",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
-    CHANGELOG7 = "Taidtuskecyh @ Gehennas",
-    CHANGELOG8 = "CommunityDKP Discord: https://discord.gg/dXXK4vH",
-    CHANGELOG9 = "",
-    CHANGELOG10 = ""
+    CHANGELOG7 = "",
+    CHANGELOG8 = "",
+    CHANGELOG8 = "",
+    CHANGELOG9 = "Taidtuskecyh @ Gehennas",
+    CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
       }
 end

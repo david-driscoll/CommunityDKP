@@ -575,9 +575,6 @@ function CommDKP:ToggleBidWindow(loot, lootIcon, itemName)
   mode = core.DB.modes.mode;
 
   if core.IsOfficer then
-    if core.BiddingWindow == nil then
-      -- print("Bidding Window is Nil")
-    end
 
     core.BiddingWindow = core.BiddingWindow or CommDKP:CreateBidWindow();
 
@@ -1131,10 +1128,18 @@ end
 
 function CommDKP:CreateTimer()
 
-  local f = CreateFrame("StatusBar", nil, UIParent)
+  local f;
+
+  if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+    f = CreateFrame("StatusBar", nil, UIParent)
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    f = CreateFrame("StatusBar", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)
+  end
+
   f:SetSize(300, 25)
   f:SetFrameStrata("DIALOG")
   f:SetFrameLevel(18)
+
   f:SetBackdrop({
       bgFile   = "Interface\\ChatFrame\\ChatFrameBackground", tile = true,
     });
@@ -1157,7 +1162,12 @@ function CommDKP:CreateTimer()
     core.DB.timerpos["y"] = yOff;
   end);
 
-  f.border = CreateFrame("Frame", nil, f);
+  if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+    f.border = CreateFrame("Frame", nil, f);
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    f.border = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil);
+  end
+
   f.border:SetPoint("CENTER", f, "CENTER");
   f.border:SetFrameStrata("DIALOG")
   f.border:SetFrameLevel(19)
@@ -1334,7 +1344,6 @@ local function SortBidTable()             -- sorts the Loot History Table by dat
 end
 
 function CommDKP:BidScrollFrame_Update()
-  -- print("Updating bidscroll");
   local numOptions = #Bids_Submitted;
   local index, row
     local offset = FauxScrollFrame_GetOffset(core.BiddingWindow.bidTable) or 0
@@ -1423,7 +1432,15 @@ function CommDKP:BidScrollFrame_Update()
 end
 
 function CommDKP:CreateBidWindow()
-  local f = CreateFrame("Frame", "CommDKP_BiddingWindow", UIParent, "ShadowOverlaySmallTemplate");
+
+  local f;
+
+  if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+    f = CreateFrame("Frame", "CommDKP_BiddingWindow", UIParent, "ShadowOverlaySmallTemplate");
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    f = CreateFrame("Frame", "CommDKP_BiddingWindow", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
+  end
+
   mode = core.DB.modes.mode;
 
   f:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 300, -200);
@@ -1467,7 +1484,13 @@ function CommDKP:CreateBidWindow()
   tinsert(UISpecialFrames, f:GetName()); -- Sets frame to close on "Escape"
 
     -- Close Button
-  f.closeContainer = CreateFrame("Frame", "CommDKPBiddingWindowCloseButtonContainer", f)
+
+  if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+    f.closeContainer = CreateFrame("Frame", "CommDKPBiddingWindowCloseButtonContainer", f)
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    f.closeContainer = CreateFrame("Frame", "CommDKPBiddingWindowCloseButtonContainer", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+  end
+
   f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
   f.closeContainer:SetBackdrop({
     bgFile   = "Textures\\white.blp",
@@ -1492,7 +1515,13 @@ function CommDKP:CreateBidWindow()
     f.bossHeader:SetPoint("TOPLEFT", f, "TOPLEFT", 85, -25);
     f.bossHeader:SetText(L["BOSS"]..":")
 
-    f.boss = CreateFrame("EditBox", nil, f)
+    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+      f.boss = CreateFrame("EditBox", nil, f)
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+      f.boss = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+    end
+
+
     f.boss:SetFontObject("CommDKPNormalLeft");
     f.boss:SetAutoFocus(false)
     f.boss:SetMultiLine(false)
@@ -1554,7 +1583,12 @@ function CommDKP:CreateBidWindow()
       -- Min Bid
       f.minBidHeader:SetText(L["MINIMUMBID"]..": ")
 
-      f.minBid = CreateFrame("EditBox", nil, f)
+      if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+        f.minBid = CreateFrame("EditBox", nil, f)
+      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+        f.minBid = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+      end
+
       f.minBid:SetPoint("LEFT", f.minBidHeader, "RIGHT", 8, 0)
       f.minBid:SetAutoFocus(false)
       f.minBid:SetMultiLine(false)
@@ -1615,7 +1649,12 @@ function CommDKP:CreateBidWindow()
       f.maxBidHeader:SetPoint("TOP", f.minBidHeader, "BOTTOM", -2, -25);
       f.maxBidHeader:SetText(L["MAXIMUMBID"]..": ")
 
-      f.maxBid = CreateFrame("EditBox", nil, f)
+      if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+        f.maxBid = CreateFrame("EditBox", nil, f)
+      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+        f.maxBid = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+      end
+
       f.maxBid:SetPoint("LEFT", f.maxBidHeader, "RIGHT", 8, 0)
       f.maxBid:SetAutoFocus(false)
       f.maxBid:SetMultiLine(false)
@@ -1678,7 +1717,12 @@ function CommDKP:CreateBidWindow()
   end
     f.bidTimerHeader:SetText(L["BIDTIMER"]..": ")
 
-    f.bidTimer = CreateFrame("EditBox", nil, f)
+    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+      f.bidTimer = CreateFrame("EditBox", nil, f)
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+      f.bidTimer = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+    end
+
     f.bidTimer:SetPoint("LEFT", f.bidTimerHeader, "RIGHT", 8, 0)
       f.bidTimer:SetAutoFocus(false)
       f.bidTimer:SetMultiLine(false)
@@ -1786,8 +1830,13 @@ function CommDKP:CreateBidWindow()
     --------------------------------------------------
     -- Bid Table
     --------------------------------------------------
+    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
       f.bidTable = CreateFrame("ScrollFrame", "CommDKP_BidWindowTable", f, "FauxScrollFrameTemplate")
-      f.bidTable:SetSize(width, height*numrows+3)
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+      f.bidTable = CreateFrame("ScrollFrame", "CommDKP_BidWindowTable", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+    end
+
+    f.bidTable:SetSize(width, height*numrows+3)
     f.bidTable:SetBackdrop({
       bgFile   = "Textures\\white.blp",
       edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
@@ -1795,7 +1844,11 @@ function CommDKP:CreateBidWindow()
     f.bidTable:SetBackdropColor(0,0,0,0.2)
     f.bidTable:SetBackdropBorderColor(1,1,1,0.4)
       f.bidTable.ScrollBar = FauxScrollFrame_GetChildFrames(f.bidTable)
-      f.bidTable.ScrollBar:Hide()
+
+      if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+          f.bidTable.ScrollBar:Hide()
+      end
+
       f.bidTable.Rows = {}
       for i=1, numrows do
           f.bidTable.Rows[i] = BidWindowCreateRow(f.bidTable, i)
@@ -1815,7 +1868,12 @@ function CommDKP:CreateBidWindow()
     local headerButtons = {}
     mode = core.DB.modes.mode;
 
-    f.BidTable_Headers = CreateFrame("Frame", "CommDKPDKPTableHeaders", f)
+    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+      f.BidTable_Headers = CreateFrame("Frame", "CommDKPDKPTableHeaders", f)
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+      f.BidTable_Headers = CreateFrame("Frame", "CommDKPDKPTableHeaders", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+    end
+
     f.BidTable_Headers:SetSize(370, 22)
     f.BidTable_Headers:SetPoint("BOTTOMLEFT", f.bidTable, "TOPLEFT", 0, 1)
     f.BidTable_Headers:SetBackdrop({
@@ -1902,7 +1960,12 @@ function CommDKP:CreateBidWindow()
       --  AWARD ITEM
       ------------------------------------
 
-      f.cost = CreateFrame("EditBox", nil, f)
+      if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+        f.cost = CreateFrame("EditBox", nil, f)
+      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+        f.cost = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+      end
+
     f.cost:SetPoint("TOPLEFT", f.bidTable, "BOTTOMLEFT", 71, -15)
       f.cost:SetAutoFocus(false)
       f.cost:SetMultiLine(false)

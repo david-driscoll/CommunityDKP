@@ -63,7 +63,7 @@ function CommDKP_Profile_Create(player, dkp, gained, spent, teamIndex)
 end
 
 local function CommDKP_BroadcastFull_Status_Create()
-	local f = CreateFrame("Frame", "CommDKP_FullBroadcastStatus", UIParent, "ShadowOverlaySmallTemplate");
+	local f = CreateFrame("Frame", "CommDKP_FullBroadcastStatus", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
 
 	f:SetPoint("TOP", UIParent, "TOP", 0, -10);
 	f:SetSize(300, 85);
@@ -89,7 +89,7 @@ local function CommDKP_BroadcastFull_Status_Create()
 	f.bcastHeader:SetPoint("TOPLEFT", f, "TOPLEFT", 15, -15);
 	f.bcastHeader:SetScale(0.8)
 
-	f.status = CreateFrame("StatusBar", nil, f)
+	f.status = CreateFrame("StatusBar", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
 	f.status:SetSize(200, 15)
 	f.status:SetBackdrop({
 	    bgFile   = "Interface\\ChatFrame\\ChatFrameBackground", tile = true,
@@ -103,7 +103,7 @@ local function CommDKP_BroadcastFull_Status_Create()
 	f.status.percentage:SetPoint("TOP", f.status, "BOTTOM", 0, -9);
 	f.status.percentage:SetScale(0.6)
 
-	f.status.border = CreateFrame("Frame", nil, f.status);
+	f.status.border = CreateFrame("Frame", nil, f.status, BackdropTemplateMixin and "BackdropTemplate" or nil);
 	f.status.border:SetPoint("CENTER", f.status, "CENTER");
 	f.status.border:SetFrameStrata("DIALOG")
 	f.status.border:SetFrameLevel(19)
@@ -301,12 +301,12 @@ function CommDKP_BroadcastFull_Callback(arg1, arg2, arg3)
 end
 
 function CommDKP_BroadcastFull_Create()
-	local f = CreateFrame("Frame", "CommDKP_FullBroadcastWindow", UIParent, "ShadowOverlaySmallTemplate");
+	local f = CreateFrame("Frame", "CommDKP_FullBroadcastWindow", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
 
 	f:SetPoint("TOP", UIParent, "TOP", 0, -200);
 	f:SetSize(300, 260);
 	f:SetClampedToScreen(true)
-	f:SetBackdrop( {
+	f:SetBackdrop({
 		bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
 		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
@@ -323,7 +323,7 @@ function CommDKP_BroadcastFull_Create()
 	f:Hide()
 
 	-- Close Button
-	f.closeContainer = CreateFrame("Frame", "CommDKPTitle", f)
+	f.closeContainer = CreateFrame("Frame", "CommDKPTitle", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
 	f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
 	f.closeContainer:SetBackdrop({
 		bgFile   = "Textures\\white.blp",

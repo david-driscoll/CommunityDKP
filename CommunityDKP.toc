@@ -1,8 +1,10 @@
-## Interface: 11305
+## Interface: 11307
+## Interface-Classic: 11307
+## Interface-BCC: 20501
 ## Title: |cff9900ffCommunity|r |cff595959DKP|r
 ## Author: Vapok-BloodsailBuccaneers
 ## Notes: Feature-rich DKP Management Tool
-## Version: 3.2.3
+## Version: 3.2.7
 ## DefaultState: enabled
 ## SavedVariables: CommDKP_DB, CommDKP_Loot, CommDKP_DKPTable, CommDKP_DKPHistory, CommDKP_MinBids, CommDKP_MaxBids, CommDKP_Whitelist, CommDKP_Standby, CommDKP_Archive, CommDKP_Profiles
 

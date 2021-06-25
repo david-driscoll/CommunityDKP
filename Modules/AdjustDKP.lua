@@ -135,7 +135,12 @@ end
 
 local function RaidTimerPopout_Create()
     if not CommDKP.RaidTimerPopout then
+
+		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         CommDKP.RaidTimerPopout = CreateFrame("Frame", "CommDKP_RaidTimerPopout", UIParent, "ShadowOverlaySmallTemplate");
+		elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			CommDKP.RaidTimerPopout = CreateFrame("Frame", "CommDKP_RaidTimerPopout", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
+		end
 
         CommDKP.RaidTimerPopout:SetPoint("RIGHT", UIParent, "RIGHT", -300, 100);
         CommDKP.RaidTimerPopout:SetSize(100, 50);
@@ -156,7 +161,12 @@ local function RaidTimerPopout_Create()
         CommDKP.RaidTimerPopout:SetScript("OnDragStop", CommDKP.RaidTimerPopout.StopMovingOrSizing);
 
         -- Popout Close Button
+		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         CommDKP.RaidTimerPopout.closeContainer = CreateFrame("Frame", "CommDKPChangeLogClose", CommDKP.RaidTimerPopout)
+		elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			CommDKP.RaidTimerPopout.closeContainer = CreateFrame("Frame", "CommDKPChangeLogClose", CommDKP.RaidTimerPopout, BackdropTemplateMixin and "BackdropTemplate" or nil)
+		end
+
         CommDKP.RaidTimerPopout.closeContainer:SetPoint("CENTER", CommDKP.RaidTimerPopout, "TOPRIGHT", -8, -4)
         CommDKP.RaidTimerPopout.closeContainer:SetBackdrop({
           bgFile   = "Textures\\white.blp",
@@ -278,7 +288,13 @@ function CommDKP:AdjustDKPTab_Create()
     CommDKP.ConfigTab2.reasonHeader:SetText(L["REASONFORADJUSTMENT"]..":")
 
     -- Other Reason Editbox. Hidden unless "Other" is selected in dropdown
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.ConfigTab2.otherReason = CreateFrame("EditBox", nil, CommDKP.ConfigTab2)
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.ConfigTab2.otherReason = CreateFrame("EditBox", nil, CommDKP.ConfigTab2, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     CommDKP.ConfigTab2.otherReason:SetPoint("TOPLEFT", CommDKP.ConfigTab2.reasonDropDown, "BOTTOMLEFT", 19, 2)
     CommDKP.ConfigTab2.otherReason:SetAutoFocus(false)
     CommDKP.ConfigTab2.otherReason:SetMultiLine(false)
@@ -326,6 +342,7 @@ function CommDKP:AdjustDKPTab_Create()
         local boss = UIDropDownMenu_CreateInfo()
         boss.fontObject = "CommDKPSmallCenter"
         if (level or 1) == 1 then
+        if (level or 1) == 1 then
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[1], core.CurrentRaidZone == core.ZoneList[1], "MC", true
             UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[2], core.CurrentRaidZone == core.ZoneList[2], "BWL", true
@@ -369,40 +386,39 @@ function CommDKP:AdjustDKPTab_Create()
 
     function CommDKP.ConfigTab2.BossKilledDropdown:SetValue(newValue)
         local search = CommDKP:Table_Search(core.EncounterList, newValue);
-
-        if CommDKP:Table_Search(core.EncounterList.MC, newValue) then
-            core.CurrentRaidZone = core.ZoneList[1]
-        elseif CommDKP:Table_Search(core.EncounterList.BWL, newValue) then
-            core.CurrentRaidZone = core.ZoneList[2]
-        elseif CommDKP:Table_Search(core.EncounterList.AQ, newValue) then
-            core.CurrentRaidZone = core.ZoneList[3]
-        elseif CommDKP:Table_Search(core.EncounterList.NAXX, newValue) then
-            core.CurrentRaidZone = core.ZoneList[4]
-        elseif CommDKP:Table_Search(core.EncounterList.ZG, newValue) then
-            core.CurrentRaidZone = core.ZoneList[5]
-        elseif CommDKP:Table_Search(core.EncounterList.AQ20, newValue) then
-            core.CurrentRaidZone = core.ZoneList[6]
-        elseif CommDKP:Table_Search(core.EncounterList.ONYXIA, newValue) then
-            core.CurrentRaidZone = core.ZoneList[7]
-        --elseif CommDKP:Table_Search(core.EncounterList.WORLD, newValue) then         -- encounter IDs not known yet
-            --core.CurrentRaidZone = core.ZoneList[8]
-        elseif CommDKP:Table_Search(core.EncounterList.KARAZHAN, newValue) then
-            core.CurrentRaidZone = core.ZoneList[9]
-        elseif CommDKP:Table_Search(core.EncounterList.GRUUL, newValue) then
-            core.CurrentRaidZone = core.ZoneList[10]
-        elseif CommDKP:Table_Search(core.EncounterList.MAGTHERIDON, newValue) then
-            core.CurrentRaidZone = core.ZoneList[11]
-        elseif CommDKP:Table_Search(core.EncounterList.SSC, newValue) then
-            core.CurrentRaidZone = core.ZoneList[12]
-        elseif CommDKP:Table_Search(core.EncounterList.TK, newValue) then
-            core.CurrentRaidZone = core.ZoneList[13]
-        elseif CommDKP:Table_Search(core.EncounterList.HYJAL, newValue) then
-            core.CurrentRaidZone = core.ZoneList[14]
-        elseif CommDKP:Table_Search(core.EncounterList.BT, newValue) then
-            core.CurrentRaidZone = core.ZoneList[15]
-        elseif CommDKP:Table_Search(core.EncounterList.SUNWELL, newValue) then
-            core.CurrentRaidZone = core.ZoneList[16]
-        end
+		if CommDKP:Table_Search(core.EncounterList.MC, newValue) then
+			core.CurrentRaidZone = core.ZoneList[1]
+		elseif CommDKP:Table_Search(core.EncounterList.BWL, newValue) then
+			core.CurrentRaidZone = core.ZoneList[2]
+		elseif CommDKP:Table_Search(core.EncounterList.AQ, newValue) then
+			core.CurrentRaidZone = core.ZoneList[3]
+		elseif CommDKP:Table_Search(core.EncounterList.NAXX, newValue) then
+			core.CurrentRaidZone = core.ZoneList[4]
+		elseif CommDKP:Table_Search(core.EncounterList.ZG, newValue) then
+			core.CurrentRaidZone = core.ZoneList[5]
+		elseif CommDKP:Table_Search(core.EncounterList.AQ20, newValue) then
+			core.CurrentRaidZone = core.ZoneList[6]
+		elseif CommDKP:Table_Search(core.EncounterList.ONYXIA, newValue) then
+			core.CurrentRaidZone = core.ZoneList[7]
+		elseif CommDKP:Table_Search(core.EncounterList.KARAZHAN, newValue) then
+			core.CurrentRaidZone = core.ZoneList[9]
+		elseif CommDKP:Table_Search(core.EncounterList.GRULLSLAIR, newValue) then
+			core.CurrentRaidZone = core.ZoneList[10]
+		elseif CommDKP:Table_Search(core.EncounterList.MAGTHERIDONSLAIR, newValue) then
+			core.CurrentRaidZone = core.ZoneList[11]
+		elseif CommDKP:Table_Search(core.EncounterList.SERPENTSHRINECAVERN, newValue) then
+			core.CurrentRaidZone = core.ZoneList[12]
+		elseif CommDKP:Table_Search(core.EncounterList.TEMPESTKEEP, newValue) then
+			core.CurrentRaidZone = core.ZoneList[13]
+		elseif CommDKP:Table_Search(core.EncounterList.ZULAMAN, newValue) then
+			core.CurrentRaidZone = core.ZoneList[14]
+		elseif CommDKP:Table_Search(core.EncounterList.BLACKTEMPLE, newValue) then
+			core.CurrentRaidZone = core.ZoneList[15]
+		elseif CommDKP:Table_Search(core.EncounterList.SUNWELLPLATEAU, newValue) then
+			core.CurrentRaidZone = core.ZoneList[16]
+		--elseif CommDKP:Table_Search(core.EncounterList.WORLD, newValue) then 		-- encounter IDs not known yet
+			--core.CurrentRaidZone = core.ZoneList[8]
+		end
 
         if search then
             core.LastKilledBoss = core.BossList[search[1][1]][search[1][2]]
@@ -421,7 +437,13 @@ function CommDKP:AdjustDKPTab_Create()
     end
 
     -- Add DKP Edit Box
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.ConfigTab2.addDKP = CreateFrame("EditBox", nil, CommDKP.ConfigTab2)
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.ConfigTab2.addDKP = CreateFrame("EditBox", nil, CommDKP.ConfigTab2, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     CommDKP.ConfigTab2.addDKP:SetPoint("TOPLEFT", CommDKP.ConfigTab2.reasonDropDown, "BOTTOMLEFT", 20, -44)
     CommDKP.ConfigTab2.addDKP:SetAutoFocus(false)
     CommDKP.ConfigTab2.addDKP:SetMultiLine(false)
@@ -532,7 +554,13 @@ function CommDKP:AdjustDKPTab_Create()
     end)
 
     -- weekly decay Editbox
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.ConfigTab2.decayDKP = CreateFrame("EditBox", nil, CommDKP.ConfigTab2)
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.ConfigTab2.decayDKP = CreateFrame("EditBox", nil, CommDKP.ConfigTab2, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	end
+
     CommDKP.ConfigTab2.decayDKP:SetPoint("BOTTOMLEFT", CommDKP.ConfigTab2, "BOTTOMLEFT", 21, 70)
     CommDKP.ConfigTab2.decayDKP:SetAutoFocus(false)
     CommDKP.ConfigTab2.decayDKP:SetMultiLine(false)
@@ -657,7 +685,13 @@ function CommDKP:AdjustDKPTab_Create()
     end)
 
     -- Raid Timer Container
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     CommDKP.ConfigTab2.RaidTimerContainer = CreateFrame("Frame", nil, CommDKP.ConfigTab2);
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		CommDKP.ConfigTab2.RaidTimerContainer = CreateFrame("Frame", nil, CommDKP.ConfigTab2, BackdropTemplateMixin and "BackdropTemplate" or nil);
+	end
+
     CommDKP.ConfigTab2.RaidTimerContainer:SetSize(200, 360);
     CommDKP.ConfigTab2.RaidTimerContainer:SetPoint("RIGHT", CommDKP.ConfigTab2, "RIGHT", -25, -60)
     CommDKP.ConfigTab2.RaidTimerContainer:SetBackdrop({
@@ -852,7 +886,13 @@ function CommDKP:AdjustDKPTab_Create()
 
         -- Award Interval Editbox
         if not core.DB.modes.increment then core.DB.modes.increment = 60 end
+
+		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         CommDKP.ConfigTab2.RaidTimerContainer.interval = CreateFrame("EditBox", nil, CommDKP.ConfigTab2.RaidTimerContainer)
+		elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			CommDKP.ConfigTab2.RaidTimerContainer.interval = CreateFrame("EditBox", nil, CommDKP.ConfigTab2.RaidTimerContainer, BackdropTemplateMixin and "BackdropTemplate" or nil)
+		end
+
         CommDKP.ConfigTab2.RaidTimerContainer.interval:SetPoint("BOTTOMLEFT", CommDKP.ConfigTab2.RaidTimerContainer, "BOTTOMLEFT", 35, 225)
         CommDKP.ConfigTab2.RaidTimerContainer.interval:SetAutoFocus(false)
         CommDKP.ConfigTab2.RaidTimerContainer.interval:SetMultiLine(false)
@@ -918,7 +958,13 @@ function CommDKP:AdjustDKPTab_Create()
 
         -- Award Value Editbox
         if not core.DB.DKPBonus.IntervalBonus then core.DB.DKPBonus.IntervalBonus = 15 end
+
+		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         CommDKP.ConfigTab2.RaidTimerContainer.bonusvalue = CreateFrame("EditBox", nil, CommDKP.ConfigTab2.RaidTimerContainer)
+		elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			CommDKP.ConfigTab2.RaidTimerContainer.bonusvalue = CreateFrame("EditBox", nil, CommDKP.ConfigTab2.RaidTimerContainer, BackdropTemplateMixin and "BackdropTemplate" or nil)
+		end
+
         CommDKP.ConfigTab2.RaidTimerContainer.bonusvalue:SetPoint("LEFT", CommDKP.ConfigTab2.RaidTimerContainer.interval, "RIGHT", 10, 0)
         CommDKP.ConfigTab2.RaidTimerContainer.bonusvalue:SetAutoFocus(false)
         CommDKP.ConfigTab2.RaidTimerContainer.bonusvalue:SetMultiLine(false)

@@ -236,11 +236,54 @@ local function AwardItem(player, cost, boss, zone, loot, reassign)
             SendChatMessage(L["CONGRATS"].." "..winner.." "..L["ON"].." "..loot.." @ "..-cost.." "..L["DKP"], "GUILD")
         end
 
+		if core.DB.defaults.AutoAwardLoot then
+			local numLootItems = GetNumLootItems()
+			if numLootItems > 0 then
+				local lootIndex = nil
+				for i = 1, numLootItems do
+					local lootLink = GetLootSlotLink(i)
+					if lootIndex == nil and lootLink ~= nil and lootLink == loot then
+						lootIndex = i
+					end
+				end
+
+				local candidateIndex = nil
+				local maxGroupMembers = MAX_RAID_MEMBERS
+				if not IsInRaid() then maxGroupMembers = MAX_PARTY_MEMBERS end
+				for i = 1, maxGroupMembers do
+					local candidate = GetMasterLootCandidate(lootIndex, i)
+					if candidateIndex == nil and candidate ~= nil and candidate == winner then
+						candidateIndex = i
+					end
+				end
+
+				if lootIndex ~= nil and candidateIndex ~= nil then
+					GiveMasterLoot(lootIndex, candidateIndex)
+				end
+			else
+				if core.DB.pendingLoot == nil then
+					core.DB.pendingLoot = {}
+				end
+				if core.DB.pendingLoot[winner] == nil then
+					core.DB.pendingLoot[winner] = {}
+				end
+				tinsert(core.DB.pendingLoot[winner], loot)
+				InitiateTrade(winner)
+			end
+		end
+
     end
 end
 
 local function AwardConfirm_Create()
-    local f = CreateFrame("Frame", "CommDKP_AwardWindowConfirm", UIParent, "ShadowOverlaySmallTemplate");
+
+	local f;
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		f = CreateFrame("Frame", "CommDKP_AwardWindowConfirm", UIParent, "ShadowOverlaySmallTemplate");
+	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+		f = CreateFrame("Frame", "CommDKP_AwardWindowConfirm", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
+	end
 
     f:SetPoint("TOP", UIParent, "TOP", 0, -200);
     f:SetSize(400, 270); -- + 40
@@ -325,7 +368,12 @@ local function AwardConfirm_Create()
         f.costHeader:SetPoint("TOPRIGHT", f.lootHeader, "BOTTOMRIGHT", 0, -10);
         f.costHeader:SetText(L["ITEMCOST"]..":")
 
+		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         f.cost = CreateFrame("EditBox", nil, f)
+		elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			f.cost = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+		end
+
         f.cost:SetAutoFocus(false)
         f.cost:SetMultiLine(false)
         f.cost:SetPoint("LEFT", f.costHeader, "RIGHT", 5, 0)
