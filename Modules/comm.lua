@@ -66,6 +66,7 @@ function CommDKP.Sync:OnEnable()
   CommDKP.Sync:RegisterComm("CommDKPRoles", CommDKP.Sync:OnCommReceived())        -- broadcasts current role info
   CommDKP.Sync:RegisterComm("CommDKPBossLoot", CommDKP.Sync:OnCommReceived())      -- broadcast current loot table
   CommDKP.Sync:RegisterComm("CommDKPBidShare", CommDKP.Sync:OnCommReceived())      -- broadcast accepted bids
+  CommDKP.Sync:RegisterComm("CommDKPBidOffic", CommDKP.Sync:OnCommReceived())    -- broadcast accepted bids
   CommDKP.Sync:RegisterComm("CommDKPBidder", CommDKP.Sync:OnCommReceived())      -- Submit bids
   CommDKP.Sync:RegisterComm("CommDKPAllTabs", CommDKP.Sync:OnCommReceived())      -- Full table broadcast
   CommDKP.Sync:RegisterComm("CommDKPSetPrice", CommDKP.Sync:OnCommReceived())      -- Set Single Item Price
@@ -236,6 +237,9 @@ function CommDKP.Sync:OnCommReceived(prefix, message, distribution, sender)
             CommDKP:DKPModesReceived(_objReceived);
             return;
           elseif prefix == "CommDKPBidShare" then
+            CommDKP:BidShareReceived(_objReceived);
+            return;
+          elseif prefix == "CommDKPBidOffic" and CommDKP:ValidateSender(UnitName("player")) then
             CommDKP:BidShareReceived(_objReceived);
             return;
           elseif prefix == "CommDKPBossLoot" then

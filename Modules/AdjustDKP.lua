@@ -342,6 +342,22 @@ function CommDKP:AdjustDKPTab_Create()
             UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[8], core.CurrentRaidZone == core.ZoneList[8], "WORLD", true
             UIDropDownMenu_AddButton(boss)
+            boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[9], core.CurrentRaidZone == core.ZoneList[9], "KARAZHAN", true
+            UIDropDownMenu_AddButton(boss)
+            boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[10], core.CurrentRaidZone == core.ZoneList[10], "GRUUL", true
+            UIDropDownMenu_AddButton(boss)
+            boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[11], core.CurrentRaidZone == core.ZoneList[11], "MAGTHERIDON", true
+            UIDropDownMenu_AddButton(boss)
+            boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[12], core.CurrentRaidZone == core.ZoneList[12], "SSC", true
+            UIDropDownMenu_AddButton(boss)
+            boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[13], core.CurrentRaidZone == core.ZoneList[13], "TK", true
+            UIDropDownMenu_AddButton(boss)
+            boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[14], core.CurrentRaidZone == core.ZoneList[14], "HYJAL", true
+            UIDropDownMenu_AddButton(boss)
+            boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[15], core.CurrentRaidZone == core.ZoneList[15], "BT", true
+            UIDropDownMenu_AddButton(boss)
+            boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[16], core.CurrentRaidZone == core.ZoneList[16], "SUNWELL", true
+            UIDropDownMenu_AddButton(boss)
         else
             boss.func = self.SetValue
             for i=1, #core.BossList[menuList] do
@@ -370,6 +386,22 @@ function CommDKP:AdjustDKPTab_Create()
             core.CurrentRaidZone = core.ZoneList[7]
         --elseif CommDKP:Table_Search(core.EncounterList.WORLD, newValue) then         -- encounter IDs not known yet
             --core.CurrentRaidZone = core.ZoneList[8]
+        elseif CommDKP:Table_Search(core.EncounterList.KARAZHAN, newValue) then
+            core.CurrentRaidZone = core.ZoneList[9]
+        elseif CommDKP:Table_Search(core.EncounterList.GRUUL, newValue) then
+            core.CurrentRaidZone = core.ZoneList[10]
+        elseif CommDKP:Table_Search(core.EncounterList.MAGTHERIDON, newValue) then
+            core.CurrentRaidZone = core.ZoneList[11]
+        elseif CommDKP:Table_Search(core.EncounterList.SSC, newValue) then
+            core.CurrentRaidZone = core.ZoneList[12]
+        elseif CommDKP:Table_Search(core.EncounterList.TK, newValue) then
+            core.CurrentRaidZone = core.ZoneList[13]
+        elseif CommDKP:Table_Search(core.EncounterList.HYJAL, newValue) then
+            core.CurrentRaidZone = core.ZoneList[14]
+        elseif CommDKP:Table_Search(core.EncounterList.BT, newValue) then
+            core.CurrentRaidZone = core.ZoneList[15]
+        elseif CommDKP:Table_Search(core.EncounterList.SUNWELL, newValue) then
+            core.CurrentRaidZone = core.ZoneList[16]
         end
 
         if search then
@@ -725,6 +757,7 @@ function CommDKP:AdjustDKPTab_Create()
                         button1 = L["YES"],
                         button2 = L["NO"],
                         OnAccept = function()
+                            CommDKP:AddRaidToDKPTable()
                             local setInterval = CommDKP.ConfigTab2.RaidTimerContainer.interval:GetNumber();
                             local setBonus = CommDKP.ConfigTab2.RaidTimerContainer.bonusvalue:GetNumber();
                             local setOnTime = tostring(CommDKP.ConfigTab2.RaidTimerContainer.StartBonus:GetChecked());

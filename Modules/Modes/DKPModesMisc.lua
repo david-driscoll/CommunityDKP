@@ -167,7 +167,7 @@ function CommDKP:DKPModes_Misc()
 	--Misc Options Container
 	f.MiscContainer = CommDKP:CreateContainer(f, "MiscContainer", L["MISCSETTINGS"])
     f.MiscContainer:SetPoint("TOPLEFT", f.AutoAwardContainer, "BOTTOMLEFT", 0, -20)
-    f.MiscContainer:SetSize(175, 90)
+    f.MiscContainer:SetSize(175, 124)
 
 		-- Standby On Boss Kill Checkbox
 		f.MiscContainer.Standby = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate");
@@ -236,6 +236,28 @@ function CommDKP:DKPModes_Misc()
 			GameTooltip:Hide()
 		end)
 
+		-- Broadcast Bid Table to Raid
+		f.MiscContainer.BroadcastOfficerBids = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate");
+		f.MiscContainer.BroadcastOfficerBids:SetChecked(core.DB.modes.BroadcastOfficerBids)
+		f.MiscContainer.BroadcastOfficerBids:SetScale(0.6);
+		f.MiscContainer.BroadcastOfficerBids.text:SetText("  |cff5151de"..L["BROADCASTOFFICERBIDS"].."|r");
+		f.MiscContainer.BroadcastOfficerBids.text:SetScale(1.5);
+		f.MiscContainer.BroadcastOfficerBids.text:SetFontObject("CommDKPSmallLeft")
+		f.MiscContainer.BroadcastOfficerBids:SetPoint("TOP", f.MiscContainer.BroadcastBids, "BOTTOM", 0, 0);
+		f.MiscContainer.BroadcastOfficerBids:SetScript("OnClick", function(self)
+			core.DB.modes.BroadcastOfficerBids = self:GetChecked();
+			PlaySound(808);
+		end)
+		f.MiscContainer.BroadcastOfficerBids:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+			GameTooltip:SetText(L["BROADCASTOFFICERBIDS"], 0.25, 0.75, 0.90, 1, true);
+			GameTooltip:AddLine(L["BROADCASTOFFICERBIDSTTDESC"], 1.0, 1.0, 1.0, true);
+			GameTooltip:Show();
+		end)
+		f.MiscContainer.BroadcastOfficerBids:SetScript("OnLeave", function(self)
+			GameTooltip:Hide()
+		end)
+
 		-- Log Bids/Rolls
 		f.MiscContainer.StoreBids = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate");
 		f.MiscContainer.StoreBids:SetChecked(core.DB.modes.StoreBids)
@@ -243,7 +265,7 @@ function CommDKP:DKPModes_Misc()
 		f.MiscContainer.StoreBids.text:SetText("  |cff5151de"..L["LOGBIDS"].."|r");
 		f.MiscContainer.StoreBids.text:SetScale(1.5);
 		f.MiscContainer.StoreBids.text:SetFontObject("CommDKPSmallLeft")
-		f.MiscContainer.StoreBids:SetPoint("TOP", f.MiscContainer.BroadcastBids, "BOTTOM", 0, 0);
+		f.MiscContainer.StoreBids:SetPoint("TOP", f.MiscContainer.BroadcastOfficerBids, "BOTTOM", 0, 0);
 		f.MiscContainer.StoreBids:SetScript("OnClick", function(self)
 			core.DB.modes.StoreBids = self:GetChecked();
 			PlaySound(808);

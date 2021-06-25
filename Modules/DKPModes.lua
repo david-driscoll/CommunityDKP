@@ -98,6 +98,9 @@ function CommDKP:DKPModesFrame_Create()
 		core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
 		core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
 		core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
+		core.DB.modes.bonus.maxDiff = f.DKPModesMain.MaxDiff:GetNumber()
+		core.DB.modes.bonus.upgradeCost = f.DKPModesMain.UpgradeCost:GetNumber()
+		core.DB.modes.bonus.offspecCost = f.DKPModesMain.OffspecCost:GetNumber()
 
 		if (core.DB.modes.rolls.min > core.DB.modes.rolls.max and core.DB.modes.rolls.max ~= 0 and core.DB.modes.rolls.UserPerc == false) or (core.DB.modes.rolls.UsePerc and (core.DB.modes.rolls.min < 0 or core.DB.modes.rolls.max > 100 or core.DB.modes.rolls.min > core.DB.modes.rolls.max)) then
 			StaticPopupDialogs["NOTIFY_ROLLS"] = {

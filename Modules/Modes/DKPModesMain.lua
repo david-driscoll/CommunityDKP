@@ -19,6 +19,7 @@ function CommDKP:DKPModes_Main()
   local MinBidDescription = L["MINBIDDESCRIPTION"]
   local StaticDescription = L["STATICDESCRIPTION"]
   local RollDescription = L["ROLLDESCRIPTION"]
+  local BonusRollDescription = L["BONUSROLLDESCRIPTION"]
   local ZeroSumDescription = L["ZEROSUMDESCRIPTION"];
 
   if core.DB.modes.mode == "Minimum Bid Values" then
@@ -30,6 +31,9 @@ function CommDKP:DKPModes_Main()
   elseif core.DB.modes.mode == "Roll Based Bidding" then
     f.DKPModesMain.ModeDescriptionHeader:SetText(L["ROLLBIDDINGHEAD"])
     f.DKPModesMain.ModeDescription:SetText(RollDescription)
+  elseif core.DB.modes.mode == "Bonus Roll" then
+    f.DKPModesMain.ModeDescriptionHeader:SetText(L["BONUSROLLHEAD"])
+    f.DKPModesMain.ModeDescription:SetText(BonusRollDescription)
   elseif core.DB.modes.mode == "Zero Sum" then
     f.DKPModesMain.ModeDescriptionHeader:SetText(L["ZEROSUMHEAD"])
     f.DKPModesMain.ModeDescription:SetText(ZeroSumDescription)
@@ -45,10 +49,13 @@ function CommDKP:DKPModes_Main()
     LocalMode = L["STATICITEMVALUESHEAD"]
   elseif CurMode == "Roll Based Bidding" then
     LocalMode = L["ROLLBIDDINGHEAD"]
+  elseif CurMode == "Bonus Roll" then
+    LocalMode = L["BONUSROLLHEAD"]
   elseif CurMode == "Zero Sum" then
     LocalMode = L["ZEROSUMHEAD"]
   end
 
+  local initialMode;
 
   f.DKPModesMain.ModesDropDown = CreateFrame("FRAME", "CommDKPModeSelectDropDown", f.DKPModesMain, "CommunityDKPUIDropDownMenuTemplate")
 
@@ -62,6 +69,8 @@ function CommDKP:DKPModes_Main()
     DKPMode.text, DKPMode.arg1, DKPMode.checked, DKPMode.isNotRadio = L["STATICITEMVALUESHEAD"], "Static Item Values", "Static Item Values" == CurMode, false
     UIDropDownMenu_AddButton(DKPMode)
     DKPMode.text, DKPMode.arg1, DKPMode.checked, DKPMode.isNotRadio = L["ROLLBIDDINGHEAD"], "Roll Based Bidding", "Roll Based Bidding" == CurMode, false
+    UIDropDownMenu_AddButton(DKPMode)
+    DKPMode.text, DKPMode.arg1, DKPMode.checked, DKPMode.isNotRadio = L["BONUSROLLHEAD"], "Bonus Roll", "Bonus Roll" == CurMode, false
     UIDropDownMenu_AddButton(DKPMode)
     DKPMode.text, DKPMode.arg1, DKPMode.checked, DKPMode.isNotRadio = L["ZEROSUMHEAD"], "Zero Sum", "Zero Sum" == CurMode, false
     UIDropDownMenu_AddButton(DKPMode)
@@ -144,7 +153,7 @@ function CommDKP:DKPModes_Main()
       f.DKPModesMain.CostSelection:Hide()
       f.DKPModesMain.CostSelectionHeader:Hide()
       f.DKPModesMain.Inflation:Hide()
-        f.DKPModesMain.Inflation.Header:Hide()
+      f.DKPModesMain.Inflation.Header:Hide()
 
       if core.DB.modes.costvalue == "Integer" then
         f.DKPModesMain.SubZeroBidding:Show()
@@ -153,7 +162,42 @@ function CommDKP:DKPModes_Main()
           f.DKPModesMain.AllowNegativeBidders:Show()
           f.DKPModesMain.AllowNegativeBidders:SetChecked(core.DB.modes.AllowNegativeBidders)
         end
-        UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, "Integer")
+        UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["INTEGER"])
+      else
+        f.DKPModesMain.SubZeroBidding:Hide()
+        f.DKPModesMain.AllowNegativeBidders:Hide()
+        UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["PERCENT"])
+      end
+    elseif newValue == "Bonus Roll" then
+      core.DB.modes.mode = "Bonus Roll"
+      f.DKPModesMain.ItemCostHeader:Show();
+      f.DKPModesMain.ItemCostDropDown:Show();
+      f.DKPModesMain.MaxBidBehaviorDropDown:Hide();
+      f.DKPModesMain.MaxBidBehaviorHeader:Hide();
+      core.DB.modes.MaxBehavior = "Max DKP";
+      UIDropDownMenu_SetText(f.DKPModesMain.MaxBidBehaviorDropDown, "Max DKP")
+      f.DKPModesMain.ModeDescription:SetText(BonusRollDescription)
+      f.DKPModesMain.RollContainer:Hide()
+      f.DKPModesMain.ZeroSumType:Hide()
+      f.DKPModesMain.ZeroSumTypeHeader:Hide();
+      f.DKPModesMain.CostSelection:Hide()
+      f.DKPModesMain.CostSelectionHeader:Hide()
+      f.DKPModesMain.Inflation:Hide()
+      f.DKPModesMain.Inflation.Header:Hide()
+
+      if core.DB.modes.costvalue == "Integer" then
+        -- zero sum not well tested with bonus roll
+        f.DKPModesMain.SubZeroBidding:Show()
+        f.DKPModesMain.SubZeroBidding:SetChecked(core.DB.modes.SubZeroBidding)
+        if core.DB.modes.SubZeroBidding == true then
+          f.DKPModesMain.AllowNegativeBidders:Show()
+          f.DKPModesMain.AllowNegativeBidders:SetChecked(core.DB.modes.AllowNegativeBidders)
+        end
+        UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["INTEGER"])
+      else
+        f.DKPModesMain.SubZeroBidding:Hide()
+        f.DKPModesMain.AllowNegativeBidders:Hide()
+        UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["PERCENT"])
       end
     elseif newValue == "Zero Sum" then
       core.DB.modes.mode = "Zero Sum"
@@ -194,6 +238,8 @@ function CommDKP:DKPModes_Main()
       LocalMode = L["STATICITEMVALUESHEAD"]
     elseif CurMode == "Roll Based Bidding" then
       LocalMode = L["ROLLBIDDINGHEAD"]
+    elseif CurMode == "Bonus Roll" then
+      LocalMode = L["BONUSROLLHEAD"]
     elseif CurMode == "Zero Sum" then
       LocalMode = L["ZEROSUMHEAD"]
     end
@@ -1003,6 +1049,156 @@ elseif core.DB.modes.mode == "Static Item Values" then
       f.DKPModesMain.RollContainer.AddMax.Header:SetPoint("RIGHT", f.DKPModesMain.RollContainer.AddMax, "LEFT", -5, 0);
       f.DKPModesMain.RollContainer.AddMax.Header:SetText(L["ADDTOMAXROLL"]..": ")
 
+
+      -- Add to Max DKP differece box
+    f.DKPModesMain.MaxDiff = CreateFrame("EditBox", nil, f.DKPModesMain)
+      f.DKPModesMain.MaxDiff:SetAutoFocus(false)
+      f.DKPModesMain.MaxDiff:SetMultiLine(false)
+      f.DKPModesMain.MaxDiff:SetPoint("TOPRIGHT", f.DKPModesMain.ChannelsDropDown, "BOTTOMRIGHT", -12, -12)
+      f.DKPModesMain.MaxDiff:SetSize(70, 24)
+      f.DKPModesMain.MaxDiff:SetBackdrop({
+        bgFile   = "Textures\\white.blp",
+        edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        tile = true,
+        tileSize = 1,
+        edgeSize = 2,
+      });
+      f.DKPModesMain.MaxDiff:SetBackdropColor(0,0,0,0.9)
+      f.DKPModesMain.MaxDiff:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
+      f.DKPModesMain.MaxDiff:SetMaxLetters(6)
+      f.DKPModesMain.MaxDiff:SetTextColor(1, 1, 1, 1)
+      f.DKPModesMain.MaxDiff:SetFontObject("CommDKPSmallRight")
+      f.DKPModesMain.MaxDiff:SetTextInsets(10, 15, 5, 5)
+      f.DKPModesMain.MaxDiff:SetText(core.DB.modes.bonus.maxDiff)
+      f.DKPModesMain.MaxDiff:SetScript("OnEscapePressed", function(self)    -- clears focus on esc
+          core.DB.modes.bonus.maxDiff = f.DKPModesMain.MaxDiff:GetNumber()
+          self:ClearFocus()
+      end)
+      f.DKPModesMain.MaxDiff:SetScript("OnTabPressed", function(self)    -- clears focus on esc
+          core.DB.modes.bonus.maxDiff = f.DKPModesMain.MaxDiff:GetNumber()
+          f.DKPModesMain.RollContainer.rollMin:SetFocus()
+      end)
+      f.DKPModesMain.MaxDiff:SetScript("OnEnterPressed", function(self)    -- clears focus on esc
+          core.DB.modes.bonus.maxDiff = f.DKPModesMain.MaxDiff:GetNumber()
+          self:ClearFocus()
+      end)
+      f.DKPModesMain.MaxDiff:SetScript("OnEnter", function(self)
+      GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+      GameTooltip:SetText(L["MAXDIFFROLL"], 0.25, 0.75, 0.90, 1, true);
+      GameTooltip:AddLine(L["MAXDIFFTTDESC"], 1.0, 1.0, 1.0, true);
+      GameTooltip:AddLine(L["MAXDIFFTTWARN"], 1.0, 0, 0, true);
+      GameTooltip:Show();
+    end)
+      f.DKPModesMain.MaxDiff:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+      end)
+
+      -- Add to Max differece Header
+      f.DKPModesMain.MaxDiff.Header = f.DKPModesMain.MaxDiff:CreateFontString(nil, "OVERLAY")
+      f.DKPModesMain.MaxDiff.Header:SetFontObject("CommDKPSmallRight");
+      f.DKPModesMain.MaxDiff.Header:SetPoint("RIGHT", f.DKPModesMain.MaxDiff, "LEFT", -5, 0);
+      f.DKPModesMain.MaxDiff.Header:SetText(L["MAXDIFF"]..": ")
+
+      -- Add to Upgrade cost box
+    f.DKPModesMain.UpgradeCost = CreateFrame("EditBox", nil, f.DKPModesMain)
+      f.DKPModesMain.UpgradeCost:SetAutoFocus(false)
+      f.DKPModesMain.UpgradeCost:SetMultiLine(false)
+      f.DKPModesMain.UpgradeCost:SetPoint("TOPRIGHT", f.DKPModesMain.MaxDiff, "BOTTOMRIGHT", -12, -12)
+      f.DKPModesMain.UpgradeCost:SetSize(70, 24)
+      f.DKPModesMain.UpgradeCost:SetBackdrop({
+        bgFile   = "Textures\\white.blp",
+        edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
+        tile = true,
+        tileSize = 1,
+        edgeSize = 2,
+      });
+      f.DKPModesMain.UpgradeCost:SetBackdropColor(0,0,0,0.9)
+      f.DKPModesMain.UpgradeCost:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
+      f.DKPModesMain.UpgradeCost:SetMaxLetters(6)
+      f.DKPModesMain.UpgradeCost:SetTextColor(1, 1, 1, 1)
+      f.DKPModesMain.UpgradeCost:SetFontObject("CommDKPSmallRight")
+      f.DKPModesMain.UpgradeCost:SetTextInsets(10, 15, 5, 5)
+      f.DKPModesMain.UpgradeCost:SetText(core.DB.modes.bonus.upgradeCost)
+      f.DKPModesMain.UpgradeCost:SetScript("OnEscapePressed", function(self)    -- clears focus on esc
+          core.DB.modes.bonus.upgradeCost = f.DKPModesMain.UpgradeCost:GetNumber()
+          self:ClearFocus()
+      end)
+      f.DKPModesMain.UpgradeCost:SetScript("OnTabPressed", function(self)    -- clears focus on esc
+          core.DB.modes.bonus.upgradeCost = f.DKPModesMain.UpgradeCost:GetNumber()
+          f.DKPModesMain.RollContainer.rollMin:SetFocus()
+      end)
+      f.DKPModesMain.UpgradeCost:SetScript("OnEnterPressed", function(self)    -- clears focus on esc
+          core.DB.modes.rolls.UpgradeCost = f.DKPModesMain.UpgradeCost:GetNumber()
+          self:ClearFocus()
+      end)
+      f.DKPModesMain.UpgradeCost:SetScript("OnEnter", function(self)
+      GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+      GameTooltip:SetText(L["UPGRADECOST"], 0.25, 0.75, 0.90, 1, true);
+      GameTooltip:AddLine(L["UPGRADETTDESC"], 1.0, 1.0, 1.0, true);
+      GameTooltip:AddLine(L["UPGRADETTWARN"], 1.0, 0, 0, true);
+      GameTooltip:Show();
+    end)
+      f.DKPModesMain.UpgradeCost:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+      end)
+
+      -- Add to Upgrade cost Header
+      f.DKPModesMain.UpgradeCost.Header = f.DKPModesMain.UpgradeCost:CreateFontString(nil, "OVERLAY")
+      f.DKPModesMain.UpgradeCost.Header:SetFontObject("CommDKPSmallRight");
+      f.DKPModesMain.UpgradeCost.Header:SetPoint("RIGHT", f.DKPModesMain.UpgradeCost, "LEFT", -5, 0);
+      f.DKPModesMain.UpgradeCost.Header:SetText(L["UPGRADECOST"]..": ")
+
+
+
+      -- Add to Offspec cost box
+    f.DKPModesMain.OffspecCost = CreateFrame("EditBox", nil, f.DKPModesMain)
+    f.DKPModesMain.OffspecCost:SetAutoFocus(false)
+    f.DKPModesMain.OffspecCost:SetMultiLine(false)
+    f.DKPModesMain.OffspecCost:SetPoint("TOPRIGHT", f.DKPModesMain.UpgradeCost, "BOTTOMRIGHT", -12, -12)
+    f.DKPModesMain.OffspecCost:SetSize(70, 24)
+    f.DKPModesMain.OffspecCost:SetBackdrop({
+      bgFile   = "Textures\\white.blp",
+      edgeFile = "Interface\\ChatFrame\\ChatFrameBackground",
+      tile = true,
+      tileSize = 1,
+      edgeSize = 2,
+    });
+    f.DKPModesMain.OffspecCost:SetBackdropColor(0,0,0,0.9)
+    f.DKPModesMain.OffspecCost:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
+    f.DKPModesMain.OffspecCost:SetMaxLetters(6)
+    f.DKPModesMain.OffspecCost:SetTextColor(1, 1, 1, 1)
+    f.DKPModesMain.OffspecCost:SetFontObject("CommDKPSmallRight")
+    f.DKPModesMain.OffspecCost:SetTextInsets(10, 15, 5, 5)
+    f.DKPModesMain.OffspecCost:SetText(core.DB.modes.bonus.offspecCost)
+    f.DKPModesMain.OffspecCost:SetScript("OnEscapePressed", function(self)    -- clears focus on esc
+        core.DB.modes.bonus.offspecCost = f.DKPModesMain.OffspecCost:GetNumber()
+        self:ClearFocus()
+    end)
+    f.DKPModesMain.OffspecCost:SetScript("OnTabPressed", function(self)    -- clears focus on esc
+        core.DB.modes.bonus.offspecCost = f.DKPModesMain.OffspecCost:GetNumber()
+        f.DKPModesMain.RollContainer.rollMin:SetFocus()
+    end)
+    f.DKPModesMain.OffspecCost:SetScript("OnEnterPressed", function(self)    -- clears focus on esc
+        core.DB.modes.rolls.OffspecCost = f.DKPModesMain.OffspecCost:GetNumber()
+        self:ClearFocus()
+    end)
+    f.DKPModesMain.OffspecCost:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+    GameTooltip:SetText(L["OFFSPECCOST"], 0.25, 0.75, 0.90, 1, true);
+    GameTooltip:AddLine(L["OFFSPECTTDESC"], 1.0, 1.0, 1.0, true);
+    GameTooltip:AddLine(L["OFFSPECTTWARN"], 1.0, 0, 0, true);
+    GameTooltip:Show();
+  end)
+    f.DKPModesMain.OffspecCost:SetScript("OnLeave", function(self)
+      GameTooltip:Hide()
+    end)
+
+    -- Add to Upgrade cost Header
+    f.DKPModesMain.OffspecCost.Header = f.DKPModesMain.OffspecCost:CreateFontString(nil, "OVERLAY")
+    f.DKPModesMain.OffspecCost.Header:SetFontObject("CommDKPSmallRight");
+    f.DKPModesMain.OffspecCost.Header:SetPoint("RIGHT", f.DKPModesMain.OffspecCost, "LEFT", -5, 0);
+    f.DKPModesMain.OffspecCost.Header:SetText(L["OFFSPEC"]..": ")
+
   -- Broadcast DKP Modes Button
   f.DKPModesMain.BroadcastSettings = self:CreateButton("BOTTOMRIGHT", f.DKPModesMain, "BOTTOMRIGHT", -30, 30, L["BROADCASTSETTINGS"]);
   f.DKPModesMain.BroadcastSettings:SetSize(110,25)
@@ -1010,6 +1206,9 @@ elseif core.DB.modes.mode == "Static Item Values" then
     core.DB.modes.rolls.min = f.DKPModesMain.RollContainer.rollMin:GetNumber()
     core.DB.modes.rolls.max = f.DKPModesMain.RollContainer.rollMax:GetNumber()
     core.DB.modes.rolls.AddToMax = f.DKPModesMain.RollContainer.AddMax:GetNumber()
+    core.DB.modes.bonus.maxDiff = f.DKPModesMain.MaxDiff:GetNumber()
+    core.DB.modes.bonus.upgradeCost = f.DKPModesMain.UpgradeCost:GetNumber()
+    core.DB.modes.bonus.offspecCost = f.DKPModesMain.OffspecCost:GetNumber()
 
     if (core.DB.modes.rolls.min > core.DB.modes.rolls.max and core.DB.modes.rolls.max ~= 0 and core.DB.modes.rolls.UserPerc == false) or (core.DB.modes.rolls.UsePerc and (core.DB.modes.rolls.min < 0 or core.DB.modes.rolls.max > 100 or core.DB.modes.rolls.min > core.DB.modes.rolls.max)) then
       StaticPopupDialogs["NOTIFY_ROLLS"] = {
@@ -1060,4 +1259,6 @@ elseif core.DB.modes.mode == "Static Item Values" then
   f.DKPModesMain.BroadcastSettings:SetScript("OnLeave", function()
     GameTooltip:Hide()
   end)
+
+  f.DKPModesMain.ModesDropDown:SetValue(LocalMode)
 end
