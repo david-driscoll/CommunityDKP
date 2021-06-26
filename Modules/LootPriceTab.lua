@@ -16,7 +16,7 @@ local function CreateRow(parent, id) -- Create 3 buttons for each row in the lis
 
 	f.PriceInfo = {}
 	f:SetSize(core.TableWidth, core.TableRowHeight)
-	f:SetHighlightTexture("Interface\\AddOns\\CommunityDKP\\Media\\Textures\\ListBox-Highlight");
+	f:SetHighlightTexture("Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\ListBox-Highlight");
 	f:SetNormalTexture("Interface\\COMMON\\talent-blue-glow")
 	f:GetNormalTexture():SetAlpha(0.2)
 	--f:SetScript("OnClick", DKPTable_OnClick)
@@ -304,7 +304,7 @@ function CommDKP:PriceTab_Create()
 	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 		CommDKP.ConfigTab7.PriceTable:SetBackdrop( {
 		bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-			edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
+			edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 			insets = { left = 0, right = 0, top = 0, bottom = 0 }
 		});
 
@@ -340,7 +340,7 @@ function CommDKP:PriceTab_Create()
 	CommDKP.ConfigTab7.PriceTable.Headers:SetPoint("BOTTOMLEFT", CommDKP.ConfigTab7.PriceTable, "TOPLEFT", 0, 1)
 	CommDKP.ConfigTab7.PriceTable.Headers:SetBackdrop({
 		bgFile   = "Textures\\white.blp",
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
+		edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 	});
 	CommDKP.ConfigTab7.PriceTable.Headers:SetBackdropColor(0,0,0,0.8);
 	CommDKP.ConfigTab7.PriceTable.Headers:SetBackdropBorderColor(1,1,1,0.5)

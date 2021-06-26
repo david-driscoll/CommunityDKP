@@ -146,7 +146,7 @@ local function RaidTimerPopout_Create()
         CommDKP.RaidTimerPopout:SetSize(100, 50);
         CommDKP.RaidTimerPopout:SetBackdrop( {
             bgFile = "Textures\\white.blp", -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-            edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga",
+            edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga",
             tile = true, tileSize = 1, edgeSize = 3,
             insets = { left = 0, right = 0, top = 0, bottom = 0 }
         });
@@ -170,7 +170,7 @@ local function RaidTimerPopout_Create()
         CommDKP.RaidTimerPopout.closeContainer:SetPoint("CENTER", CommDKP.RaidTimerPopout, "TOPRIGHT", -8, -4)
         CommDKP.RaidTimerPopout.closeContainer:SetBackdrop({
           bgFile   = "Textures\\white.blp",
-          edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga",
+          edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga",
           tile = true,
           tileSize = 1,
           edgeSize = 3,
@@ -301,7 +301,7 @@ function CommDKP:AdjustDKPTab_Create()
     CommDKP.ConfigTab2.otherReason:SetSize(225, 24)
     CommDKP.ConfigTab2.otherReason:SetBackdrop({
         bgFile   = "Textures\\white.blp",
-        edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga",
+        edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga",
         tile = true,
         tileSize = 1,
         edgeSize = 3,
@@ -449,7 +449,7 @@ function CommDKP:AdjustDKPTab_Create()
     CommDKP.ConfigTab2.addDKP:SetSize(100, 24)
     CommDKP.ConfigTab2.addDKP:SetBackdrop({
         bgFile   = "Textures\\white.blp",
-        edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile",
+        edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile",
         tile = true,
         tileSize = 32,
         edgeSize = 2,
@@ -566,7 +566,7 @@ function CommDKP:AdjustDKPTab_Create()
     CommDKP.ConfigTab2.decayDKP:SetSize(100, 24)
     CommDKP.ConfigTab2.decayDKP:SetBackdrop({
         bgFile   = "Textures\\white.blp",
-        edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile",
+        edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile",
         tile = true,
         tileSize = 32,
         edgeSize = 2,
@@ -695,7 +695,7 @@ function CommDKP:AdjustDKPTab_Create()
     CommDKP.ConfigTab2.RaidTimerContainer:SetPoint("RIGHT", CommDKP.ConfigTab2, "RIGHT", -25, -60)
     CommDKP.ConfigTab2.RaidTimerContainer:SetBackdrop({
       bgFile   = "Textures\\white.blp",
-      edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile",
+      edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile",
       tile = true,
       tileSize = 32,
       edgeSize = 2,
@@ -898,7 +898,7 @@ function CommDKP:AdjustDKPTab_Create()
         CommDKP.ConfigTab2.RaidTimerContainer.interval:SetSize(60, 24)
         CommDKP.ConfigTab2.RaidTimerContainer.interval:SetBackdrop({
             bgFile   = "Textures\\white.blp",
-            edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile",
+            edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile",
             tile = true,
             tileSize = 32,
             edgeSize = 2,
@@ -970,7 +970,7 @@ function CommDKP:AdjustDKPTab_Create()
         CommDKP.ConfigTab2.RaidTimerContainer.bonusvalue:SetSize(60, 24)
         CommDKP.ConfigTab2.RaidTimerContainer.bonusvalue:SetBackdrop({
             bgFile   = "Textures\\white.blp",
-            edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile",
+            edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile",
             tile = true,
             tileSize = 32,
             edgeSize = 2,

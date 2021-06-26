@@ -1079,14 +1079,14 @@ function CommDKP:ManageEntries()
 			elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
 				CommDKP.ConfigTab3.TeamNameInput = CreateFrame("EditBox", nil, CommDKP.ConfigTab3, BackdropTemplateMixin and "BackdropTemplate" or nil)
 			end
-			
+
 			CommDKP.ConfigTab3.TeamNameInput:SetAutoFocus(false)
 			CommDKP.ConfigTab3.TeamNameInput:SetMultiLine(false)
 			CommDKP.ConfigTab3.TeamNameInput:SetSize(160, 24)
 			CommDKP.ConfigTab3.TeamNameInput:SetPoint("TOPRIGHT", CommDKP.ConfigTab3.TeamListDropDown, "TOPRIGHT", 160, 0)
 			CommDKP.ConfigTab3.TeamNameInput:SetBackdrop({
 				bgFile   = "Textures\\white.blp",
-				edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile",
+				edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile",
 				tile = true,
 				tileSize = 32,
 				edgeSize = 2

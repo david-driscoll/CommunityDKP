@@ -215,7 +215,7 @@ function CommDKP:ExportBox_Show(text)
 		f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
 		f.closeContainer:SetBackdrop({
 			bgFile   = "Textures\\white.blp",
-			edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
+			edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 		});
 		f.closeContainer:SetBackdropColor(0,0,0,0.9)
 		f.closeContainer:SetBackdropBorderColor(1,1,1,0.2)

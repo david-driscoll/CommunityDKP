@@ -111,7 +111,7 @@ function CommDKP:Options()
       CommDKP.ConfigTab4.default[i]:SetSize(80, 24)
       CommDKP.ConfigTab4.default[i]:SetBackdrop({
         bgFile   = "Textures\\white.blp",
-        edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
+        edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
       });
       CommDKP.ConfigTab4.default[i]:SetBackdropColor(0,0,0,0.9)
       CommDKP.ConfigTab4.default[i]:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -281,7 +281,7 @@ function CommDKP:Options()
         CommDKP.ConfigTab4.DefaultMinBids.SlotBox[i]:SetSize(60, 24)
         CommDKP.ConfigTab4.DefaultMinBids.SlotBox[i]:SetBackdrop({
           bgFile   = "Textures\\white.blp",
-          edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
+          edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
         });
         CommDKP.ConfigTab4.DefaultMinBids.SlotBox[i]:SetBackdropColor(0,0,0,0.9)
         CommDKP.ConfigTab4.DefaultMinBids.SlotBox[i]:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -561,7 +561,7 @@ function CommDKP:Options()
         CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[i]:SetSize(60, 24)
         CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[i]:SetBackdrop({
           bgFile   = "Textures\\white.blp",
-          edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
+          edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
         });
         CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[i]:SetBackdropColor(0,0,0,0.9)
         CommDKP.ConfigTab4.DefaultMaxBids.SlotBox[i]:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -833,7 +833,7 @@ function CommDKP:Options()
     CommDKP.ConfigTab4.bidTimer:SetSize(50, 18)
     CommDKP.ConfigTab4.bidTimer:SetBackdrop({
       bgFile   = "Textures\\white.blp",
-      edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
+      edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
     });
     CommDKP.ConfigTab4.bidTimer:SetBackdropColor(0,0,0,0.9)
     CommDKP.ConfigTab4.bidTimer:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -902,7 +902,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.TooltipHistory:SetSize(50, 18)
   CommDKP.ConfigTab4.TooltipHistory:SetBackdrop({
     bgFile   = "Textures\\white.blp",
-    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
+    edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.TooltipHistory:SetBackdropColor(0,0,0,0.9)
   CommDKP.ConfigTab4.TooltipHistory:SetBackdropBorderColor(0.12,0.12, 0.34, 1)
@@ -974,7 +974,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.history:SetSize(50, 18)
   CommDKP.ConfigTab4.history:SetBackdrop({
     bgFile   = "Textures\\white.blp",
-    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
+    edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.history:SetBackdropColor(0,0,0,0.9)
   CommDKP.ConfigTab4.history:SetBackdropBorderColor(0.12,0.12, 0.34, 1)
@@ -1037,7 +1037,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.DKPHistory:SetSize(50, 18)
   CommDKP.ConfigTab4.DKPHistory:SetBackdrop({
     bgFile   = "Textures\\white.blp",
-    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
+    edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.DKPHistory:SetBackdropColor(0,0,0,0.9)
   CommDKP.ConfigTab4.DKPHistory:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -1103,7 +1103,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.TimerSize:SetSize(50, 18)
   CommDKP.ConfigTab4.TimerSize:SetBackdrop({
     bgFile   = "Textures\\white.blp",
-    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
+    edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.TimerSize:SetBackdropColor(0,0,0,0.9)
   CommDKP.ConfigTab4.TimerSize:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)
@@ -1167,7 +1167,7 @@ function CommDKP:Options()
   CommDKP.ConfigTab4.UIScaleSize:SetSize(50, 18)
   CommDKP.ConfigTab4.UIScaleSize:SetBackdrop({
     bgFile   = "Textures\\white.blp",
-    edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
+    edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile", tile = true, tileSize = 32, edgeSize = 2,
   });
   CommDKP.ConfigTab4.UIScaleSize:SetBackdropColor(0,0,0,0.9)
   CommDKP.ConfigTab4.UIScaleSize:SetBackdropBorderColor(0.12, 0.12, 0.34, 1)

@@ -70,7 +70,7 @@ local function CommDKP_BroadcastFull_Status_Create()
 	f:SetClampedToScreen(true)
 	f:SetBackdrop( {
 		bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
+		edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f:SetBackdropColor(0,0,0,0.9);
@@ -109,7 +109,7 @@ local function CommDKP_BroadcastFull_Status_Create()
 	f.status.border:SetFrameLevel(19)
 	f.status.border:SetSize(200, 18);
 	f.status.border:SetBackdrop( {
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
+		edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f.status.border:SetBackdropColor(0,0,0,0);
@@ -308,7 +308,7 @@ function CommDKP_BroadcastFull_Create()
 	f:SetClampedToScreen(true)
 	f:SetBackdrop({
 		bgFile = "Textures\\white.blp",                -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
+		edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 		insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f:SetBackdropColor(0,0,0,1);
@@ -327,7 +327,7 @@ function CommDKP_BroadcastFull_Create()
 	f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
 	f.closeContainer:SetBackdrop({
 		bgFile   = "Textures\\white.blp",
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
+		edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 3,
 	});
 	f.closeContainer:SetBackdropColor(0,0,0,0.9)
 	f.closeContainer:SetBackdropBorderColor(1,1,1,0.2)

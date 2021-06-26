@@ -30,7 +30,7 @@ function CommDKP:DKPModesFrame_Create()
 	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
 		f = CreateFrame("Frame", "CommDKP_DKPModesFrame", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
 	end
-	
+
 	local ActiveMode = core.DB.modes.mode;
 	local ActiveCostType = core.DB.modes.costvalue;
 
@@ -43,7 +43,7 @@ function CommDKP:DKPModesFrame_Create()
 	f:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 300, -200);
 	f:SetSize(473, 598);
 	f:SetBackdrop( {
-	edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
+	edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
 	insets = { left = 0, right = 0, top = 0, bottom = 0 }
 	});
 	f:SetBackdropColor(0,0,0,0.9);
@@ -66,7 +66,7 @@ function CommDKP:DKPModesFrame_Create()
 	f.BG:SetColorTexture(0, 0, 0, 1)
 	f.BG:SetPoint("TOPLEFT", f, "TOPLEFT", 2, -2);
 	f.BG:SetSize(475, 600);
-	f.BG:SetTexture("Interface\\AddOns\\CommunityDKP\\Media\\Textures\\menu-bg");
+	f.BG:SetTexture("Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\menu-bg");
 
 	-- TabMenu ScrollFrame and ScrollBar
 
@@ -75,7 +75,7 @@ function CommDKP:DKPModesFrame_Create()
 	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
 		f.ScrollFrame = CreateFrame("ScrollFrame", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil);
 	end
-	
+
 	f.ScrollFrame:ClearAllPoints();
 	f.ScrollFrame:SetPoint("TOPLEFT",  f, "TOPLEFT", 4, -8);
 	f.ScrollFrame:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -3, 4);
@@ -96,11 +96,11 @@ function CommDKP:DKPModesFrame_Create()
 	elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
 		f.closeContainer = CreateFrame("Frame", "MonDKModesWindowCloseButtonContainer", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
 	end
-	
+
 	f.closeContainer:SetPoint("CENTER", f, "TOPRIGHT", -4, 0)
 	f.closeContainer:SetBackdrop({
 		bgFile   = "Textures\\white.blp",
-		edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga",
+		edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga",
 		tile = true,
 		tileSize = 1,
 		edgeSize = 3,

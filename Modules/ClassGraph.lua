@@ -58,12 +58,12 @@ function CommDKP:ClassGraph()
 		elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
 			graph.icons[i].bar = CreateFrame("Frame", "CommDKP"..i.."Graph", graph, BackdropTemplateMixin and "BackdropTemplate" or nil)
 		end
-  		
+
 		graph.icons[i].bar:SetPoint("BOTTOM", icons[i], "TOP", 0, 5)
 		graph.icons[i].bar:SetBackdropBorderColor(1,1,1,0)
   		graph.icons[i].bar:SetSize(BarWidth, perc_height[i])
   		graph.icons[i].bar:SetBackdrop({
-			bgFile   = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\graph-bar", tile = false,
+			bgFile   = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\graph-bar", tile = false,
 			insets = { left = 1, right = 1, top = 1, bottom = 1}
 		});
   		graph.icons[i]:SetTexture("Interface\\GLUES\\CHARACTERCREATE\\UI-CharacterCreate-Classes");
@@ -86,7 +86,7 @@ function CommDKP:ClassGraph()
 		local className = core.classes[i] or "nil";
 
 		local coords = CLASS_ICON_TCOORDS[className]
-		
+
 		graph.icons[i]:SetTexCoord(unpack(coords))
 
 		--CommDKP.ConfigTab2.header:SetScale(1.2)

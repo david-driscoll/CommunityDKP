@@ -690,7 +690,7 @@ function CommDKP_OnEvent(self, event, arg1, ...)
 end
 
 function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run on load triggered registered events at bottom of file
-    if (name ~= "CommunityDKP") then return end
+    if (name ~= "RaidPointsSystemV2") then return end
 
     -- allows using left and right buttons to move through chat 'edit' box
     --[[for i = 1, NUM_CHAT_WINDOWS do
@@ -700,10 +700,10 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
     ----------------------------------
     -- Register Slash Commands
     ----------------------------------
-    SLASH_CommunityDKP1 = "/dkp";
-    SLASH_CommunityDKP2 = "/CommDKP";
-    SLASH_CommunityDKP3 = "/rp";
-    SlashCmdList.CommunityDKP = HandleSlashCommands;
+    SLASH_RaidPointsSystemV21 = "/dkp";
+    SLASH_RaidPointsSystemV22 = "/CommDKP";
+    SLASH_RaidPointsSystemV23 = "/rp";
+    SlashCmdList.RaidPointsSystemV2 = HandleSlashCommands;
 
     --[[SLASH_RELOADUI1 = "/rl"; -- new slash command for reloading UI 				-- for debugging
     SlashCmdList.RELOADUI = ReloadUI;--]]

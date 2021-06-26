@@ -226,7 +226,7 @@ function CommDKP:ResetPosition()
     CommDKP.UIConfig:SetPoint("CENTER", UIParent, "CENTER", -250, 100);
     CommDKP.UIConfig:SetSize(550, 590);
     CommDKP.UIConfig.TabMenu:Hide()
-    CommDKP.UIConfig.expandtab:SetTexture("Interface\\AddOns\\CommunityDKP\\Media\\Textures\\expand-arrow");
+    CommDKP.UIConfig.expandtab:SetTexture("Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\expand-arrow");
     core.ShowState = false;
     CommDKP.BidTimer:ClearAllPoints()
     CommDKP.BidTimer:SetPoint("CENTER", UIParent)
@@ -553,7 +553,7 @@ function CommDKP:CreateContainer(parent, name, header)
 
 
     f:SetBackdrop( {
-        edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
+        edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga", tile = true, tileSize = 1, edgeSize = 2,
         insets = { left = 0, right = 0, top = 0, bottom = 0 }
     });
     f:SetBackdropColor(0,0,0,0.9);
@@ -699,7 +699,7 @@ function CommDKP:StatusVerify_Update()
         end
 
         if not core.OOD then
-            CommDKP.DKPTable.SeedVerifyIcon:SetTexture("Interface\\AddOns\\CommunityDKP\\Media\\Textures\\up-to-date")
+            CommDKP.DKPTable.SeedVerifyIcon:SetTexture("Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\up-to-date")
             CommDKP.DKPTable.SeedVerify:SetScript("OnEnter", function(self)
                 GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 0, 0);
                 GameTooltip:SetText(L["DKPSTATUS"], 0.25, 0.75, 0.90, 1, true);
@@ -716,7 +716,7 @@ function CommDKP:StatusVerify_Update()
 
             return true;
         else
-            CommDKP.DKPTable.SeedVerifyIcon:SetTexture("Interface\\AddOns\\CommunityDKP\\Media\\Textures\\out-of-date")
+            CommDKP.DKPTable.SeedVerifyIcon:SetTexture("Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\out-of-date")
             CommDKP.DKPTable.SeedVerify:SetScript("OnEnter", function(self)
                 GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 0, 0);
                 GameTooltip:SetText(L["DKPSTATUS"], 0.25, 0.75, 0.90, 1, true);

@@ -290,7 +290,7 @@ local function AwardConfirm_Create()
     f:SetClampedToScreen(true)
     f:SetBackdrop( {
         bgFile = "Textures\\white.blp", -- White backdrop allows for black background with 1.0 alpha on low alpha containers
-        edgeFile = "Interface\\AddOns\\CommunityDKP\\Media\\Textures\\edgefile.tga",
+        edgeFile = "Interface\\AddOns\\RaidPointsSystemV2\\Media\\Textures\\edgefile.tga",
         tile = true,
         tileSize = 1,
         edgeSize = 3,
