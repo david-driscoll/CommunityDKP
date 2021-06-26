@@ -1500,7 +1500,7 @@ function CommDKP:RequestBonusRolls()
     if topDkp - Bids_Submitted[i].dkp <= core.DB.modes.bonus.maxDiff then
       if not offspec and Bids_Submitted[i].command == "offspec" then
         -- do nothing
-      else if Bids_Submitted[i].dkp < 0 then
+      elseif Bids_Submitted[i].dkp < 0 then
         -- do nothing
       else
         if Bids_Submitted[i].command == "offspec" then

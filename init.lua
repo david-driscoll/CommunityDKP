@@ -353,7 +353,7 @@ end
 
 function CommDKP_OnEvent(self, event, arg1, ...)
     if event == "ADDON_LOADED" then
-        if (arg1 ~= "CommunityDKP") then return end
+        if (arg1 ~= "RaidPointsSystemV2") then return end
         core.IsOfficer = nil
         core.Initialized = false
         CommDKP_wait(2, DoInit, event, arg1);
