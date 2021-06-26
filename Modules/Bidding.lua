@@ -224,11 +224,17 @@ local function HandleBidRoll(name, cmd)
     SendChatMessage(L["NOBIDINPROGRESS"], "WHISPER", nil, name)
     return
   end
-  local dkp
+  local dkp, cost
   local playerDkp = CommDKP:GetPlayerDKP(name)
-  if cmd == "upgrade" then dkp = math.min(core.DB.modes.bonus.upgradeCost, playerDkp)
-  elseif cmd == "offspec" then dkp = math.min(core.DB.modes.bonus.offspecCost, playerDkp)
-  else dkp = playerDkp end
+  if cmd == "upgrade" then
+    dkp = 0
+    cost = core.DB.modes.bonus.upgradeCost
+  elseif cmd == "offspec" then
+    dkp = 0
+    cost = core.DB.modes.bonus.offspecCost
+  else
+    dkp = playerDkp
+   end
   ClearPlayer(name)
 
   if core.DB.modes.AnnounceBid then
@@ -244,7 +250,7 @@ local function HandleBidRoll(name, cmd)
     --   SendChatMessage(L["NEWHIGHBIDDER"].." "..name.." ("..dkp.." DKP)", msgTarget)
     -- end
   end
-  table.insert(Bids_Submitted, {player=name, dkp=dkp, command=cmd})
+  table.insert(Bids_Submitted, {player=name, dkp=dkp, cost=cost, command=cmd})
   BroadcastShare()
   response = L["BIDWASACCEPTED"]
 
@@ -1223,8 +1229,10 @@ local function CalculateBonusRollItemCost()
     if not SelectedBidder["player"] then return end
     if mode ~= "Bonus Roll" then return end
 
-    if (SelectedBidder.command == "upgrade" or SelectedBidder.command == "offspec") then
-      cost = SelectedBidder.dkp
+    if SelectedBidder.command == "upgrade" then
+      cost = core.DB.modes.bonus.upgradeCost
+    elseif SelectedBidder.command == "offspec" then
+      cost = core.DB.modes.bonus.offspecCost
     else
       local min = core.BiddingWindow.minBid:GetNumber()
       local max = core.BiddingWindow.maxBid:GetNumber()
@@ -1259,7 +1267,7 @@ local function BidRow_OnClick(self)
           break
         end
       end
-      SelectedBidder = {player=player, dkp=p.dkp, command=p.command}
+      SelectedBidder = {player=player, dkp=p.dkp, cost=p.cost, command=p.command}
     elseif core.DB.modes.costvalue == "Percent" then
       SelectedBidder = {player=player, dkp=tonumber(self.Strings[3]:GetText())}
     else
@@ -1491,19 +1499,32 @@ function CommDKP:RequestBonusRolls()
   for i=1, #Bids_Submitted do
     if topDkp - Bids_Submitted[i].dkp <= core.DB.modes.bonus.maxDiff then
       if not offspec and Bids_Submitted[i].command == "offspec" then
+        -- do nothing
+      else if Bids_Submitted[i].dkp < 0 then
+        -- do nothing
       else
-        table.insert(candidates,Bids_Submitted[i].player.." [!"..Bids_Submitted[i].command.."] (+"..(Bids_Submitted[i].dkp - minDkp)..")")
+        if Bids_Submitted[i].command == "offspec" then
+          table.insert(candidates,Bids_Submitted[i].player.." [!"..Bids_Submitted[i].command.."])")
+        else
+          table.insert(candidates,Bids_Submitted[i].player.." [!"..Bids_Submitted[i].command.."] (+"..(Bids_Submitted[i].dkp - minDkp)..")")
+        end
       end
     end
   end
 
   local msgTarget = "RAID";
-          if core.DB.modes.AnnounceRaidWarning then
-            msgTarget = "RAID_WARNING";
-          end
+  if core.DB.modes.AnnounceRaidWarning then
+    msgTarget = "RAID_WARNING";
+  end
 
-  SendChatMessage(#candidates.." Players within ".." "..core.DB.modes.bonus.maxDiff..".", msgTarget)
-  SendChatMessage("The following players please /roll: "..table.concat(candidates, ", "), msgTarget)
+  if #candidates > 1 then
+    if offspec then
+      SendChatMessage(#candidates.." Offspec bids.", msgTarget)
+    else
+      SendChatMessage(#candidates.." Players within ".." "..core.DB.modes.bonus.maxDiff..".", msgTarget)
+    end
+    SendChatMessage("The following players please /roll: "..table.concat(candidates, ", "), msgTarget)
+  end
 end
 
 function CommDKP:CreateBidWindow()
