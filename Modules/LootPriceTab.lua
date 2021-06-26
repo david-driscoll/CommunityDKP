@@ -148,6 +148,9 @@ end
 
 function CommDKP:PriceTable_Update(scrollOffset)
 
+	if not CommDKP.ConfigTab7 then
+		return
+	end
 	local numOptions = #core.PriceTable
 	local numOfRows = core.PriceNumRows;
 	local index, row

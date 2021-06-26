@@ -342,7 +342,6 @@ function CommDKP:AdjustDKPTab_Create()
         local boss = UIDropDownMenu_CreateInfo()
         boss.fontObject = "CommDKPSmallCenter"
         if (level or 1) == 1 then
-        if (level or 1) == 1 then
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[1], core.CurrentRaidZone == core.ZoneList[1], "MC", true
             UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[2], core.CurrentRaidZone == core.ZoneList[2], "BWL", true

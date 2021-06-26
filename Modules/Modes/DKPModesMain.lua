@@ -1286,7 +1286,7 @@ function CommDKP:DKPModes_Main()
 
 
       -- Add to Max DKP differece box
-    f.DKPModesMain.MaxDiff = CreateFrame("EditBox", nil, f.DKPModesMain)
+    f.DKPModesMain.MaxDiff = CreateFrame("EditBox", nil, f.DKPModesMain, BackdropTemplateMixin and "BackdropTemplate" or nil)
       f.DKPModesMain.MaxDiff:SetAutoFocus(false)
       f.DKPModesMain.MaxDiff:SetMultiLine(false)
       f.DKPModesMain.MaxDiff:SetPoint("TOPRIGHT", f.DKPModesMain.ChannelsDropDown, "BOTTOMRIGHT", -12, -12)
@@ -1335,7 +1335,7 @@ function CommDKP:DKPModes_Main()
       f.DKPModesMain.MaxDiff.Header:SetText(L["MAXDIFF"]..": ")
 
       -- Add to Upgrade cost box
-    f.DKPModesMain.UpgradeCost = CreateFrame("EditBox", nil, f.DKPModesMain)
+    f.DKPModesMain.UpgradeCost = CreateFrame("EditBox", nil, f.DKPModesMain, BackdropTemplateMixin and "BackdropTemplate" or nil)
       f.DKPModesMain.UpgradeCost:SetAutoFocus(false)
       f.DKPModesMain.UpgradeCost:SetMultiLine(false)
       f.DKPModesMain.UpgradeCost:SetPoint("TOPRIGHT", f.DKPModesMain.MaxDiff, "BOTTOMRIGHT", -12, -12)
@@ -1386,7 +1386,7 @@ function CommDKP:DKPModes_Main()
 
 
       -- Add to Offspec cost box
-    f.DKPModesMain.OffspecCost = CreateFrame("EditBox", nil, f.DKPModesMain)
+    f.DKPModesMain.OffspecCost = CreateFrame("EditBox", nil, f.DKPModesMain, BackdropTemplateMixin and "BackdropTemplate" or nil)
     f.DKPModesMain.OffspecCost:SetAutoFocus(false)
     f.DKPModesMain.OffspecCost:SetMultiLine(false)
     f.DKPModesMain.OffspecCost:SetPoint("TOPRIGHT", f.DKPModesMain.UpgradeCost, "BOTTOMRIGHT", -12, -12)

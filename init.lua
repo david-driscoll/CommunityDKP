@@ -702,6 +702,7 @@ function CommDKP:OnInitialize(event, name)		-- This is the FIRST function to run
     ----------------------------------
     SLASH_CommunityDKP1 = "/dkp";
     SLASH_CommunityDKP2 = "/CommDKP";
+    SLASH_CommunityDKP3 = "/rp";
     SlashCmdList.CommunityDKP = HandleSlashCommands;
 
     --[[SLASH_RELOADUI1 = "/rl"; -- new slash command for reloading UI 				-- for debugging
