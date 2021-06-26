@@ -1,26 +1,26 @@
 if GetLocale() == "esES" or GetLocale() == "esMX" then
   local _, core = ...;
   local CommDKP = core.CommDKP;
-  
+
   core.BossList = {
     MC = {
       "Lucifron", "Magmadar", "Gehennas",
-      "Garr", "Barón Geddon", "Shazzrah", "Presagista Sulfuron", 
+      "Garr", "Barón Geddon", "Shazzrah", "Presagista Sulfuron",
       "Golemagg el Incinerador", "Mayordomo Executus", "Ragnaros",
     },
     BWL = {
       "Sangrevaja el Indomable", "Vaelastrasz el Corrupto", "Señor de linaje Capazote",
-      "Faucefogo", "Ebonorroca", "Flamagor", "Chromaggus", 
+      "Faucefogo", "Ebonorroca", "Flamagor", "Chromaggus",
       "Nefarian",
     },
     AQ = {
       "El profeta Skeram", "Guardia de batalla Sartura", "Fankriss el Implacable",
-      "Princesa Huhuran", "Los Emperadores Gemelos", "C'Thun", 
+      "Princesa Huhuran", "Los Emperadores Gemelos", "C'Thun",
       "Realeza silítida", "Viscidus", "Ouro",
     },
     NAXX = {
       "Anub'Rekhan", "Gran Viuda Faerlina", "Maexxna",
-      "Noth el Pesteador", "Heigan el Impuro", "Loatheb", 
+      "Noth el Pesteador", "Heigan el Impuro", "Loatheb",
       "Instructor Razuvious", "Gothik el Cosechador", "Los Cuatro Jinetes",
       "Remendejo", "Grobbulus", "Gluth", "Thaddius",
       "Sapphiron", "Kel'Thuzad",
@@ -92,7 +92,7 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
       "Illidan Tempestira"
     },
     SUNWELLPLATEAU = { -- 580
-      "Kalecgos", 
+      "Kalecgos",
       "Brutallus",
       "Brumavil",
       "Gemelas eredar",
@@ -100,15 +100,15 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
       "Kil'jaeden"
     }
   }
-  
+
   core.ZoneList = {
-    "Nucleo fundido", 
-    "Guarida de alas negras", 
-    "Templo de Ahn'Qiraj", 
-    "Naxxramas", 
-    "Zul'Gurub", 
-    "Ruinas de Ahn'Qiraj", 
-    "Guarida de Onyxia", 
+    "Nucleo fundido",
+    "Guarida de alas negras",
+    "Templo de Ahn'Qiraj",
+    "Naxxramas",
+    "Zul'Gurub",
+    "Ruinas de Ahn'Qiraj",
+    "Guarida de Onyxia",
     "Jefes del mundo",
     "Karazhan", -- 532
     "Guarida de Gruul", -- 565
@@ -447,9 +447,9 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
     ITEMCOST = "Coste del artículo",
     ITEMCOSTTTDESC = "DKP cobrará al jugador por el artículo.",
     ITEMCOSTTYPES = "Tipos de costos de artículos",
-    ITEMCOSTTYPESTTDESC = [=[Seleccione el tipo de valor que se usa para los costos del artículo (lo que el jugador paga por un artículo); entero o porcentaje. Estos valores se establecen en la pestaña "Opciones". 
+    ITEMCOSTTYPESTTDESC = [=[Seleccione el tipo de valor que se usa para los costos del artículo (lo que el jugador paga por un artículo); entero o porcentaje. Estos valores se establecen en la pestaña "Opciones".
 
-    |CFFFF0000Entero|r: Los costos de los artículos son enteros (los decimales se redondean al lugar decimal indicado por "DKP Redondeo" a continuación). ej .: 100 DKP. 
+    |CFFFF0000Entero|r: Los costos de los artículos son enteros (los decimales se redondean al lugar decimal indicado por "DKP Redondeo" a continuación). ej .: 100 DKP.
 
     |CFFFF0000Por ciento|r: Los costos de los artículos son un porcentaje del total de DKP de los jugadores ganadores. Ej: el jugador tiene 1000 DKP, el costo del artículo es del 20%. Por lo tanto, el costo del artículo es de 200 DKP para ese jugador.]=],
     LEGS = "Piernas",
@@ -504,7 +504,7 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
     Esta ventana se puede volver a abrir con "/dkp migrate".]=],
     MIGRATEINST2 = "%s ya ha realizado la migración. Realice una copia de seguridad de su archivo de variables guardadas de inmediato (WTF\\Cuenta\\NOMBRE_CUENTA\\GuardadoVariables\\CommunityDKP.lua) y luego haga clic en el botón Eliminar tablas a continuación. Si %s está en línea, automáticamente le enviarán una sincronización después de que haya recargado. De lo contrario, se presionará uno cuando inicien sesión o puede solicitar que empujen una sincronización (esto se hace haciendo clic en el botón de estado de la tabla en la esquina inferior izquierda de la GUI principal). Si se produce algún error en el proceso de migración de su gremio, elimine la etiqueta de los oficiales que migran de la nota pública del líder del gremio y haga que todos los oficiales que hayan participado hasta ahora eliminen su archivo de variables guardadas corrupto y lo restauren en el que se hizo una copia de seguridad. Todos deben hacer esto al mismo tiempo y no iniciar sesión (con el complemento habilitado) hasta que se haya completado. Cualquier persona en línea con tablas migradas le enviará automáticamente esos datos tan pronto como inicie sesión.",
     MIN = "Min",
-    MINBIDDESCRIPTION = [=[Con los valores mínimos de oferta, a todos los espacios (o artículos individuales) se les asigna un valor mínimo. Cualquier persona que presente una oferta debe ofertar a ese valor o mayor. 
+    MINBIDDESCRIPTION = [=[Con los valores mínimos de oferta, a todos los espacios (o artículos individuales) se les asigna un valor mínimo. Cualquier persona que presente una oferta debe ofertar a ese valor o mayor.
 
     Ex: |cffa335ee|Hitem:16865::::::::120:577::::::|h[Breastplate of Might]|h|r cae y tiene un valor de oferta mínimo de 50 DKP. Cada jugador que lo desee envía "! Oferta 50" (o superior) a través de uno de los canales abiertos (seleccionados a continuación) sin exceder su DKP disponible (a menos que se active DKP por debajo de cero). El jugador con la oferta más alta gana y se le cobra el valor mínimo de DKP o el valor que presentó el segundo mejor postor. Lea la información sobre herramientas para obtener información adicional.]=],
     MINBIDTTDESC = "Valor mínimo de oferta que será aceptado.",
@@ -730,9 +730,9 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
     SUBMITBID = "Enviar oferta",
     SUBMITBUGS = "para obtener ayuda y enviar errores",
     SUBZEROBIDDING = "Sub Sub Pujas",
-    SUBZEROBIDDINGTTDESC = [=[Permite a los jugadores ofertar si no tienen suficiente DKP o una oferta más alta que su DKP disponible (según la configuración del modo). 
+    SUBZEROBIDDINGTTDESC = [=[Permite a los jugadores ofertar si no tienen suficiente DKP o una oferta más alta que su DKP disponible (según la configuración del modo).
 
-    |cffff0000Valores mínimos de oferta|r: Permite a los jugadores ofertar más dkp de los que tienen, hasta el Oferta máxima (establecida a continuación) que les permite ir a lo negativo. 
+    |cffff0000Valores mínimos de oferta|r: Permite a los jugadores ofertar más dkp de los que tienen, hasta el Oferta máxima (establecida a continuación) que les permite ir a lo negativo.
 
     |cffff0000Otros|r: Permite al jugador presentar una oferta incluso si su DKP disponible es excedido por el costo del artículo.]=],
     SUPPRESSBIDWHISP = "Suppress Whispers de oferta",
@@ -775,7 +775,7 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
     TEAMMANAGEMENTHEADER = "Guild team management section",
     TEAMSELECT = "Select Team",
     TEAMCHANGERAIDINPROGRESS = "You can't change currently selected team while raid is in progress!",
-    NOTEAMCHOSEN = "Please pick a team from drop down to change it's name", 
+    NOTEAMCHOSEN = "Please pick a team from drop down to change it's name",
     TENSECONDSTOBID = "¡Quedan 10 segundos para pujar!",
     THISWILLREFUND = "Esto reembolsará",
     TIMEELAPSED = "Tiempo transcurrido",
@@ -812,7 +812,7 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
     USE = "Utilizar",
     USEPERCENTAGE = "Porcentaje de uso",
     USEPERCFORROLLS = "Porcentaje de uso para rollos",
-    USEPERCROLLSTTDESC = [=[Convierte los rangos de tiradas anteriores en% de jugadores DKP. IE: Un jugador con 1000 dkp, con lo anterior establecido en 70% - 100% usará 
+    USEPERCROLLSTTDESC = [=[Convierte los rangos de tiradas anteriores en% de jugadores DKP. IE: Un jugador con 1000 dkp, con lo anterior establecido en 70% - 100% usará
     / random 700-1000]=],
     USEPERCROLLSTTWARN = "Si esto está marcado, solo use números entre 0 y 100.",
     VALIDATEINPROG = "Actualmente hay una validación en progreso. Por favor espera...",
@@ -898,15 +898,14 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
-    CHANGELOG2 = " - fixed UI for classic era realms",
+    CHANGELOG1 = "CommunityDKP - v4.2.8-bcc",
+    CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
     CHANGELOG7 = "",
-    CHANGELOG8 = "",
-    CHANGELOG8 = "",
+    CHANGELOG8 = "WOT edition by Sithy @ Old Blanchy",
     CHANGELOG9 = "Taidtuskecyh @ Gehennas",
     CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
           }

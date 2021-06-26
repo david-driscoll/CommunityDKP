@@ -1,7 +1,7 @@
 if GetLocale() == "frFR" then
   local _, core = ...;
   local CommDKP = core.CommDKP;
-  
+
   core.BossList = {
     MC = {
       "Lucifron",
@@ -22,7 +22,7 @@ if GetLocale() == "frFR" then
       "Gueule-de-feu",
       "Rochébène",
       "Flamegor",
-      "Chromaggus", 
+      "Chromaggus",
       "Nefarian",
     },
     AQ = {
@@ -31,7 +31,7 @@ if GetLocale() == "frFR" then
       "Fankriss l'Inflexible",
       "Princesse Huhuran",
       "Empereurs Jumeaux",
-      "C'Thun", 
+      "C'Thun",
       "Trio d'insectes",
       "Viscidus",
       "Ouro",
@@ -139,7 +139,7 @@ if GetLocale() == "frFR" then
       "Illidan Hurlorage"
     },
     SUNWELLPLATEAU = { -- 580
-      "Kalecgos", 
+      "Kalecgos",
       "Brutallus",
       "Gangrebrume",
       "Jumelles érédars",
@@ -147,7 +147,7 @@ if GetLocale() == "frFR" then
       "Kil'jaeden"
     }
   }
-  
+
   core.ZoneList = {
     "Cœur du Magma",
     "Repaire de l'Aile noire",
@@ -494,9 +494,9 @@ if GetLocale() == "frFR" then
     ITEMCOST = "Prix",
     ITEMCOSTTTDESC = "DKP dépensés par le joueur pour acheter l'objet.",
     ITEMCOSTTYPES = "Prix du type d'objet",
-    ITEMCOSTTYPESTTDESC = [=[Sélectionnez le type de valeur utilisé pour les prix des objets: entier ou pourcentage. Ces valeurs sont définies dans l’onglet "Options". 
+    ITEMCOSTTYPESTTDESC = [=[Sélectionnez le type de valeur utilisé pour les prix des objets: entier ou pourcentage. Ces valeurs sont définies dans l’onglet "Options".
 
-    |CFFFF0000Entier|r: les prix des objets sont des entiers (les décimales sont arrondies à la décimale indiquée par "Arrondi DKP" ci-dessous). ex: 100 DKP. 
+    |CFFFF0000Entier|r: les prix des objets sont des entiers (les décimales sont arrondies à la décimale indiquée par "Arrondi DKP" ci-dessous). ex: 100 DKP.
 
     |CFFFF0000Pour cent|r: le prix des objets correspond à un pourcentage du total des DKP des joueurs gagnants. ex: le joueur a 1000 DKP, le prix de l'objet est de 20%. Par conséquent, le coût d'objet est de 200 DKP pour ce joueur.]=],
     LEGS = "Jambes",
@@ -551,7 +551,7 @@ if GetLocale() == "frFR" then
     Cette fenêtre peut être rouverte avec "/dkp migrate".]=],
     MIGRATEINST2 = "%s a déjà effectué la migration. Sauvegardez immédiatement votre fichier de variables sauvegardé (WTF\\Account\\ACCOUNT_NAME\\SavedVariables\\CommunityDKP.lua), puis cliquez sur le bouton de suppression de tables ci-dessous. Si %s est en ligne, ils vous enverront automatiquement une synchronisation après le rechargement. Si ce n'est pas le cas, ils seront poussés lorsqu'ils se connecteront ou vous pourrez demander qu'ils poussent une synchronisation (pour ce faire, cliquez sur le bouton d'état de la table dans le coin inférieur gauche de l'interface graphique principale). Si des erreurs se produisent dans le processus de migration de votre guilde, supprimez la balise des officiers en migration de la note publique du chef de guilde et demandez à tous les officiers ayant participé à cette opération de supprimer leur fichier de variables sauvegardées corrompu et de le restaurer sur celui sauvegardé. Tout le monde doit le faire en même temps et ne pas se connecter (avec l'addon activé) jusqu'à ce que cela soit terminé. Toute personne en ligne avec des tables migrées transmettra automatiquement ces données dès que vous vous connecterez.",
     MIN = "Min",
-    MINBIDDESCRIPTION = [=[Avec les valeurs d'enchères minimales, une valeur minimale est attribuée à tous les emplacements (ou articles individuels). Toute personne qui soumet une enchère doit enchérir à cette valeur ou à une valeur supérieure. 
+    MINBIDDESCRIPTION = [=[Avec les valeurs d'enchères minimales, une valeur minimale est attribuée à tous les emplacements (ou articles individuels). Toute personne qui soumet une enchère doit enchérir à cette valeur ou à une valeur supérieure.
 
     Ex: |cffa335ee|Hitem:16865::::::::120:577::::::|h[Breastplate of Might]|h|r tombe et a une enchère minimum de 50 DKP. Chaque joueur qui le souhaite envoie "!Bid 50" (ou plus) via l’un des canaux ouverts (sélectionné ci-dessous) sans dépasser son DKP disponible (sauf si le DKP inférieur à zéro est activé). Le joueur avec l'enchère la plus élevée gagne et se voit facturer soit la valeur minimale de DKP, soit la valeur que le deuxième enchérisseur a soumis. Lisez les info-bulles pour plus d'informations.]=],
     MINBIDTTDESC = "Valeur d'enchère minimum qui sera acceptée.",
@@ -770,16 +770,16 @@ if GetLocale() == "frFR" then
     STARTBIDDINGTTDESC = "Commence l'enchère. Les offres ne seront acceptées seulement durant l'enchère.",
     STARTBIDDINGTTWARN = "La durée des enchères peut être définie dans la zone \"Minuteur\". Commencer une deuxième session d'enchère pour un article n'effacera pas les enchères précédentes (à utiliser si quelqu'un claque une enchère à la dernière seconde).",
     STATIC = "Statique",
-    STATICDESCRIPTION = [=[Avec les valeurs d’éléments statiques, une valeur statique est attribuée à tous les emplacements (ou objets individuels). Une enchère est soumise par chaque joueur (avec !bid) qui désire l'objet, et le joueur avec le plus de DKP gagne. Les options de valeur de prix sont "Entier" ou "Pourcent". 
+    STATICDESCRIPTION = [=[Avec les valeurs d’éléments statiques, une valeur statique est attribuée à tous les emplacements (ou objets individuels). Une enchère est soumise par chaque joueur (avec !bid) qui désire l'objet, et le joueur avec le plus de DKP gagne. Les options de valeur de prix sont "Entier" ou "Pourcent".
 
     Ex: |cffa335ee|Hitem:19143::::::::120:577::::::|h[Flameguard Gauntlets]|h|r tombe et a une valeur statique de 50 DKP. Chaque joueur qui le souhaite utilise "!bid" via l’un des canaux ouverts (sélectionné ci-dessous). Le joueur avec le plus grand nombre de DKP disponibles gagne et se voit facturer cette valeur statique. Lisez les info-bulles pour plus d'informations.]=],
     STATICITEMVALUESHEAD = "Valeurs d'élément statiques",
     SUBMITBID = "Soumettre une offre",
     SUBMITBUGS = "de l'aide et soumettre des bugs",
     SUBZEROBIDDING = "Enchère insuffisante",
-    SUBZEROBIDDINGTTDESC = [=[Permet aux joueurs d'enchérir s'ils ne disposent pas de suffisamment de DKP ou d'une enchère supérieure à leur DKP disponible (en fonction des paramètres de mode). 
+    SUBZEROBIDDINGTTDESC = [=[Permet aux joueurs d'enchérir s'ils ne disposent pas de suffisamment de DKP ou d'une enchère supérieure à leur DKP disponible (en fonction des paramètres de mode).
 
-    |cffff0000Valeurs minimales de l'enchère|r: Permet aux joueurs d'enchérir plus que leur nombre maximum, jusqu'à la Enchère maximum (définie ci-dessous), leur permettant d'entrer dans le négatif. 
+    |cffff0000Valeurs minimales de l'enchère|r: Permet aux joueurs d'enchérir plus que leur nombre maximum, jusqu'à la Enchère maximum (définie ci-dessous), leur permettant d'entrer dans le négatif.
 
     |cffff0000Autres|r: Permet au joueur de soumettre une enchère même si le prix de ses DKP disponibles est dépassé.]=],
     SUPPRESSBIDWHISP = "Supprimer les chuchotements d'enchère",
@@ -822,7 +822,7 @@ if GetLocale() == "frFR" then
     TEAMMANAGEMENTHEADER = "Section de gestion des tables de guilde",
     TEAMSELECT = "Sélectionner la table",
     TEAMCHANGERAIDINPROGRESS = "Vous ne pouvez pas changer de table pendant un raid !",
-    NOTEAMCHOSEN = "Veuillez sélectionner une table dans le menu déroulant pour changer son nom", 
+    NOTEAMCHOSEN = "Veuillez sélectionner une table dans le menu déroulant pour changer son nom",
     TENSECONDSTOBID = "Plus que 10 secondes pour enchérir !",
     THISWILLREFUND = "Cela remboursera",
     TIMEELAPSED = "Temps écoulé",
@@ -859,7 +859,7 @@ if GetLocale() == "frFR" then
     USE = "Utilisation",
     USEPERCENTAGE = "Utiliser le pourcentage",
     USEPERCFORROLLS = "Utiliser le pourcentage pour les jets",
-    USEPERCROLLSTTDESC = [=[Convertit les plages ci-dessus en% des joueurs DKP. IE: un joueur avec 1 000 dkp, avec ce qui précède réglé sur 70% - 100% devront utiliser 
+    USEPERCROLLSTTDESC = [=[Convertit les plages ci-dessus en% des joueurs DKP. IE: un joueur avec 1 000 dkp, avec ce qui précède réglé sur 70% - 100% devront utiliser
     /random 700-1000]=],
     USEPERCROLLSTTWARN = "Si cette case est cochée, n'utilisez que des chiffres compris entre 0 et 100.",
     VALIDATEINPROG = "Il y a actuellement une validation en cours. Veuillez patienter...",
@@ -906,7 +906,7 @@ if GetLocale() == "frFR" then
     ZEROSUMBALANCE = "Solde à somme nulle",
     ZEROSUMBALANCETTDESC = "Accumule automatiquement tout le DKP dépensé par les raiders pour être distribué une fois que le butin a été acheté.",
     ZEROSUMBANK = "Banque à somme nulle",
-    ZEROSUMDESCRIPTION = [=[Avec le DKP à somme nulle, les articles peuvent avoir une valeur statique ou faire l'objet d'une enchère. Lorsqu'un joueur gagne un objet pour son enchère ou son coût, ce DKP en est déduit et réparti équitablement entre les membres du raid. Il est recommandé d’utiliser des décimales via l’option "DKP Arrondi" car des entiers arrondis pourraient provoquer une inflation ou une perte de DKP. Cela distribuerait 9 points au-dessus du coût. 
+    ZEROSUMDESCRIPTION = [=[Avec le DKP à somme nulle, les articles peuvent avoir une valeur statique ou faire l'objet d'une enchère. Lorsqu'un joueur gagne un objet pour son enchère ou son coût, ce DKP en est déduit et réparti équitablement entre les membres du raid. Il est recommandé d’utiliser des décimales via l’option "DKP Arrondi" car des entiers arrondis pourraient provoquer une inflation ou une perte de DKP. Cela distribuerait 9 points au-dessus du coût.
 
     Ex: |cffa335ee|Hitem:18824::::::::120:577::::::|h[Magma Tempered Boots]|h|r tombe et a un coût statique de 30 DKP. Le joueur A remporte l'offre en ayant le plus de DKP (ou distribué à la discrétion des chefs de raid en cas d'égalité) et leur DKP est réduit de 30. Ensuite, chaque membre du raid reçoit 0,75 DKP.]=],
     ZEROSUMHEAD = "Somme nulle",
@@ -945,16 +945,15 @@ if GetLocale() == "frFR" then
     MIGRATIONCOMPLETED    = "Migration réussie.|n|nVeuillez désactiver MonolithDKP et recharger votre interface (/reload).", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
-    CHANGELOG2 = " - fixed UI for classic era realms",
+    CHANGELOG1 = "CommunityDKP - v4.2.8-bcc",
+    CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
     CHANGELOG7 = "",
-    CHANGELOG8 = "",
-    CHANGELOG8 = "",
+    CHANGELOG8 = "WOT edition by Sithy @ Old Blanchy",
     CHANGELOG9 = "Taidtuskecyh @ Gehennas",
     CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
-          } 
+          }
 end

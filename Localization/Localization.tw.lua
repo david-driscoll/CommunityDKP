@@ -1,26 +1,26 @@
 if GetLocale() == "zhTW" then
   local _, core = ...;
   local CommDKP = core.CommDKP;
-  
+
   core.BossList = {
     MC = {
       "魯西弗隆", "瑪格曼達", "基赫納斯",
-      "加爾", "迦頓男爵", "沙斯拉爾", "薩弗隆先驅者", 
+      "加爾", "迦頓男爵", "沙斯拉爾", "薩弗隆先驅者",
       "『焚化者』古雷曼格", "管理者埃克索圖斯", "拉格納羅斯",
     },
     BWL = {
       "狂野的拉佐格爾", "墮落的瓦拉斯塔茲", "幼龍領主勒西雷爾",
-      "費爾默", "埃博諾克", "弗萊格爾", "克洛瑪古斯", 
+      "費爾默", "埃博諾克", "弗萊格爾", "克洛瑪古斯",
       "奈法利安",
     },
     AQ = {
       "預言者斯克拉姆", "戰地衛士沙爾圖拉", "不屈的范克里斯",
-      "哈霍蘭公主", "雙子帝王", "克蘇恩", 
+      "哈霍蘭公主", "雙子帝王", "克蘇恩",
       "異種蠍皇族", "維希度斯", "奧羅",
     },
     NAXX = {
       "阿努比瑞克漢", "大寡婦費琳娜", "梅克絲娜",
-      "『瘟疫使者』諾斯", "『不潔者』海根", "憎恨者", 
+      "『瘟疫使者』諾斯", "『不潔者』海根", "憎恨者",
       "講師拉祖維斯", "『收割者』高希", "四騎士",
       "縫補者", "葛羅巴斯", "古魯斯", "泰迪斯",
       "薩菲隆", "科爾蘇加德",
@@ -91,7 +91,7 @@ if GetLocale() == "zhTW" then
       "伊利丹·怒風"
     },
     SUNWELLPLATEAU = { -- 580
-      "卡雷苟斯", 
+      "卡雷苟斯",
       "布魯托魯斯",
       "魔龍謎霧",
       "埃雷達爾雙胞胎s",
@@ -99,15 +99,15 @@ if GetLocale() == "zhTW" then
       "基爾加丹"
     }
   }
-  
+
   core.ZoneList = {
-    "熔火之心", 
-    "黑翼之巢", 
-    "安其拉神廟", 
-    "納克薩瑪斯", 
-    "祖爾格拉布", 
-    "安琪拉遺址", 
-    "奧妮西亞的巢穴", 
+    "熔火之心",
+    "黑翼之巢",
+    "安其拉神廟",
+    "納克薩瑪斯",
+    "祖爾格拉布",
+    "安琪拉遺址",
+    "奧妮西亞的巢穴",
     "世界老闆",
     "卡拉贊", -- 532
     "戈魯爾之巢", -- 565
@@ -503,7 +503,7 @@ if GetLocale() == "zhTW" then
     可以使用“/dkp migration”重新打開此窗口。]=],
     MIGRATEINST2 = "％s 已經進行了遷移。請立即備份您保存的變量文件（WTF\\Account\\ACCOUNT_NAME\\SavedVariables\\CommunityDKP.lua），然後單擊下面的刪除表按鈕。如果 ％s 在線，他們將在您重新加載後自動向您推送同步。如果不是，將在他們登錄時將其推送，或者您可以請求他們推送同步（這是通過單擊主GUI左下角的表格狀態按鈕來完成的）。如果您的公會的遷移過程中發生任何錯誤，請從公會負責人的公開說明中刪除遷移人員標籤，並讓到目前為止參與的所有人員刪除已損壞的已保存變量文件，並將其還原到已備份的文件中。每個人都必須同時執行此操作，並且在完成此操作之前，請勿登錄（啟用插件）。擁有遷移表的任何在線用戶都將在您登錄後自動將數據推送給您。",
     MIN = "敏",
-    MINBIDDESCRIPTION = [=[使用最低出價值，所有廣告位（或單個項目）都被分配了最小值。 
+    MINBIDDESCRIPTION = [=[使用最低出價值，所有廣告位（或單個項目）都被分配了最小值。
 
     Ex：|cffa335ee|Hitem:16865::::::::120:577::::::|h[Breastplate of Might]|h|r下降，且最低出價為50 DKP。每個想要的玩家都通過一個打開的通道（在下面選擇）發送“！bid 50”（或更高），而不超過其可用的DKP（除非激活了低於零的DKP）。出價最高的玩家將獲勝，並被收取最低DKP值或第二高出價者提交的值。閱讀工具提示以獲取更多信息。]=],
     MINBIDTTDESC = "可接受的最低出價。",
@@ -731,7 +731,7 @@ if GetLocale() == "zhTW" then
     SUBZEROBIDDING = "零以下出價",
     SUBZEROBIDDINGTTDESC = [=[如果玩家沒有足夠的DKP或出價高於可用的DKP（取決於模式設置），則允許其出價。
 
-    |cffff0000最低出價值|r：允許玩家出價高於他們的dkp，最高 
+    |cffff0000最低出價值|r：允許玩家出價高於他們的dkp，最高
 
     |cffff0000其他|r：允許最高出價（設置如下）。
 
@@ -776,7 +776,7 @@ if GetLocale() == "zhTW" then
     TEAMMANAGEMENTHEADER = "Guild team management section",
     TEAMSELECT = "Select Team",
     TEAMCHANGERAIDINPROGRESS = "You can't change currently selected team while raid is in progress!",
-    NOTEAMCHOSEN = "Please pick a team from drop down to change it's name", 
+    NOTEAMCHOSEN = "Please pick a team from drop down to change it's name",
     TENSECONDSTOBID = "還剩10秒競標！",
     THISWILLREFUND = "這將退還",
     TIMEELAPSED = "比賽進行時間",
@@ -841,7 +841,7 @@ if GetLocale() == "zhTW" then
     WHISPERCMDSHELP = "耳語命令（致指定人員）",
     WHITELISTBROADCASTED = "白名單廣播",
     WHITELISTEMPTY = "您的白名單是空的。",
-    WHITELISTHEADER = [=[白名單設置|CFF444444（僅領導人）（α)|r 
+    WHITELISTHEADER = [=[白名單設置|CFF444444（僅領導人）（α)|r
 
     強烈建議您僅在希望限制哪些警官需要權限的情況下才使用此白名單設置。如果您希望所有人員都具有權限，請完全忽略此設置功能。請謹慎使用。 （如果應用這些設置會導致問題，請使用文本編輯器打開 \WTF\Accounts\ACCOUNT_NAME\SavedVariables\CommunityDKP.lua文件，然後刪除底部附近的CommDKP_Whitelist表。）]=],
     WIPETABLES = "擦桌子",
@@ -899,15 +899,14 @@ if GetLocale() == "zhTW" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
-    CHANGELOG2 = " - fixed UI for classic era realms",
+    CHANGELOG1 = "CommunityDKP - v4.2.8-bcc",
+    CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
     CHANGELOG7 = "",
-    CHANGELOG8 = "",
-    CHANGELOG8 = "",
+    CHANGELOG8 = "WOT edition by Sithy @ Old Blanchy",
     CHANGELOG9 = "Taidtuskecyh @ Gehennas",
     CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
         }

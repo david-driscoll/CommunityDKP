@@ -1,26 +1,26 @@
 if GetLocale() == "deDE" then
   local _, core = ...;
   local CommDKP = core.CommDKP;
-  
+
   core.BossList = {
     MC = {
       "Lucifron", "Magmadar", "Gehennas",
-      "Garr", "Baron Geddon", "Shazzrah", "Sulfuronherold", 
+      "Garr", "Baron Geddon", "Shazzrah", "Sulfuronherold",
       "Golemagg der Verbrenner", "Majordomus Executus", "Ragnaros",
     },
     BWL = {
       "Feuerkralle der Ungezähmte", "Vaelastrasz der Verdorbene", "Brutwächter Dreschbringer",
-      "Firemaw", "Ebonroc", "Flamegor", "Chromaggus", 
+      "Firemaw", "Ebonroc", "Flamegor", "Chromaggus",
       "Nefarian",
     },
     AQ = {
       "Der Prophet Skeram", "Schlachtwache Sartura", "Fankriss der Unnachgiebige",
-      "Prinzessin Huhuran", "Twin Emperors", "C'Thun", 
+      "Prinzessin Huhuran", "Twin Emperors", "C'Thun",
       "Adel der Silithiden", "Viscidus", "Ouro",
     },
     NAXX = {
       "Anub'Rekhan", "Großwitwe Faerlina", "Maexxna",
-      "Noth der Seuchenfürst", "Heigan der Unreine", "Loatheb", 
+      "Noth der Seuchenfürst", "Heigan der Unreine", "Loatheb",
       "Instrukteur Razuvious", "Gothik der Ernter", "Die vier Reiter",
       "Flickwerk", "Grobbulus", "Gluth", "Thaddius",
       "Saphiron", "Kel'Thuzad",
@@ -92,7 +92,7 @@ if GetLocale() == "deDE" then
       "Illidan Sturmgrimm"
     },
     SUNWELLPLATEAU = { -- 580
-      "Kalecgos", 
+      "Kalecgos",
       "Brutallus",
       "Teufelsruch",
       "Eredarzwillinge",
@@ -102,13 +102,13 @@ if GetLocale() == "deDE" then
   }
 
   core.ZoneList = {
-    "Geschmolzener Kern", 
-    "Pechschwingenhort", 
-    "Tempel von Ahn'Qiraj", 
-    "Naxxramas", 
-    "Zul'Gurub", 
-    "Ruinen von Ahn'Qiraj", 
-    "Onyxias Versteck", 
+    "Geschmolzener Kern",
+    "Pechschwingenhort",
+    "Tempel von Ahn'Qiraj",
+    "Naxxramas",
+    "Zul'Gurub",
+    "Ruinen von Ahn'Qiraj",
+    "Onyxias Versteck",
     "Weltbosse",
     "Karazhan", -- 532
     "Gruuls Unterschlupf", -- 565
@@ -455,9 +455,9 @@ if GetLocale() == "deDE" then
     ITEMCOST = "Gegenstandskosten",
     ITEMCOSTTTDESC = "DKP, die der Spieler für diesen Gegenstand zahlen soll.",
     ITEMCOSTTYPES = "Artikelkostentypen",
-    ITEMCOSTTYPESTTDESC = [=[Wählen Sie die Art des Wertes, der für die Gegenstandskosten verwendet wird (was der Spieler für einen Gegenstand bezahlt). Ganzzahl oder Prozent. Diese Werte werden auf der Registerkarte "Optionen" festgelegt. 
+    ITEMCOSTTYPESTTDESC = [=[Wählen Sie die Art des Wertes, der für die Gegenstandskosten verwendet wird (was der Spieler für einen Gegenstand bezahlt). Ganzzahl oder Prozent. Diese Werte werden auf der Registerkarte "Optionen" festgelegt.
 
-    |CFFFF0000Ganze Zahl|r: Die Elementkosten sind Ganzzahlen (Dezimalstellen werden auf die durch "DKP-Rundung" unten angegebene Dezimalstelle gerundet). Beispiel: 100 DKP. 
+    |CFFFF0000Ganze Zahl|r: Die Elementkosten sind Ganzzahlen (Dezimalstellen werden auf die durch "DKP-Rundung" unten angegebene Dezimalstelle gerundet). Beispiel: 100 DKP.
 
     |CFFFF0000Prozent|r: Die Gegenstandskosten sind ein Prozentsatz der gesamten DKP des Gewinners. Beispiel: Der Spieler hat 1000 DKP, die Gegenstandskosten betragen 20%. Daher betragen die Gegenstandskosten für diesen Spieler 200 DKP.]=],
     LEGS = "Beine",
@@ -747,7 +747,7 @@ if GetLocale() == "deDE" then
     SUBMITBID = "Gebot abgeben",
     SUBMITBUGS = "für Hilfe und senden Sie alle Fehler",
     SUBZEROBIDDING = "Sub Zero Bidding",
-    SUBZEROBIDDINGTTDESC = [=[Ermöglicht Spielern das Bieten, wenn sie nicht über genügend DKP verfügen oder ein höheres Gebot als das verfügbare DKP (abhängig von den Einstellungen des Modus) abgeben Maximales Gebot (siehe unten), damit sie ins Negativ gehen können. 
+    SUBZEROBIDDINGTTDESC = [=[Ermöglicht Spielern das Bieten, wenn sie nicht über genügend DKP verfügen oder ein höheres Gebot als das verfügbare DKP (abhängig von den Einstellungen des Modus) abgeben Maximales Gebot (siehe unten), damit sie ins Negativ gehen können.
 
     |cffff0000Andere|r: Ermöglicht es dem Spieler, ein Gebot abzugeben, selbst wenn ihre verfügbaren DKP durch die Kosten des Gegenstands überschritten werden.]=],
     SUPPRESSBIDWHISP = "Bid Whispers unterdrücken",
@@ -769,7 +769,7 @@ if GetLocale() == "deDE" then
     TABLEVIEWS = "Tabellenansichten",
     TAKINGBIDSON = "Gebote annehmen",
     TANK = "Tank",
-    NOTGUILDMASTER = "Nur für den Gildenmeister verfügbar", 
+    NOTGUILDMASTER = "Nur für den Gildenmeister verfügbar",
     TEAM = "Team",
     TEAMS = "Teams",
     TEAMADD = "Neues Team hinzufügen",
@@ -790,7 +790,7 @@ if GetLocale() == "deDE" then
     TEAMMANAGEMENTHEADER = "Team Managment",
     TEAMSELECT = "Team auswählen",
     TEAMCHANGERAIDINPROGRESS = "Sie können das ausgewählte Team nicht während eines Schlachtzugs ändern!",
-    NOTEAMCHOSEN = "Bitte wählen Sie ein Team aus der Liste um ihren Namen zu ändern", 
+    NOTEAMCHOSEN = "Bitte wählen Sie ein Team aus der Liste um ihren Namen zu ändern",
     TENSECONDSTOBID = "Noch 10 Sekunden zum Bieten!",
     THISWILLREFUND = "Dies wird erstattet",
     TIMEELAPSED = "Verstrichene Zeit",
@@ -829,7 +829,7 @@ if GetLocale() == "deDE" then
     USE = "Verwenden",
     USEPERCENTAGE = "Prozent verwenden",
     USEPERCFORROLLS = "Verwenden Sie Prozentsatz für Rollen",
-    USEPERCROLLSTTDESC = [=[Konvertiert die über dem Wurf liegenden Bereiche in% der DKP des Spielers. IE: Ein Spieler mit 1000 dkp, bei dem oben 70% - 100% eingestellt sind, wird voraussichtlich 
+    USEPERCROLLSTTDESC = [=[Konvertiert die über dem Wurf liegenden Bereiche in% der DKP des Spielers. IE: Ein Spieler mit 1000 dkp, bei dem oben 70% - 100% eingestellt sind, wird voraussichtlich
     /zufällig 700-1000 verwenden]=],
     USEPERCROLLSTTWARN = "Wenn dies aktiviert ist, verwenden Sie bitte nur Zahlen zwischen 0 und 100.",
     VALIDATEINPROG = "Derzeit wird eine Validierung durchgeführt. Warten Sie mal...",
@@ -894,15 +894,14 @@ if GetLocale() == "deDE" then
     MIGRATIONCOMPLETED    = "Migration abgeschlossen.|n|nBitte deaktivieren Sie MonolithDKP und laden Sie das UI neu. (/reload)",
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
-    CHANGELOG2 = " - fixed UI for classic era realms",
+    CHANGELOG1 = "CommunityDKP - v4.2.8-bcc",
+    CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
     CHANGELOG7 = "",
-    CHANGELOG8 = "",
-    CHANGELOG8 = "",
+    CHANGELOG8 = "WOT edition by Sithy @ Old Blanchy",
     CHANGELOG9 = "Taidtuskecyh @ Gehennas",
     CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
       }

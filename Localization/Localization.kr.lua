@@ -1,26 +1,26 @@
 if GetLocale() == "koKR" then
   local _, core = ...;
   local CommDKP = core.CommDKP;
-  
+
   core.BossList = {
     MC = {
       "루시프론", "마그마다르", "게헨나스",
-      "가르", "남작 게돈", "샤즈라", "설퍼론 사자", 
+      "가르", "남작 게돈", "샤즈라", "설퍼론 사자",
       "초열의 골레마그", "청지기 이그젝큐투스", "라그나로스",
     },
     BWL = {
       "폭군 서슬송곳니", "타락한 밸라스트라즈", "용기대장 래쉬레이어",
-      "화염아귀", "에본로크", "플레임고르", "크로마구스", 
+      "화염아귀", "에본로크", "플레임고르", "크로마구스",
       "네파리안",
     },
     AQ = {
       "예언자 스케람", "전투감시병 살투라", "불굴의 판크리스",
-      "공주 후후란", "쌍둥이 제왕", "크툰", 
+      "공주 후후란", "쌍둥이 제왕", "크툰",
       "Bug Family", "비시두스", "아우로",
     },
     NAXX = {
       "아눕레칸", "귀부인 펠리나", "맥스나",
-      "역병술사 노스", "부정의 헤이건", "로데브", 
+      "역병술사 노스", "부정의 헤이건", "로데브",
       "훈련교관 라주비어스", "영혼 착취자 고딕", "4인의 기사단",
       "패치워크", "그라불루스", "글루스", "타디우스",
       "사피론", "켈투자드",
@@ -91,7 +91,7 @@ if GetLocale() == "koKR" then
       "일리단 스톰레이지"
     },
     SUNWELLPLATEAU = { -- 580
-      "칼렉고스", 
+      "칼렉고스",
       "브루탈루스",
       "지옥안개",
       "에레다르 쌍둥이",
@@ -99,15 +99,15 @@ if GetLocale() == "koKR" then
       "킬제덴"
     }
   }
-  
+
   core.ZoneList = {
-    "녹은 코어", 
-    "검은 날개 둥지", 
-    "안퀴라즈 사원", 
-    "낙스라마스", 
-    "줄구룹", 
-    "안퀴라즈 폐허", 
-    "오닉스 시아의 은신처", 
+    "녹은 코어",
+    "검은 날개 둥지",
+    "안퀴라즈 사원",
+    "낙스라마스",
+    "줄구룹",
+    "안퀴라즈 폐허",
+    "오닉스 시아의 은신처",
     "월드 보스",
     "카라잔", -- 532
     "그룰의 둥지", -- 565
@@ -446,9 +446,9 @@ if GetLocale() == "koKR" then
     ITEMCOST = "아이템 비용",
     ITEMCOSTTTDESC = "항목에 대한 플레이어를 청구하는 DKP.",
     ITEMCOSTTYPES = "품목 비용 유형",
-    ITEMCOSTTYPESTTDESC = [=[아이템 비용에 사용되는 가치 유형을 선택합니다 (플레이어가 아이템에 대해 지불하는 금액). 정수 또는 퍼센트. 이 값은 "옵션"탭에서 설정됩니다. 
+    ITEMCOSTTYPESTTDESC = [=[아이템 비용에 사용되는 가치 유형을 선택합니다 (플레이어가 아이템에 대해 지불하는 금액). 정수 또는 퍼센트. 이 값은 "옵션"탭에서 설정됩니다.
 
-    |CFFFF0000정수|r: 품목 비용은 정수입니다 (소수는 아래 "DKP 반올림"으로 표시된 소수점 이하 자릿수로 반올림 됨). 예 : 100 DKP. 
+    |CFFFF0000정수|r: 품목 비용은 정수입니다 (소수는 아래 "DKP 반올림"으로 표시된 소수점 이하 자릿수로 반올림 됨). 예 : 100 DKP.
 
     |CFFFF0000%|r: 아이템 비용은 승리 한 플레이어 총 DKP의 백분율입니다. 예 : 플레이어는 1000 DKP, 아이템 비용은 20 %입니다. 따라서 해당 플레이어의 아이템 비용은 200 DKP입니다.]=],
     LEGS = "다리",
@@ -503,7 +503,7 @@ if GetLocale() == "koKR" then
     이 창은 "/dkp migrate"로 다시 열 수 있습니다.]=],
     MIGRATEINST2 = "%s 은 (는) 이미 마이그레이션을 수행했습니다. 저장된 변수 파일을 즉시 백업하고 (WTF\\Account\\ACCOUNT_NAME\\SavedVariables\\CommunityDKP.lua) 아래 테이블 삭제 버튼을 클릭하십시오. %s 이 (가) 온라인 인 경우 다시로드하면 자동으로 동기화됩니다. 그렇지 않은 경우 로그인 할 때 푸시되거나 동기화를 푸시하도록 요청할 수 있습니다 (메인 GUI의 왼쪽 하단 모서리에있는 테이블 상태 단추를 클릭하여 수행). 길드 마이그레이션 프로세스에서 오류가 발생하면 길드 리더의 공개 메모에서 마이그레이션 관리자 태그를 삭제하고 지금까지 참여한 모든 임원이 손상된 저장된 변수 파일을 삭제하고 백업 한 것으로 복원하십시오. 이 작업이 완료 될 때까지 모든 사람은 동시에이 작업을 수행해야하며 애드온이 활성화 된 상태에서 로그인하지 않아야합니다. 마이그레이션 된 테이블이있는 온라인 사용자는 로그인하자마자 해당 데이터를 자동으로 푸시합니다.",
     MIN = "최소",
-    MINBIDDESCRIPTION = [=[최소 입찰 값을 사용하면 모든 슬롯 (또는 개별 항목)에 최소값이 할당됩니다. 입찰을 제출 한 사람은 해당 값 이상으로 입찰해야합니다. 
+    MINBIDDESCRIPTION = [=[최소 입찰 값을 사용하면 모든 슬롯 (또는 개별 항목)에 최소값이 할당됩니다. 입찰을 제출 한 사람은 해당 값 이상으로 입찰해야합니다.
 
     예:|cffa335ee|Hitem:16865::::::::120:577::::::|h[Breastplate of Might]|h|r은 삭제되고 최소 입찰가는 50 DKP입니다. 원하는 각 플레이어는 사용 가능한 DKP를 초과하지 않고 열린 채널 중 하나 (아래에서 선택된)를 통해 "!bid 50"이상을 보냅니다 (제로 서브 DKP가 활성화되지 않은 경우). 가장 높은 입찰가를 가진 플레이어가 이기고 최소 DKP 값 또는 두 번째로 높은 입찰자가 제출 한 값이 청구됩니다. 추가 정보는 툴팁을 읽으십시오.]=],
     MINBIDTTDESC = "허용되는 최소 입찰가입니다.",
@@ -722,16 +722,16 @@ if GetLocale() == "koKR" then
     STARTBIDDINGTTDESC = "현재 상품에 대한 입찰을 시작합니다. 입찰이 진행되는 동안에 만 입찰이 허용됩니다.",
     STARTBIDDINGTTWARN = "입찰 기간은 \"입찰가\"상자에서 설정할 수 있습니다. 항목에 대한 두 번째 입찰 세션을 시작해도 이전 입찰이 지워지지 않습니다 (누군가가 마지막으로 입찰을 도약 한 경우에 사용)ond).",
     STATIC = "공전",
-    STATICDESCRIPTION = [=[정적 항목 값을 사용하면 모든 슬롯 (또는 개별 항목)에 정적 값이 할당됩니다. 입찰은 아이템을 원하는 각 플레이어 (! bid)에 의해 제출되며, 가장 높은 DKP를 가진 플레이어가 승리합니다. 비용 값 옵션은 "정수"또는 "백분율"입니다. 
+    STATICDESCRIPTION = [=[정적 항목 값을 사용하면 모든 슬롯 (또는 개별 항목)에 정적 값이 할당됩니다. 입찰은 아이템을 원하는 각 플레이어 (! bid)에 의해 제출되며, 가장 높은 DKP를 가진 플레이어가 승리합니다. 비용 값 옵션은 "정수"또는 "백분율"입니다.
 
     예: |cffa335ee|Hitem:19143::::::::120:577::::::|h[Flameguard Gauntlets]|h|r은 떨어지고 정적 값은 50 DKP입니다. 원하는 각 플레이어는 열린 채널 중 하나를 통해 "! bid"를 사용합니다 (아래 선택). 사용 가능한 DKP가 가장 높은 플레이어가 이기고 정적 값이 청구됩니다. 추가 정보는 툴팁을 읽으십시오.]=],
     STATICITEMVALUESHEAD = "정적 아이템 값",
     SUBMITBID = "입찰 제출",
     SUBMITBUGS = "도움을 요청하고 버그를 제출",
     SUBZEROBIDDING = "하위 제로 입찰",
-    SUBZEROBIDDINGTTDESC = [=[DKP가 충분하지 않거나 사용 가능한 DKP보다 높은 입찰가 (모드 설정에 따라 다름)에 입찰 할 수 있습니다. 
+    SUBZEROBIDDINGTTDESC = [=[DKP가 충분하지 않거나 사용 가능한 DKP보다 높은 입찰가 (모드 설정에 따라 다름)에 입찰 할 수 있습니다.
 
-    |cffff0000최소 입찰가 값|r: 최대 DKP까지 입찰 할 수 있습니다. 최대 입찰가 (아래 설정)를 사용하여 마이너스로 이동할 수 있습니다. 
+    |cffff0000최소 입찰가 값|r: 최대 DKP까지 입찰 할 수 있습니다. 최대 입찰가 (아래 설정)를 사용하여 마이너스로 이동할 수 있습니다.
 
     |cffff0000기타|r: 사용 가능한 DKP가 항목 비용을 초과하더라도 플레이어가 입찰을 제출할 수 있습니다.]=],
     SUPPRESSBIDWHISP = "입찰 속삭임",
@@ -774,7 +774,7 @@ if GetLocale() == "koKR" then
     TEAMMANAGEMENTHEADER = "Guild team management section",
     TEAMSELECT = "Select Team",
     TEAMCHANGERAIDINPROGRESS = "You can't change currently selected team while raid is in progress!",
-    NOTEAMCHOSEN = "Please pick a team from drop down to change it's name", 
+    NOTEAMCHOSEN = "Please pick a team from drop down to change it's name",
     TENSECONDSTOBID = "입찰에 남은 10 초!",
     THISWILLREFUND = "환불됩니다",
     TIMEELAPSED = "경과 시간",
@@ -811,7 +811,7 @@ if GetLocale() == "koKR" then
     USE = "사용하다",
     USEPERCENTAGE = "사용률",
     USEPERCFORROLLS = "롤에 백분율 사용",
-    USEPERCROLLSTTDESC = [=[위의 롤 범위를 플레이어 DKP의 %로 변환합니다. IE : 위의 70 %-100 %로 1000dkp 인 플레이어는 
+    USEPERCROLLSTTDESC = [=[위의 롤 범위를 플레이어 DKP의 %로 변환합니다. IE : 위의 70 %-100 %로 1000dkp 인 플레이어는
     /랜덤 700-1000을 사용할 것으로 예상됩니다]=],
     USEPERCROLLSTTWARN = "이 항목을 선택하면 0에서 100 사이의 숫자 만 사용하십시오.",
     VALIDATEINPROG = "현재 유효성 검사가 진행 중입니다. 기다려주세요 ...",
@@ -858,7 +858,7 @@ if GetLocale() == "koKR" then
     ZEROSUMBALANCE = "제로섬 잔액",
     ZEROSUMBALANCETTDESC = "전리품을 모두 구매 한 후 습격자가 소비 한 모든 DKP를 자동으로 축적합니다.",
     ZEROSUMBANK = "제로섬 은행",
-    ZEROSUMDESCRIPTION = [=[제로섬 DKP를 사용하면 품목이 정적 가치를 가지거나 입찰 할 수 있습니다. 플레이어가 아이템의 입찰 또는 비용으로 아이템을 획득하면 해당 DKP가 해당 아이템에서 공제되어 공격대에 균등하게 분배됩니다. 둥근 정수는 인플레이션을 유발하거나 DKP를 잃을 수 있으므로 "DKP Rounding"옵션을 통해 소수점 이하 자릿수를 사용하는 것이 좋습니다. 비용보다 9 포인트가 높을 것입니다. 
+    ZEROSUMDESCRIPTION = [=[제로섬 DKP를 사용하면 품목이 정적 가치를 가지거나 입찰 할 수 있습니다. 플레이어가 아이템의 입찰 또는 비용으로 아이템을 획득하면 해당 DKP가 해당 아이템에서 공제되어 공격대에 균등하게 분배됩니다. 둥근 정수는 인플레이션을 유발하거나 DKP를 잃을 수 있으므로 "DKP Rounding"옵션을 통해 소수점 이하 자릿수를 사용하는 것이 좋습니다. 비용보다 9 포인트가 높을 것입니다.
 
     예: |cffa335ee|Hitem:18824::::::::120:577::::::|h[Magma Tempered Boots]|h|r 정적 비용은 30 DKP입니다. 플레이어 A는 DKP를 가장 많이 얻거나 (타이 인 경우 레이드 리더의 재량에 따라 분배) DKP가 30만큼 감소하여 입찰에서 승리합니다. 그런 다음 각 레이드 멤버는 0.75 DKP를받습니다.]=],
     ZEROSUMHEAD = "제로섬",
@@ -897,15 +897,14 @@ if GetLocale() == "koKR" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
-    CHANGELOG2 = " - fixed UI for classic era realms",
+    CHANGELOG1 = "CommunityDKP - v4.2.8-bcc",
+    CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
     CHANGELOG7 = "",
-    CHANGELOG8 = "",
-    CHANGELOG8 = "",
+    CHANGELOG8 = "WOT edition by Sithy @ Old Blanchy",
     CHANGELOG9 = "Taidtuskecyh @ Gehennas",
     CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
       }

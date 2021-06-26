@@ -1,26 +1,26 @@
 if GetLocale() == "zhCN" then
   local _, core = ...;
   local CommDKP = core.CommDKP;
-  
+
   core.BossList = {
     MC = {
       "鲁西弗隆", "玛格曼达", "基赫纳斯",
-      "加尔", "迦顿男爵", "沙斯拉尔", "萨弗隆先驱者", 
+      "加尔", "迦顿男爵", "沙斯拉尔", "萨弗隆先驱者",
       "焚化者古雷曼格", "管理者埃克索图斯", "拉格纳罗斯",
     },
     BWL = {
       "狂野的拉佐格尔", "堕落的瓦拉斯塔茲", "勒什雷尔",
-      "费尔默", "埃博诺克", "弗莱格尔", "克洛玛古斯", 
+      "费尔默", "埃博诺克", "弗莱格尔", "克洛玛古斯",
       "奈法利安",
     },
     AQ = {
       "预言者斯克拉姆", "沙尔图拉", "顽强的范克瑞斯",
-      "哈霍兰公主", "双子皇帝", "克苏恩", 
+      "哈霍兰公主", "双子皇帝", "克苏恩",
       "异种蝎皇族", "维希度斯", "奥罗",
     },
     NAXX = {
       "阿努布雷坎", "黑女巫法琳娜", "迈克斯纳",
-      "瘟疫使者诺斯", "肮脏的希尔盖", "洛欧塞布", 
+      "瘟疫使者诺斯", "肮脏的希尔盖", "洛欧塞布",
       "教官拉苏维奥斯", "收割者戈提克", "四骑士",
       "帕奇维克", "格罗布鲁斯", "格拉斯", "塔迪乌斯",
       "萨菲隆", "克尔苏加德",
@@ -92,7 +92,7 @@ if GetLocale() == "zhCN" then
       "伊利丹·怒风"
     },
     SUNWELLPLATEAU = { -- 580
-      "卡雷苟斯", 
+      "卡雷苟斯",
       "布鲁塔卢斯",
       "菲米丝",
       "艾瑞达双子",
@@ -102,13 +102,13 @@ if GetLocale() == "zhCN" then
   }
   -- 532, 565, 544, 548, 550, 568, 564, 580
   core.ZoneList = {
-    "熔火之心", 
-    "黑翼巢穴", 
-    "安其拉神庙", 
-    "纳克萨玛斯", 
-    "祖尔古鲁布", 
-    "安其拉废墟", 
-    "奥妮克希亚的巢穴", 
+    "熔火之心",
+    "黑翼巢穴",
+    "安其拉神庙",
+    "纳克萨玛斯",
+    "祖尔古鲁布",
+    "安其拉废墟",
+    "奥妮克希亚的巢穴",
     "世界老板",
     "卡拉贊", -- 532
     "戈魯爾之巢", -- 565
@@ -777,7 +777,7 @@ if GetLocale() == "zhCN" then
     TEAMMANAGEMENTHEADER = "Guild team management section",
     TEAMSELECT = "Select Team",
     TEAMCHANGERAIDINPROGRESS = "You can't change currently selected team while raid is in progress!",
-    NOTEAMCHOSEN = "Please pick a team from drop down to change it's name", 
+    NOTEAMCHOSEN = "Please pick a team from drop down to change it's name",
     TENSECONDSTOBID = "还剩10秒竞标！",
     THISWILLREFUND = "这将退还",
     TIMEELAPSED = "时间流逝",
@@ -900,15 +900,14 @@ if GetLocale() == "zhCN" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v3.2.8-r69-bcc",
-    CHANGELOG2 = " - fixed UI for classic era realms",
+    CHANGELOG1 = "CommunityDKP - v4.2.8-bcc",
+    CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "",
     CHANGELOG4 = "",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
     CHANGELOG7 = "",
-    CHANGELOG8 = "",
-    CHANGELOG8 = "",
+    CHANGELOG8 = "WOT edition by Sithy @ Old Blanchy",
     CHANGELOG9 = "Taidtuskecyh @ Gehennas",
     CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
     }
