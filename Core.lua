@@ -104,24 +104,24 @@ core.EncounterList = {      -- Event IDs must be in the exact same order as core
         "Azuregos", "Lord Kazzak", "Emeriss", "Lethon", "Ysondre", "Taerar"
 	},
 	KARAZHAN = {
-		652, -- "Attumen the Huntsman",
-		653, -- "Moroes",
-		654, -- "Maiden of Virtue",
-		655, -- "Opera Hall",
-		656, -- "The Curator",
-		657, -- "Terestian Illhoof",
-		658, -- "Shade of Aran",
-		659, -- "Netherspite",
-		660, -- "Chess Event",
-		661, -- "Prince Malchezaar",
-		662 -- "Nightbane"
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 652 or 2444, -- "Attumen the Huntsman",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 653 or 2445, -- "Moroes",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 654 or 2446, -- "Maiden of Virtue",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 655 or 2447, -- "Opera Hall",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 656 or 2448, -- "The Curator",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 657 or 2449, -- "Terestian Illhoof",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 658 or 2450, -- "Shade of Aran",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 659 or 2451, -- "Netherspite",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 660 or 2452, -- "Chess Event",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 661 or 2453, -- "Prince Malchezaar",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 662 or 2454 -- "Nightbane"
 	  },
 	  GRULLSLAIR = {
-		649, -- "High King Maulgar",
-		650 -- "Gruul the Dragonkiller"
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 649 or 2455, -- "High King Maulgar",
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 650 or 2456 -- "Gruul the Dragonkiller"
 	  },
 	  MAGTHERIDONSLAIR = {
-		651 -- "Magtheridon"
+		WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 651 or 2457 -- "Magtheridon"
 	  },
 	  SERPENTSHRINECAVERN = {
 		632, -- "Hydross the Unstable",
