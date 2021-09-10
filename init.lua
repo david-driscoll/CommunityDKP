@@ -297,6 +297,9 @@ local function DoGuildUpdate()
             -- this basically sends index of latest entry in loot and DKP tables to everyone online in guild,
             -- if they have this entry it does nothing since they are up to date, if they dont it changes seed in those tables to the index being sent
             CommDKP:SendSeedData();
+
+
+    CommDKP:BroadcastPartial()
         end)
     end
 end

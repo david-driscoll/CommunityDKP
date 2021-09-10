@@ -300,6 +300,13 @@ function CommDKP_BroadcastFull_Callback(arg1, arg2, arg3)
 	end
 end
 
+function CommDKP:BroadcastPartial()
+	CommDKP.Sync:SendData("CommDKPMerge", CommDKP_MergeTable_Create())
+	CommDKP_SyncDeleted()
+	CommDKP_BroadcastFull_Status()
+	CommDKP:Print("Broadcasting last weeks of data to guild");
+end
+
 function CommDKP_BroadcastFull_Create()
 	local f = CreateFrame("Frame", "CommDKP_FullBroadcastWindow", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
 

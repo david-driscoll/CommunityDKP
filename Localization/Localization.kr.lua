@@ -897,15 +897,15 @@ if GetLocale() == "koKR" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v4.2.10-bcc",
+    CHANGELOG1 = "CommunityDKP - v4.2.11-bcc",
     CHANGELOG2 = "- added bonus roll support",
-    CHANGELOG3 = "",
-    CHANGELOG4 = "",
+    CHANGELOG3 = "- sync points regularly",
+    CHANGELOG4 = "- dkp will be used when using upgrade (up to the spending limit)",
     CHANGELOG5 = "",
     CHANGELOG6 = "",
     CHANGELOG7 = "",
     CHANGELOG8 = "WOT edition by Sithy @ Old Blanchy",
     CHANGELOG9 = "Taidtuskecyh @ Gehennas",
-    CHANGELOG10 = "CommunityDKP Discord: https://discord.gg/dXXK4vH"
+    CHANGELOG10 = ""
       }
 end

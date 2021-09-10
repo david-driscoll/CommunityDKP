@@ -227,7 +227,10 @@ local function HandleBidRoll(name, cmd)
   local dkp, cost
   local playerDkp = CommDKP:GetPlayerDKP(name)
   if cmd == "upgrade" then
-    dkp = 0
+    dkp = playerDkp
+    if (playerDkp > core.DB.modes.bonus.upgradeCost) then
+      dkp = core.DB.modes.bonus.upgradeCost
+    end
     cost = core.DB.modes.bonus.upgradeCost
   elseif cmd == "offspec" then
     dkp = 0

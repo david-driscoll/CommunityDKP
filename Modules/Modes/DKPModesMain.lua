@@ -1464,20 +1464,7 @@ function CommDKP:DKPModes_Main()
       button1 = L["YES"],
       button2 = L["NO"],
       OnAccept = function()
-        local temptable1 = {}
-        table.insert(temptable1, core.DB.modes)
-        table.insert(temptable1, core.DB.DKPBonus)
-        table.insert(temptable1, core.DB.raiders)
-        CommDKP.Sync:SendData("CommDKPDKPModes", temptable1)
-        CommDKP:Print(L["DKPMODESENTCONF"])
-        local temptable2 = {}
-              table.insert(temptable2, core.DB.MinBidBySlot)
-              table.insert(temptable2, CommDKP:FormatPriceTable())
-              CommDKP.Sync:SendData("CommDKPMinBid", temptable2)
-        local temptable3 = {}
-              table.insert(temptable3, core.DB.MaxBidBySlot)
-              table.insert(temptable3, CommDKP:GetTable(CommDKP_MaxBids, true))
-              CommDKP.Sync:SendData("CommDKPMaxBid", temptable3)
+        CommDKP:BroadcastSettings()
       end,
       timeout = 0,
       whileDead = true,
@@ -1497,4 +1484,21 @@ function CommDKP:DKPModes_Main()
   end)
 
   f.DKPModesMain.ModesDropDown:SetValue(LocalMode)
+end
+
+function CommDKP:BroadcastSettings()
+  local temptable1 = {}
+  table.insert(temptable1, core.DB.modes)
+  table.insert(temptable1, core.DB.DKPBonus)
+  table.insert(temptable1, core.DB.raiders)
+  CommDKP.Sync:SendData("CommDKPDKPModes", temptable1)
+  CommDKP:Print(L["DKPMODESENTCONF"])
+  local temptable2 = {}
+        table.insert(temptable2, core.DB.MinBidBySlot)
+        table.insert(temptable2, CommDKP:FormatPriceTable())
+        CommDKP.Sync:SendData("CommDKPMinBid", temptable2)
+  local temptable3 = {}
+        table.insert(temptable3, core.DB.MaxBidBySlot)
+        table.insert(temptable3, CommDKP:GetTable(CommDKP_MaxBids, true))
+        CommDKP.Sync:SendData("CommDKPMaxBid", temptable3)
 end

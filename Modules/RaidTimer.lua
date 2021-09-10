@@ -21,7 +21,7 @@ local function SecondsToClock(seconds)
     hours = string.format("%02.f", math.floor(seconds/3600));
     mins = string.format("%02.f", math.floor(seconds/60 - (hours*60)));
     secs = string.format("%02.f", math.floor(seconds - hours*3600 - mins *60));
-    
+
     if tonumber(mins) <= 0 then
     	return secs
     elseif tonumber(hours) <= 0 then
@@ -141,7 +141,7 @@ end
 
 function CommDKP:StartRaidTimer(pause, syncTimer, syncSecondCount, syncMinuteCount, syncAward)
 	local increment;
-	
+
 	CommDKP.RaidTimer = CommDKP.RaidTimer or CreateFrame("StatusBar", nil, UIParent)
 	if not syncTimer then
 		if not pause then -- pause == false
@@ -216,7 +216,10 @@ function CommDKP:StartRaidTimer(pause, syncTimer, syncSecondCount, syncMinuteCou
 			return;
 		end
 	end
-	
+
+	CommDKP:BroadcastPartial()
+	CommDKP:BroadcastSettings()
+
 	CommDKP.RaidTimer:SetScript("OnUpdate", function(self, elapsed)
 		timer = timer + elapsed
 		SecondTracker = SecondTracker + elapsed
