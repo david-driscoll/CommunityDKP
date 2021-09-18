@@ -3,6 +3,7 @@ local _G = _G;
 local CommDKP = core.CommDKP;
 local L = core.L;
 
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0");
 
 local function Remove_Entries()
 	CommDKP:StatusVerify_Update()
@@ -642,7 +643,8 @@ function CommDKP:ManageEntries()
 	----------------------------------
 	-- rank select dropDownMenu
 	----------------------------------
-		CommDKP.ConfigTab3.GuildRankDropDown = CreateFrame("FRAME", "CommDKPConfigReasonDropDown", CommDKP.ConfigTab3, "CommunityDKPUIDropDownMenuTemplate")
+		--CommDKP.ConfigTab3.GuildRankDropDown = CreateFrame("FRAME", "CommDKPConfigReasonDropDown", CommDKP.ConfigTab3, "CommunityDKPUIDropDownMenuTemplate")
+		CommDKP.ConfigTab3.GuildRankDropDown = LibDD:Create_UIDropDownMenu("CommDKPConfigReasonDropDown", CommDKP.ConfigTab3);
 		CommDKP.ConfigTab3.GuildRankDropDown:SetPoint("TOPLEFT", CommDKP.ConfigTab3.add_raid_to_table, "BOTTOMLEFT", -17, -15)
 		CommDKP.ConfigTab3.GuildRankDropDown:SetScript("OnEnter",
 			function(self)
@@ -657,13 +659,14 @@ function CommDKP:ManageEntries()
 				GameTooltip:Hide()
 			end
 		)
-		UIDropDownMenu_SetWidth(CommDKP.ConfigTab3.GuildRankDropDown, 105)
-		UIDropDownMenu_SetText(CommDKP.ConfigTab3.GuildRankDropDown, "Select Rank")
+		LibDD:UIDropDownMenu_SetWidth(CommDKP.ConfigTab3.GuildRankDropDown, 105)
+		LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab3.GuildRankDropDown, "Select Rank")
 
 		-- Create and bind the initialization function to the dropdown menu
-		UIDropDownMenu_Initialize(CommDKP.ConfigTab3.GuildRankDropDown,
+			LibDD:UIDropDownMenu_Initialize(CommDKP.ConfigTab3.GuildRankDropDown,
 			function(self, level, menuList)
-				local rank = UIDropDownMenu_CreateInfo()
+
+				local rank = LibDD:UIDropDownMenu_CreateInfo()
 					rank.func = self.SetValue
 					rank.fontObject = "CommDKPSmallCenter"
 
@@ -671,7 +674,7 @@ function CommDKP:ManageEntries()
 
 					for i=1, #rankList do
 						rank.text, rank.arg1, rank.arg2, rank.checked, rank.isNotRadio = rankList[i].name, rankList[i].name, rankList[i].index, rankList[i].name == curRank, true
-						UIDropDownMenu_AddButton(rank)
+						LibDD:UIDropDownMenu_AddButton(rank)
 					end
 			end
 		)
@@ -681,14 +684,14 @@ function CommDKP:ManageEntries()
 			if curRank ~= arg1 then
 				curRank = arg1
 				curIndex = arg2
-				UIDropDownMenu_SetText(CommDKP.ConfigTab3.GuildRankDropDown, arg1)
+				LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab3.GuildRankDropDown, arg1)
 			else
 				curRank = nil
 				curIndex = nil
-				UIDropDownMenu_SetText(CommDKP.ConfigTab3.GuildRankDropDown, L["SELECTRANK"])
+				LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab3.GuildRankDropDown, L["SELECTRANK"])
 			end
 
-			CloseDropDownMenus()
+			LibDD:CloseDropDownMenus()
 		end
 
 	----------------------------------
@@ -1014,7 +1017,8 @@ function CommDKP:ManageEntries()
 		----------------------------------
 		-- Drop down with lists of teams
 		----------------------------------
-			CommDKP.ConfigTab3.TeamListDropDown = CreateFrame("FRAME", "CommDKPConfigReasonDropDown", CommDKP.ConfigTab3, "CommunityDKPUIDropDownMenuTemplate")
+			--CommDKP.ConfigTab3.TeamListDropDown = CreateFrame("FRAME", "CommDKPConfigReasonDropDown", CommDKP.ConfigTab3, "CommunityDKPUIDropDownMenuTemplate")
+			CommDKP.ConfigTab3.TeamListDropDown = LibDD:Create_UIDropDownMenu("CommDKPConfigReasonDropDown", CommDKP.ConfigTab3);
 			--CommDKP.ConfigTab3.TeamManagementContainer.TeamListDropDown:ClearAllPoints()
 			CommDKP.ConfigTab3.TeamListDropDown:SetPoint("BOTTOMLEFT", CommDKP.ConfigTab3.TeamHeader, "BOTTOMLEFT", 0, -50)
 			-- tooltip on mouseOver
@@ -1031,13 +1035,14 @@ function CommDKP:ManageEntries()
 					GameTooltip:Hide()
 				end
 			)
-			UIDropDownMenu_SetWidth(CommDKP.ConfigTab3.TeamListDropDown, 105)
-			UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
+			LibDD:UIDropDownMenu_SetWidth(CommDKP.ConfigTab3.TeamListDropDown, 105)
+			LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
 
 			-- Create and bind the initialization function to the dropdown menu
-			UIDropDownMenu_Initialize(CommDKP.ConfigTab3.TeamListDropDown,
+				LibDD:UIDropDownMenu_Initialize(CommDKP.ConfigTab3.TeamListDropDown,
 				function(self, level, menuList)
-					local dropDownMenuItem = UIDropDownMenu_CreateInfo()
+
+					local dropDownMenuItem = LibDD:UIDropDownMenu_CreateInfo()
 					dropDownMenuItem.func = self.SetValue
 					dropDownMenuItem.fontObject = "CommDKPSmallCenter"
 
@@ -1049,7 +1054,7 @@ function CommDKP:ManageEntries()
 						dropDownMenuItem.arg2 = teamList[i][1]
 						dropDownMenuItem.checked = teamList[i][1] == selectedTeamIndex
 						dropDownMenuItem.isNotRadio = true
-						UIDropDownMenu_AddButton(dropDownMenuItem)
+						LibDD:UIDropDownMenu_AddButton(dropDownMenuItem)
 					end
 				end
 			)
@@ -1059,16 +1064,16 @@ function CommDKP:ManageEntries()
 				if selectedTeamIndex ~= arg2 then
 					selectedTeam = arg1
 					selectedTeamIndex = arg2
-					UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, arg1)
+					LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, arg1)
 					CommDKP.ConfigTab3.TeamNameInput:SetText(arg1)
 				else
 					selectedTeam = nil
 					selectedTeamIndex = nil
 					CommDKP.ConfigTab3.TeamNameInput:SetText("")
-					UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
+					LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
 				end
 
-				CloseDropDownMenus()
+				LibDD:CloseDropDownMenus()
 			end
 
 		----------------------------------
@@ -1122,12 +1127,12 @@ function CommDKP:ManageEntries()
 						CommDKP:ChangeTeamName(selectedTeamIndex, self:GetText())
 						-- if we are performing name change on currently selected team, change main team view dropdown Text
 						if tonumber(CommDKP:GetCurrentTeamIndex()) == selectedTeamIndex then
-							UIDropDownMenu_SetText(CommDKP.UIConfig.TeamViewChangerDropDown, self:SetText(""))
+							LibDD:UIDropDownMenu_SetText(CommDKP.UIConfig.TeamViewChangerDropDown, self:SetText(""))
 						end
-						UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
+						LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
 						selectedTeam = nil
 						selectedTeamIndex = nil
-						CloseDropDownMenus()
+						LibDD:CloseDropDownMenus()
 						self:ClearFocus()
 						self:SetText("")
 					end
@@ -1195,13 +1200,13 @@ function CommDKP:ManageEntries()
 							CommDKP:ChangeTeamName(selectedTeamIndex, CommDKP.ConfigTab3.TeamNameInput:GetText())
 							-- if we are performing name change on currently selected team, change main team view dropdown Text
 							if tonumber(CommDKP:GetCurrentTeamIndex()) == selectedTeamIndex then
-								UIDropDownMenu_SetText(CommDKP.UIConfig.TeamViewChangerDropDown, CommDKP.ConfigTab3.TeamNameInput:GetText())
+								LibDD:UIDropDownMenu_SetText(CommDKP.UIConfig.TeamViewChangerDropDown, CommDKP.ConfigTab3.TeamNameInput:GetText())
 							end
 							CommDKP.ConfigTab3.TeamNameInput:SetText("")
-							UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
+							LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
 							selectedTeam = nil
 							selectedTeamIndex = nil
-							CloseDropDownMenus()
+							LibDD:CloseDropDownMenus()
 						else
 							StaticPopupDialogs["NOT_GUILD_MASTER"] = {
 								text = L["NOTGUILDMASTER"],
@@ -1248,8 +1253,8 @@ function CommDKP:ManageEntries()
 						OnAccept = function()
 							CommDKP:AddNewTeamToGuild()
 							CommDKP.ConfigTab3.TeamNameInput:SetText("")
-							UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
-							CloseDropDownMenus()
+							LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab3.TeamListDropDown, L["TEAMSELECT"])
+							LibDD:CloseDropDownMenus()
 						end,
 						timeout = 0,
 						whileDead = true,

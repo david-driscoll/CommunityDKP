@@ -2,7 +2,7 @@ local _, core = ...;
 local _G = _G;
 local CommDKP = core.CommDKP;
 local L = core.L;
-
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0");
 local moveTimerToggle = 0;
 local validating = false
 
@@ -1384,11 +1384,13 @@ function CommDKP:Options()
   end)
 
   -- Chatframe Selection
-  CommDKP.ConfigTab4.ChatFrame = CreateFrame("FRAME", "CommDKPChatFrameSelectDropDown", CommDKP.ConfigTab4, "CommunityDKPUIDropDownMenuTemplate")
+  --CommDKP.ConfigTab4.ChatFrame = CreateFrame("FRAME", "CommDKPChatFrameSelectDropDown", CommDKP.ConfigTab4, "CommunityDKPUIDropDownMenuTemplate")
+  CommDKP.ConfigTab4.ChatFrame = LibDD:Create_UIDropDownMenu("CommDKPChatFrameSelectDropDown", CommDKP.ConfigTab4);
   if not core.DB.defaults.ChatFrames then core.DB.defaults.ChatFrames = {} end
 
-  UIDropDownMenu_Initialize(CommDKP.ConfigTab4.ChatFrame, function(self, level, menuList)
-  local SelectedFrame = UIDropDownMenu_CreateInfo()
+  LibDD:UIDropDownMenu_Initialize(CommDKP.ConfigTab4.ChatFrame, function(self, level, menuList)
+
+  local SelectedFrame = LibDD:UIDropDownMenu_CreateInfo()
     SelectedFrame.func = self.SetValue
     SelectedFrame.fontObject = "CommDKPSmallCenter"
     SelectedFrame.keepShownOnClick = true;
@@ -1398,18 +1400,18 @@ function CommDKP:Options()
       local name = GetChatWindowInfo(i)
       if name ~= "" then
         SelectedFrame.text, SelectedFrame.arg1, SelectedFrame.checked = name, name, core.DB.defaults.ChatFrames[name]
-        UIDropDownMenu_AddButton(SelectedFrame)
+        LibDD:UIDropDownMenu_AddButton(SelectedFrame)
       end
     end
   end)
 
   CommDKP.ConfigTab4.ChatFrame:SetPoint("LEFT", CommDKP.ConfigTab4.AutoOpenCheckbox, "RIGHT", 130, 0)
-  UIDropDownMenu_SetWidth(CommDKP.ConfigTab4.ChatFrame, 150)
-  UIDropDownMenu_SetText(CommDKP.ConfigTab4.ChatFrame, "Addon Notifications")
+  LibDD:UIDropDownMenu_SetWidth(CommDKP.ConfigTab4.ChatFrame, 150)
+  LibDD:UIDropDownMenu_SetText(CommDKP.ConfigTab4.ChatFrame, "Addon Notifications")
 
   function CommDKP.ConfigTab4.ChatFrame:SetValue(arg1)
     core.DB.defaults.ChatFrames[arg1] = not core.DB.defaults.ChatFrames[arg1]
-    CloseDropDownMenus()
+    LibDD:CloseDropDownMenus()
   end
 
 

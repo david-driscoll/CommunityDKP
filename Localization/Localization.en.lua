@@ -896,13 +896,13 @@ core.L = {
   MIGRATIONCANCELED     = "Migration canceled.|n|nPlease disable MonolithDKP and /reload the UI if you want to continue with CommunityDKP without using your current tables and settings.",
   MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.",
 
-  CHANGELOG1 = "CommunityDKP - v4.2.11-bcc",
+  CHANGELOG1 = "CommunityDKP - v4.2.12-bcc",
   CHANGELOG2 = "- added bonus roll support",
   CHANGELOG3 = "- sync points regularly",
   CHANGELOG4 = "- dkp will be used when using upgrade (up to the spending limit)",
-  CHANGELOG5 = "",
-  CHANGELOG6 = "",
-  CHANGELOG7 = "",
+  CHANGELOG5 = " - updated ACE to its latest alpha version",
+  CHANGELOG6 = " - added LibUIDropDownMenu-4.0 to avoid taint issue",
+  CHANGELOG7 = " - actually read the lib documentation and fixed dropdowns",
   CHANGELOG8 = "WOT edition by Sithy @ Old Blanchy",
   CHANGELOG9 = "Taidtuskecyh @ Gehennas",
   CHANGELOG10 = ""

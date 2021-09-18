@@ -3,7 +3,7 @@ local _G = _G;
 local CommDKP = core.CommDKP;
 local L = core.L;
 
-
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0");
 
 local function GenerateDKPTables(table, format)
 	local ExportString;
@@ -44,6 +44,10 @@ local function GenerateDKPTables(table, format)
 
 		elseif table == CommDKP:GetTable(CommDKP_Loot, true) then
 			local numrows;
+			local baseUrl = "https://classic.wowhead.com/";
+			if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+				baseUrl = "https://tbc.wowhead.com/";
+			end
 
 			if #CommDKP:GetTable(CommDKP_Loot, true) > 200 then
 				numrows = 200;
@@ -54,7 +58,7 @@ local function GenerateDKPTables(table, format)
 			for i=1, numrows do
 				local cur = CommDKP:GetTable(CommDKP_Loot, true)[i].loot
 				local itemNumber = strsub(cur, string.find(cur, "Hitem:")+6, string.find(cur, ":", string.find(cur, "Hitem:")+6)-1)
-				ExportString = ExportString.."      <div class=\"divTableRow\">\n         <div class=\"divPlayer\" style=\"width: 40%;\"><a href=\"https://classic.wowhead.com/item="..itemNumber.."\" data-wowhead=\"item="..itemNumber.."\"></a> ("..CommDKP:GetTable(CommDKP_Loot, true)[i].cost.." DKP)</div>\n         <div class=\"divClass\" style=\"width: 20%;\">"..CommDKP:GetTable(CommDKP_Loot, true)[i].player.."</div>\n         <div class=\"divDKP\" style=\"width: 40%; font-size: 0.7em;\">"..CommDKP:GetTable(CommDKP_Loot, true)[i].zone..": "..CommDKP:GetTable(CommDKP_Loot, true)[i].boss.."<br />("..date("%m/%d/%y %H:%M:%S", CommDKP:GetTable(CommDKP_Loot, true)[i].date)..") </div>\n      </div>\n"
+				ExportString = ExportString.."      <div class=\"divTableRow\">\n         <div class=\"divPlayer\" style=\"width: 40%;\"><a href=\""..baseUrl.."item="..itemNumber.."\" data-wowhead=\"item="..itemNumber.."\"></a> ("..CommDKP:GetTable(CommDKP_Loot, true)[i].cost.." DKP)</div>\n         <div class=\"divClass\" style=\"width: 20%;\">"..CommDKP:GetTable(CommDKP_Loot, true)[i].player.."</div>\n         <div class=\"divDKP\" style=\"width: 40%; font-size: 0.7em;\">"..CommDKP:GetTable(CommDKP_Loot, true)[i].zone..": "..CommDKP:GetTable(CommDKP_Loot, true)[i].boss.."<br />("..date("%m/%d/%y %H:%M:%S", CommDKP:GetTable(CommDKP_Loot, true)[i].date)..") </div>\n      </div>\n"
 			end
 			ExportString = ExportString.."   </div>\n</div>\n</div>\n</html>"
 		end
@@ -276,22 +280,24 @@ function CommDKP:ExportBox_Show(text)
         -- Format DROPDOWN box
         local CurFormat;
 
-		f.FormatDropDown = CreateFrame("FRAME", "CommDKPModeSelectDropDown", f, "CommunityDKPUIDropDownMenuTemplate")
+		--f.FormatDropDown = CreateFrame("FRAME", "CommDKPModeSelectDropDown", f, "CommunityDKPUIDropDownMenuTemplate")
+		f.FormatDropDown = LibDD:Create_UIDropDownMenu("CommDKPModeSelectDropDown", f);
 		f.FormatDropDown:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 20, 55)
-		UIDropDownMenu_SetWidth(f.FormatDropDown, 100)
-		UIDropDownMenu_SetText(f.FormatDropDown, "Select Format")
+		LibDD:UIDropDownMenu_SetWidth(f.FormatDropDown, 100)
+		LibDD:UIDropDownMenu_SetText(f.FormatDropDown, "Select Format")
 
 		-- Create and bind the initialization function to the dropdown menu
-		UIDropDownMenu_Initialize(f.FormatDropDown, function(self, level, menuList)
-		local Format = UIDropDownMenu_CreateInfo()
+			LibDD:UIDropDownMenu_Initialize(f.FormatDropDown, function(self, level, menuList)
+			
+		local Format = LibDD:UIDropDownMenu_CreateInfo()
 			Format.func = self.SetValue
 			Format.fontObject = "CommDKPSmallCenter"
 			Format.text, Format.arg1, Format.checked, Format.isNotRadio = "HTML", "HTML", "HTML" == CurFormat, false
-			UIDropDownMenu_AddButton(Format)
+			LibDD:UIDropDownMenu_AddButton(Format)
 			Format.text, Format.arg1, Format.checked, Format.isNotRadio = "CSV", "CSV", "CSV" == CurFormat, false
-			UIDropDownMenu_AddButton(Format)
+			LibDD:UIDropDownMenu_AddButton(Format)
 			Format.text, Format.arg1, Format.checked, Format.isNotRadio = "XML", "XML", "XML" == CurFormat, false
-			UIDropDownMenu_AddButton(Format)
+			LibDD:UIDropDownMenu_AddButton(Format)
 		end)
 
 		-- Dropdown Menu Function
@@ -306,8 +312,8 @@ function CommDKP:ExportBox_Show(text)
 			end
 
 			f.desc:SetText(ExportDefinition);
-			UIDropDownMenu_SetText(f.FormatDropDown, CurFormat)
-			CloseDropDownMenus()
+			LibDD:UIDropDownMenu_SetText(f.FormatDropDown, CurFormat)
+			LibDD:CloseDropDownMenus()
 		end
 
 		f.FormatDropDown:SetScript("OnEnter", function(self)

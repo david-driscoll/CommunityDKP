@@ -2,6 +2,7 @@ local _, core = ...;
 local _G = _G;
 local CommDKP = core.CommDKP;
 local L = core.L;
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0");
 
 local players;
 local reason;
@@ -24,6 +25,7 @@ local btnText = 10;
 local curDate;
 local history = {};
 local menuFrame = CreateFrame("Frame", "CommDKPDeleteDKPMenuFrame", UIParent, "UIDropDownMenuTemplate")
+
 
 function CommDKP:SortDKPHistoryTable()             -- sorts the DKP History Table by date/time
   table.sort(CommDKP:GetTable(CommDKP_DKPHistory, true), function(a, b)
@@ -77,12 +79,14 @@ function CommDKP:DKPHistoryFilterBox_Create()
 
 	-- Create the dropdown, and configure its appearance
 	if not filterDropdown then
-		filterDropdown = CreateFrame("FRAME", "CommDKPDKPHistoryFilterNameDropDown", CommDKP.ConfigTab6, "CommunityDKPUIDropDownMenuTemplate")
+		--filterDropdown = CreateFrame("FRAME", "CommDKPDKPHistoryFilterNameDropDown", CommDKP.ConfigTab6, "CommunityDKPUIDropDownMenuTemplate")
+		filterDropdown = LibDD:Create_UIDropDownMenu("CommDKPDKPHistoryFilterNameDropDown", CommDKP.ConfigTab6);
 	end
 
 	-- Create and bind the initialization function to the dropdown menu
-	UIDropDownMenu_Initialize(filterDropdown, function(self, level, menuList)
-		local filterName = UIDropDownMenu_CreateInfo()
+		LibDD:UIDropDownMenu_Initialize(filterDropdown, function(self, level, menuList)
+
+		local filterName = LibDD:UIDropDownMenu_CreateInfo()
 		local ranges = {1}
 		while ranges[#ranges] < #PlayerList do
 			table.insert(ranges, ranges[#ranges]+20)
@@ -92,15 +96,15 @@ function CommDKP:DKPHistoryFilterBox_Create()
 			local numSubs = ceil(#PlayerList/20)
 			filterName.func = self.FilterSetValue
 			filterName.text, filterName.arg1, filterName.arg2, filterName.checked, filterName.isNotRadio = L["NOFILTER"], L["NOFILTER"], L["NOFILTER"], L["NOFILTER"] == curfilterName, true
-			UIDropDownMenu_AddButton(filterName)
+			LibDD:UIDropDownMenu_AddButton(filterName)
 			filterName.text, filterName.arg1, filterName.arg2, filterName.checked, filterName.isNotRadio = L["DELETEDENTRY"], L["DELETEDENTRY"], L["DELETEDENTRY"], L["DELETEDENTRY"] == curfilterName, true
-			UIDropDownMenu_AddButton(filterName)
+			LibDD:UIDropDownMenu_AddButton(filterName)
 
 			for i=1, numSubs do
 				local max = i*20;
 				if max > #PlayerList then max = #PlayerList end
 				filterName.text, filterName.checked, filterName.menuList, filterName.hasArrow = strsub(PlayerList[((i*20)-19)], 1, 1).."-"..strsub(PlayerList[max], 1, 1), curSelected >= (i*20)-19 and curSelected <= i*20, i, true
-				UIDropDownMenu_AddButton(filterName)
+				LibDD:UIDropDownMenu_AddButton(filterName)
 			end
 
 		else
@@ -116,7 +120,7 @@ function CommDKP:DKPHistoryFilterBox_Create()
 				     	c = { hex="ff444444" }
 				    end
 					filterName.text, filterName.arg1, filterName.arg2, filterName.checked, filterName.isNotRadio = "|c"..c.hex..PlayerList[i].."|r", PlayerList[i], "|c"..c.hex..PlayerList[i].."|r", PlayerList[i] == curfilterName, true
-					UIDropDownMenu_AddButton(filterName, level)
+					LibDD:UIDropDownMenu_AddButton(filterName, level)
 				end
 			end
 		end
@@ -124,13 +128,13 @@ function CommDKP:DKPHistoryFilterBox_Create()
 
 	filterDropdown:SetPoint("TOPRIGHT", CommDKP.ConfigTab6, "TOPRIGHT", -13, -11)
 
-	UIDropDownMenu_SetWidth(filterDropdown, 150)
-	UIDropDownMenu_SetText(filterDropdown, curfilterName or L["NOFILTER"])
+	LibDD:UIDropDownMenu_SetWidth(filterDropdown, 150)
+	LibDD:UIDropDownMenu_SetText(filterDropdown, curfilterName or L["NOFILTER"])
 
   -- Dropdown Menu Function
   function filterDropdown:FilterSetValue(newValue, arg2)
     if curfilterName ~= newValue then curfilterName = newValue else curfilterName = nil end
-    UIDropDownMenu_SetText(filterDropdown, arg2)
+    LibDD:UIDropDownMenu_SetText(filterDropdown, arg2)
 
     if newValue == L["NOFILTER"] then
     	filter = nil;
@@ -148,7 +152,7 @@ function CommDKP:DKPHistoryFilterBox_Create()
     end
 
     CommDKP:DKPHistory_Update(true)
-    CloseDropDownMenus()
+    LibDD:CloseDropDownMenus()
   end
 end
 

@@ -2,7 +2,7 @@ local _, core = ...;
 local _G = _G;
 local CommDKP = core.CommDKP;
 local L = core.L;
-
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0");
 local menu = {}
 local curDropDownMenuFilterCategory = L["NOFILTER"];
 local curfilterValue = nil;
@@ -174,12 +174,14 @@ function CommDKP:CreateSortBox()
 
 	-- Create the dropdown, and configure its appearance
 	if not sortDropdown then
-		sortDropdown = CreateFrame("FRAME", "CommDKPConfigFilterNameDropDown", CommDKP.ConfigTab5, "CommunityDKPUIDropDownMenuTemplate")
+		--sortDropdown = CreateFrame("FRAME", "CommDKPConfigFilterNameDropDown", CommDKP.ConfigTab5, "CommunityDKPUIDropDownMenuTemplate")
+		sortDropdown = LibDD:Create_UIDropDownMenu("CommDKPConfigFilterNameDropDown", CommDKP.ConfigTab5);
 	end
 
 	-- Create and bind the initialization function to the dropdown menu
-	UIDropDownMenu_Initialize(sortDropdown, function(self, level, menuList)
-		local dropDownMenuItem = UIDropDownMenu_CreateInfo()
+		LibDD:UIDropDownMenu_Initialize(sortDropdown, function(self, level, menuList)
+
+		local dropDownMenuItem = LibDD:UIDropDownMenu_CreateInfo()
 		local displayLimit = 20 -- control how many items will be created in Levels 2 and 3
 
 		if (level or 1) == 1 then
@@ -193,7 +195,7 @@ function CommDKP:CreateSortBox()
 			dropDownMenuItem.arg2 = L["NOFILTER"]
 			dropDownMenuItem.checked = (L["NOFILTER"] == curDropDownMenuFilterCategory)
 			dropDownMenuItem.isNotRadio = true
-			UIDropDownMenu_AddButton(dropDownMenuItem, level)
+			LibDD:UIDropDownMenu_AddButton(dropDownMenuItem, level)
 
 			-- add deleted entries button
 			dropDownMenuItem.text = L["DELETEDENTRY"]
@@ -203,14 +205,14 @@ function CommDKP:CreateSortBox()
 			dropDownMenuItem.checked = L["DELETEDENTRY"] == curDropDownMenuFilterCategory
 			dropDownMenuItem.hasArrow = false -- should probably check if players table holds any values
 			dropDownMenuItem.isNotRadio = true
-			UIDropDownMenu_AddButton(dropDownMenuItem, level)
+			LibDD:UIDropDownMenu_AddButton(dropDownMenuItem, level)
 
 			-- add separator
 			--wipe(dropDownMenuItem)
 			dropDownMenuItem.text = ""
 			dropDownMenuItem.disabled = 1
 			dropDownMenuItem.isNotRadio = true
-			UIDropDownMenu_AddButton(dropDownMenuItem, level)
+			LibDD:UIDropDownMenu_AddButton(dropDownMenuItem, level)
 			dropDownMenuItem.disabled = nil
 
 			-- add players section
@@ -222,7 +224,7 @@ function CommDKP:CreateSortBox()
 			dropDownMenuItem.checked = L["PLAYERS"] == curDropDownMenuFilterCategory
 			dropDownMenuItem.isNotRadio = true
 			dropDownMenuItem.hasArrow = true -- should probably check if items table holds any values
-			UIDropDownMenu_AddButton(dropDownMenuItem, level)
+			LibDD:UIDropDownMenu_AddButton(dropDownMenuItem, level)
 
 			-- add items section
 			dropDownMenuItem.text =  L["ITEMS"]
@@ -232,12 +234,12 @@ function CommDKP:CreateSortBox()
 			dropDownMenuItem.value = L["ITEMS"] -- for submenu handling in level 2
 			dropDownMenuItem.checked = L["ITEMS"] == curDropDownMenuFilterCategory
 			dropDownMenuItem.isNotRadio = true
-			UIDropDownMenu_AddButton(dropDownMenuItem, level)
+			LibDD:UIDropDownMenu_AddButton(dropDownMenuItem, level)
 
 		-- level 2 to handle players and items
 		elseif (level or 2) == 2 then
 
-			if UIDROPDOWNMENU_MENU_VALUE == L["PLAYERS"] then
+			if L_UIDROPDOWNMENU_MENU_VALUE == L["PLAYERS"] then
 
 				for i=1, ceil(#PlayerList/displayLimit) do
 					local max = i*displayLimit;
@@ -249,10 +251,10 @@ function CommDKP:CreateSortBox()
 					dropDownMenuItem.hasArrow = true
 					dropDownMenuItem.isNotRadio = true
 					dropDownMenuItem.checked = (curDropDownMenuFilterCategory == L["PLAYERS"] and (curSelected >= (1+(i-1)*displayLimit) and curSelected <= 1+(i-1)*displayLimit+(displayLimit-1)))
-					UIDropDownMenu_AddButton(dropDownMenuItem, level)
+					LibDD:UIDropDownMenu_AddButton(dropDownMenuItem, level)
 				end
 
-			elseif UIDROPDOWNMENU_MENU_VALUE == L["ITEMS"] then
+			elseif L_UIDROPDOWNMENU_MENU_VALUE == L["ITEMS"] then
 
 				for i=1, ceil(#ItemList/displayLimit) do
 					local max = i*displayLimit;
@@ -264,14 +266,14 @@ function CommDKP:CreateSortBox()
 					dropDownMenuItem.hasArrow = true
 					dropDownMenuItem.isNotRadio = true
 					dropDownMenuItem.checked = (curDropDownMenuFilterCategory == L["ITEMS"] and (curSelected >= (1+(i-1)*displayLimit) and curSelected <= 1+(i-1)*displayLimit+(displayLimit-1)))
-					UIDropDownMenu_AddButton(dropDownMenuItem, level)
+					LibDD:UIDropDownMenu_AddButton(dropDownMenuItem, level)
 				end
 
 			end
 		else -- level 3
 
 			dropDownMenuItem.func = self.FilterSetValue
-			if UIDROPDOWNMENU_MENU_VALUE == L["PLAYERS"] then
+			if L_UIDROPDOWNMENU_MENU_VALUE == L["PLAYERS"] then
 
 				--for i=playersRange[menuList], playersRange[menuList]+(displayLimit-1) do
 				-- depending on menuList value from higher level this should give
@@ -297,11 +299,11 @@ function CommDKP:CreateSortBox()
 						dropDownMenuItem.isNotRadio = true
 						dropDownMenuItem.checked =  PlayerList[i] == curfilterValue
 						dropDownMenuItem.menuList = i
-						UIDropDownMenu_AddButton(dropDownMenuItem, level)
+						LibDD:UIDropDownMenu_AddButton(dropDownMenuItem, level)
 					end
 				end
 
-			elseif UIDROPDOWNMENU_MENU_VALUE == L["ITEMS"] then
+			elseif L_UIDROPDOWNMENU_MENU_VALUE == L["ITEMS"] then
 
 				for  i=1+(menuList-1)*displayLimit, 1+(menuList-1)*displayLimit+(displayLimit-1) do
 					if ItemList[i] then
@@ -312,7 +314,7 @@ function CommDKP:CreateSortBox()
 						dropDownMenuItem.isNotRadio = true
 						dropDownMenuItem.checked =  ItemList[i] == curfilterValue
 						dropDownMenuItem.menuList = i
-						UIDropDownMenu_AddButton(dropDownMenuItem, level)
+						LibDD:UIDropDownMenu_AddButton(dropDownMenuItem, level)
 					end
 				end
 			end
@@ -321,8 +323,8 @@ function CommDKP:CreateSortBox()
 
 	sortDropdown:SetPoint("TOPRIGHT", CommDKP.ConfigTab5, "TOPRIGHT", -13, -11)
 
-	UIDropDownMenu_SetWidth(sortDropdown, 150)
-	UIDropDownMenu_SetText(sortDropdown, curDropDownMenuFilterCategory or "Filter Name")
+	LibDD:UIDropDownMenu_SetWidth(sortDropdown, 150)
+	LibDD:UIDropDownMenu_SetText(sortDropdown, curDropDownMenuFilterCategory or "Filter Name")
 
   -- Dropdown Menu Function
   function sortDropdown:FilterSetValue(newValue, arg2)
@@ -352,16 +354,16 @@ function CommDKP:CreateSortBox()
 
 	if curDropDownMenuFilterCategory == nil and curfilterValue == nil then
 		curSelected = 0
-		UIDropDownMenu_SetText(sortDropdown, L["NOFILTER"])
+		LibDD:UIDropDownMenu_SetText(sortDropdown, L["NOFILTER"])
 	elseif arg2 == L["NOFILTER"] or arg2 == L["DELETEDENTRY"] then
 		curSelected = 0
-		UIDropDownMenu_SetText(sortDropdown, newValue)
+		LibDD:UIDropDownMenu_SetText(sortDropdown, newValue)
 	elseif arg2 == L["ITEMS"] then
 		curSelected = self.menuList
-		UIDropDownMenu_SetText(sortDropdown, newValue)
+		LibDD:UIDropDownMenu_SetText(sortDropdown, newValue)
 	elseif arg2 == L["PLAYERS"] then
 		curSelected = self.menuList
-		UIDropDownMenu_SetText(sortDropdown, self.value)
+		LibDD:UIDropDownMenu_SetText(sortDropdown, self.value)
 	end
 
 	if curDropDownMenuFilterCategory == nil and curfilterValue == nil then
@@ -370,7 +372,7 @@ function CommDKP:CreateSortBox()
 		CommDKP:LootHistory_Update(newValue)
 	end
 
-    CloseDropDownMenus()
+    LibDD:CloseDropDownMenus()
   end
 
 end

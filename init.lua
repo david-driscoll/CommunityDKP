@@ -355,6 +355,9 @@ function CommDKP:SendSeedData()
 end
 
 function CommDKP_OnEvent(self, event, arg1, ...)
+
+	if self:IsForbidden() then return; end;
+
     if event == "ADDON_LOADED" then
         if (arg1 ~= "RaidPointsSystemV2") then return end
         core.IsOfficer = nil

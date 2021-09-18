@@ -7,6 +7,8 @@ local _, core = ...;
 local _G = _G;
 local L = core.L;
 
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0");
+
 core.CommDKP = {};       -- UI Frames global
 core.CommDKPApi = { __version = 1, pricelist = nil }
 local CommDKP = core.CommDKP;
@@ -167,9 +169,9 @@ core.EncounterList = {      -- Event IDs must be in the exact same order as core
 }
 
 core.CommDKPUI = {}        -- global storing entire Configuration UI to hide/show UI
-core.MonVersion = "v4.2.11";
-core.BuildNumber = 40209;
-core.ReleaseNumber = 70
+core.MonVersion = "v4.2.12";
+core.BuildNumber = 40212;
+core.ReleaseNumber = 73
 core.defaultTable = "__default";
 core.SemVer = core.MonVersion.."-r"..tostring(core.ReleaseNumber);
 core.UpgradeSchema = false;
@@ -857,7 +859,7 @@ end
 function CommDKP:SetCurrentTeam(index)
     CommDKP:GetTable(CommDKP_DB, false)["defaults"]["CurrentTeam"] = tostring(index);
     CommDKP:StatusVerify_Update();
-    UIDropDownMenu_SetText(CommDKP.UIConfig.TeamViewChangerDropDown, CommDKP:GetCurrentTeamName());
+	LibDD:UIDropDownMenu_SetText(CommDKP.UIConfig.TeamViewChangerDropDown, CommDKP:GetCurrentTeamName());
 
     -- reset dkp table and update it
     core.WorkingTable = CommDKP:GetTable(CommDKP_DKPTable, true);
