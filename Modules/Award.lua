@@ -583,7 +583,7 @@ function CommDKP:AwardConfirm(player, cost, boss, zone, loot, reassign)
 	LibDD:UIDropDownMenu_SetText(core.AwardConfirm.bossDropDown, curBoss)
 	LibDD:UIDropDownMenu_Initialize(core.AwardConfirm.bossDropDown, function(self, level, menuList)                                   -- BOSS dropdown
 
-        UIDropDownMenu_SetAnchor(core.AwardConfirm.bossDropDown, 10, 10, "TOPLEFT", core.AwardConfirm.bossDropDown, "BOTTOMLEFT")
+        LibDD:UIDropDownMenu_SetAnchor(core.AwardConfirm.bossDropDown, 10, 10, "TOPLEFT", core.AwardConfirm.bossDropDown, "BOTTOMLEFT")
 		--LibDD:UIDropDownMenu_JustifyText(core.AwardConfirm.bossDropDown, "LEFT")
 		local reason = LibDD:UIDropDownMenu_CreateInfo()
         local tempNPCs = {};
@@ -612,7 +612,7 @@ function CommDKP:AwardConfirm(player, cost, boss, zone, loot, reassign)
 	LibDD:UIDropDownMenu_SetText(core.AwardConfirm.zoneDropDown, curZone)
 	LibDD:UIDropDownMenu_Initialize(core.AwardConfirm.zoneDropDown, function(self, level, menuList)                                   -- ZONE dropdown
 
-        UIDropDownMenu_SetAnchor(core.AwardConfirm.zoneDropDown, 10, 10, "TOPLEFT", core.AwardConfirm.zoneDropDown, "BOTTOMLEFT")
+        LibDD:UIDropDownMenu_SetAnchor(core.AwardConfirm.zoneDropDown, 10, 10, "TOPLEFT", core.AwardConfirm.zoneDropDown, "BOTTOMLEFT")
 		--LibDD:UIDropDownMenu_JustifyText(core.AwardConfirm.bossDropDown, "LEFT")
 		local reason = LibDD:UIDropDownMenu_CreateInfo()
         local tempZones = {};

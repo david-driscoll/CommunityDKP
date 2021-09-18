@@ -75,7 +75,7 @@ function CommDKP:DKPModes_Main()
     DKPMode.text, DKPMode.arg1, DKPMode.checked, DKPMode.isNotRadio = L["ROLLBIDDINGHEAD"], "Roll Based Bidding", "Roll Based Bidding" == CurMode, false
     LibDD:UIDropDownMenu_AddButton(DKPMode)
     DKPMode.text, DKPMode.arg1, DKPMode.checked, DKPMode.isNotRadio = L["BONUSROLLHEAD"], "Bonus Roll", "Bonus Roll" == CurMode, false
-    UIDropDownMenu_AddButton(DKPMode)
+    LibDD:UIDropDownMenu_AddButton(DKPMode)
     DKPMode.text, DKPMode.arg1, DKPMode.checked, DKPMode.isNotRadio = L["ZEROSUMHEAD"], "Zero Sum", "Zero Sum" == CurMode, false
     LibDD:UIDropDownMenu_AddButton(DKPMode)
   end)
@@ -170,7 +170,7 @@ function CommDKP:DKPModes_Main()
       else
         f.DKPModesMain.SubZeroBidding:Hide()
         f.DKPModesMain.AllowNegativeBidders:Hide()
-        UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["PERCENT"])
+        LibDD:UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["PERCENT"])
       end
     elseif newValue == "Bonus Roll" then
       core.DB.modes.mode = "Bonus Roll"
@@ -179,7 +179,7 @@ function CommDKP:DKPModes_Main()
       f.DKPModesMain.MaxBidBehaviorDropDown:Hide();
       f.DKPModesMain.MaxBidBehaviorHeader:Hide();
       core.DB.modes.MaxBehavior = "Max DKP";
-      UIDropDownMenu_SetText(f.DKPModesMain.MaxBidBehaviorDropDown, "Max DKP")
+      LibDD:UIDropDownMenu_SetText(f.DKPModesMain.MaxBidBehaviorDropDown, "Max DKP")
       f.DKPModesMain.ModeDescription:SetText(BonusRollDescription)
       f.DKPModesMain.RollContainer:Hide()
       f.DKPModesMain.ZeroSumType:Hide()
@@ -197,11 +197,11 @@ function CommDKP:DKPModes_Main()
           f.DKPModesMain.AllowNegativeBidders:Show()
           f.DKPModesMain.AllowNegativeBidders:SetChecked(core.DB.modes.AllowNegativeBidders)
         end
-        UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["INTEGER"])
+        LibDD:UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["INTEGER"])
       else
         f.DKPModesMain.SubZeroBidding:Hide()
         f.DKPModesMain.AllowNegativeBidders:Hide()
-        UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["PERCENT"])
+        LibDD:UIDropDownMenu_SetText(f.DKPModesMain.ItemCostDropDown, L["PERCENT"])
       end
     elseif newValue == "Zero Sum" then
       core.DB.modes.mode = "Zero Sum"

@@ -380,21 +380,21 @@ function CommDKP:AdjustDKPTab_Create()
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[8], core.CurrentRaidZone == core.ZoneList[8], "WORLD", true
             LibDD:UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[9], core.CurrentRaidZone == core.ZoneList[9], "KARAZHAN", true
-            UIDropDownMenu_AddButton(boss)
+            LibDD:UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[10], core.CurrentRaidZone == core.ZoneList[10], "GRUUL", true
-            UIDropDownMenu_AddButton(boss)
+            LibDD:UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[11], core.CurrentRaidZone == core.ZoneList[11], "MAGTHERIDON", true
-            UIDropDownMenu_AddButton(boss)
+            LibDD:UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[12], core.CurrentRaidZone == core.ZoneList[12], "SSC", true
-            UIDropDownMenu_AddButton(boss)
+            LibDD:UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[13], core.CurrentRaidZone == core.ZoneList[13], "TK", true
-            UIDropDownMenu_AddButton(boss)
+            LibDD:UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[14], core.CurrentRaidZone == core.ZoneList[14], "HYJAL", true
-            UIDropDownMenu_AddButton(boss)
+            LibDD:UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[15], core.CurrentRaidZone == core.ZoneList[15], "BT", true
-            UIDropDownMenu_AddButton(boss)
+            LibDD:UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[16], core.CurrentRaidZone == core.ZoneList[16], "SUNWELL", true
-            UIDropDownMenu_AddButton(boss)
+            LibDD:UIDropDownMenu_AddButton(boss)
         else
             boss.func = self.SetValue
             for i=1, #core.BossList[menuList] do
