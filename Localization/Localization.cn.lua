@@ -900,7 +900,7 @@ if GetLocale() == "zhCN" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP - v4.2.12-bcc",
+    CHANGELOG1 = "CommunityDKP (WOT edition) - v4.2.12-bcc",
     CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "- sync points regularly",
     CHANGELOG4 = "- dkp will be used when using upgrade (up to the spending limit)",
