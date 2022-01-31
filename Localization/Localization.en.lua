@@ -79,6 +79,13 @@ core.BossList = {
     "Hex Lord Malacrass",
     "Daakara"
   },
+  HYJAL = { -- 534 map id
+    "Rage Winterchill",
+    "Anetheron",
+    "Kaz'rogal",
+    "Azgalor",
+    "Archimonde"
+  },
   BLACKTEMPLE = { -- 564 map id
     "High Warlord Naj'entus",
     "Supremus",
@@ -115,8 +122,9 @@ core.ZoneList = {
   "Coilfang: Serpentshrine Cavern", -- 12
   "Tempest Keep", -- 13
   "Zul'Aman", -- 14
-  "Black Temple", -- 15
-  "The Sunwell" -- 16
+  "Battle for Mount Hyjal", -- 15
+  "Black Temple", -- 16
+  "The Sunwell" -- 17
 }
 
 core.L = {
@@ -896,10 +904,10 @@ core.L = {
   MIGRATIONCANCELED     = "Migration canceled.|n|nPlease disable MonolithDKP and /reload the UI if you want to continue with CommunityDKP without using your current tables and settings.",
   MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.",
 
-  CHANGELOG1 = "CommunityDKP (WOT edition) - v4.2.12-bcc",
+  CHANGELOG1 = "CommunityDKP (WOT edition) - v4.2.13-bcc",
   CHANGELOG2 = "- added bonus roll support",
   CHANGELOG3 = "- sync points regularly",
-  CHANGELOG4 = "- dkp will be used when using upgrade (up to the spending limit)",
+  CHANGELOG4 = "- Fixed missing hyjal bosses, try to avoid epic spam with many rollers.",
   CHANGELOG5 = " - updated ACE to its latest alpha version",
   CHANGELOG6 = " - added LibUIDropDownMenu-4.0 to avoid taint issue",
   CHANGELOG7 = " - actually read the lib documentation and fixed dropdowns",

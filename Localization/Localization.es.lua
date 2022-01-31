@@ -80,6 +80,13 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
       "Señor aojador Malacrass",
       "Daakara"
     },
+    HYJAL = { -- 534 map id
+      "Rage Winterchill",
+      "Anetheron",
+      "Kaz'rogal",
+      "Azgalor",
+      "Archimonde"
+    },
     BLACKTEMPLE = { -- 564 map id
       "Gran Señor de la Guerra Naj'entus",
       "Supremus",
@@ -116,6 +123,7 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
     "Reserva Colmillo Torcido: Caverna Santuario Serpiente", -- 548
     "El Castillo de la Tempestad", -- 550
     "Zul'Aman", -- 568
+    "Battle for Mount Hyjal", -- 15
     "Templo Oscuro", -- 564,
     "La Fuente del Sol" -- 580
   }
@@ -898,10 +906,10 @@ if GetLocale() == "esES" or GetLocale() == "esMX" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP (WOT edition) - v4.2.12-bcc",
+    CHANGELOG1 = "CommunityDKP (WOT edition) - v4.2.13-bcc",
     CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "- sync points regularly",
-    CHANGELOG4 = "- dkp will be used when using upgrade (up to the spending limit)",
+    CHANGELOG4 = "- Fixed missing hyjal bosses, try to avoid epic spam with many rollers.",
     CHANGELOG5 = " - updated ACE to its latest alpha version",
     CHANGELOG6 = " - added LibUIDropDownMenu-4.0 to avoid taint issue",
     CHANGELOG7 = " - actually read the lib documentation and fixed dropdowns",

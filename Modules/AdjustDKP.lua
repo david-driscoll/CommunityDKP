@@ -359,9 +359,11 @@ function CommDKP:AdjustDKPTab_Create()
 			LibDD:UIDropDownMenu_AddButton(boss)
 			boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[14], core.CurrentRaidZone == core.ZoneList[14], "ZULAMAN", true
 			LibDD:UIDropDownMenu_AddButton(boss)
-			boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[15], core.CurrentRaidZone == core.ZoneList[15], "BLACKTEMPLE", true
+			boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[15], core.CurrentRaidZone == core.ZoneList[15], "HYJAL", true
 			LibDD:UIDropDownMenu_AddButton(boss)
-			boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[16], core.CurrentRaidZone == core.ZoneList[16], "SUNWELLPLATEAU", true
+			boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[16], core.CurrentRaidZone == core.ZoneList[16], "BLACKTEMPLE", true
+			LibDD:UIDropDownMenu_AddButton(boss)
+			boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[17], core.CurrentRaidZone == core.ZoneList[17], "SUNWELLPLATEAU", true
 			LibDD:UIDropDownMenu_AddButton(boss)
             boss.text, boss.checked, boss.menuList, boss.hasArrow = core.ZoneList[1], core.CurrentRaidZone == core.ZoneList[1], "MC", true
 			LibDD:UIDropDownMenu_AddButton(boss)
@@ -416,10 +418,12 @@ function CommDKP:AdjustDKPTab_Create()
 			core.CurrentRaidZone = core.ZoneList[13]
 		elseif CommDKP:Table_Search(core.EncounterList.ZULAMAN, newValue) then
 			core.CurrentRaidZone = core.ZoneList[14]
-		elseif CommDKP:Table_Search(core.EncounterList.BLACKTEMPLE, newValue) then
+		elseif CommDKP:Table_Search(core.EncounterList.HYJAL, newValue) then
 			core.CurrentRaidZone = core.ZoneList[15]
-		elseif CommDKP:Table_Search(core.EncounterList.SUNWELLPLATEAU, newValue) then
+		elseif CommDKP:Table_Search(core.EncounterList.BLACKTEMPLE, newValue) then
 			core.CurrentRaidZone = core.ZoneList[16]
+		elseif CommDKP:Table_Search(core.EncounterList.SUNWELLPLATEAU, newValue) then
+			core.CurrentRaidZone = core.ZoneList[17]
 		--elseif CommDKP:Table_Search(core.EncounterList.WORLD, newValue) then 		-- encounter IDs not known yet
 			--core.CurrentRaidZone = core.ZoneList[8]
 		end

@@ -147,6 +147,13 @@ core.EncounterList = {      -- Event IDs must be in the exact same order as core
 		1193, -- Hex Lord Malacrass
 		1194 -- Daakara
 	  },
+	  HYJAL = {
+        618, -- Rage Winterchill
+        619, -- Anetheron
+        620, -- Kaz'rogal
+        621, -- Azgalor
+        622, -- Archimonde
+	  },
 	  BLACKTEMPLE = {
 		601, -- High Warlord Naj'entus,
 		602, -- Supremus
@@ -169,7 +176,7 @@ core.EncounterList = {      -- Event IDs must be in the exact same order as core
 }
 
 core.CommDKPUI = {}        -- global storing entire Configuration UI to hide/show UI
-core.MonVersion = "v4.2.12";
+core.MonVersion = "v4.2.13";
 core.BuildNumber = 40212;
 core.ReleaseNumber = 73
 core.defaultTable = "__default";

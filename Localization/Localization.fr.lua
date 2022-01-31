@@ -127,6 +127,13 @@ if GetLocale() == "frFR" then
       "Seigneur des maléfices Malacrass",
       "Daakara"
     },
+    HYJAL = { -- 534 map id
+      "Rage Winterchill",
+      "Anetheron",
+      "Kaz'rogal",
+      "Azgalor",
+      "Archimonde"
+    },
     BLACKTEMPLE = { -- 564 map id
       "Grand seigneur de guerre Naj'entus",
       "Supremus",
@@ -163,6 +170,7 @@ if GetLocale() == "frFR" then
     "Glissecroc : caverne du sanctuaire du Serpent", -- 548
     "Donjon de la Tempête", -- 550
     "Zul'Aman", -- 568
+    "Battle for Mount Hyjal", -- 15
     "Temple noir", -- 564,
     "Le Puits de soleil" -- 580
   }
@@ -945,10 +953,10 @@ if GetLocale() == "frFR" then
     MIGRATIONCOMPLETED    = "Migration réussie.|n|nVeuillez désactiver MonolithDKP et recharger votre interface (/reload).", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP (WOT edition) - v4.2.12-bcc",
+    CHANGELOG1 = "CommunityDKP (WOT edition) - v4.2.13-bcc",
     CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "- sync points regularly",
-    CHANGELOG4 = "- dkp will be used when using upgrade (up to the spending limit)",
+    CHANGELOG4 = "- Fixed missing hyjal bosses, try to avoid epic spam with many rollers.",
     CHANGELOG5 = " - updated ACE to its latest alpha version",
     CHANGELOG6 = " - added LibUIDropDownMenu-4.0 to avoid taint issue",
     CHANGELOG7 = " - actually read the lib documentation and fixed dropdowns",

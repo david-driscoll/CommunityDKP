@@ -4,6 +4,7 @@ local CommDKP = core.CommDKP;
 local CommDKPApi = core.CommDKPApi;
 local L = core.L;
 
+local strsub, strfind = string.sub, string.find
 local Bids_Submitted = {};
 local upper = string.upper
 local width, height, numrows = 370, 18, 13
@@ -277,7 +278,6 @@ local function HandleBonusRollChatWhisper(name, text)
   if string.find(text, "!bonus") == 1 or string.find(text, "!upgrade") or string.find(text, "!offspec") then
     local cmd, _ = string.trim(string.split(" ", text, 2), '!')
     local bidCmd = BidCmd(text)
-    DEFAULT_CHAT_FRAME:AddMessage(cmd)
     if (bidCmd == "cancel") then
       HandleRollPass(name);
     else
@@ -1507,9 +1507,9 @@ function CommDKP:RequestBonusRolls()
         -- do nothing
       else
         if Bids_Submitted[i].command == "offspec" then
-          table.insert(candidates,Bids_Submitted[i].player.." [!"..Bids_Submitted[i].command.."])")
+          table.insert(candidates,Bids_Submitted[i].player.." [!"..strsub(Bids_Submitted[i].command, 1, 1).."])")
         else
-          table.insert(candidates,Bids_Submitted[i].player.." [!"..Bids_Submitted[i].command.."] (+"..(Bids_Submitted[i].dkp - minDkp)..")")
+          table.insert(candidates,Bids_Submitted[i].player.." [!"..strsub(Bids_Submitted[i].command, 1, 1).."] (+"..(Bids_Submitted[i].dkp - minDkp)..")")
         end
       end
     end

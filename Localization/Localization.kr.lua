@@ -79,6 +79,13 @@ if GetLocale() == "koKR" then
       "주술 군주 말라크라스",
       "다카라"
     },
+    HYJAL = { -- 534 map id
+      "Rage Winterchill",
+      "Anetheron",
+      "Kaz'rogal",
+      "Azgalor",
+      "Archimonde"
+    },
     BLACKTEMPLE = { -- 564 map id
       "대장군 나젠투스",
       "궁극의 심연",
@@ -115,6 +122,7 @@ if GetLocale() == "koKR" then
     "갈퀴송곳니 저수지: 불뱀 제단", -- 548
     "폭풍우 요새", -- 550
     "줄아만", -- 568
+    "Battle for Mount Hyjal", -- 15
     "검은 사원", -- 564,
     "태양샘" -- 580
   }
@@ -897,10 +905,10 @@ if GetLocale() == "koKR" then
     MIGRATIONCOMPLETED    = "Migration complete.|n|nPlease disable MonolithDKP and /reload the UI.", --TODO TRANSLATE:
 
     --TODO TRANSLATE:
-    CHANGELOG1 = "CommunityDKP (WOT edition) - v4.2.12-bcc",
+    CHANGELOG1 = "CommunityDKP (WOT edition) - v4.2.13-bcc",
     CHANGELOG2 = "- added bonus roll support",
     CHANGELOG3 = "- sync points regularly",
-    CHANGELOG4 = "- dkp will be used when using upgrade (up to the spending limit)",
+    CHANGELOG4 = "- Fixed missing hyjal bosses, try to avoid epic spam with many rollers.",
     CHANGELOG5 = " - updated ACE to its latest alpha version",
     CHANGELOG6 = " - added LibUIDropDownMenu-4.0 to avoid taint issue",
     CHANGELOG7 = " - actually read the lib documentation and fixed dropdowns",
