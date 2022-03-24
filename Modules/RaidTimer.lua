@@ -217,8 +217,10 @@ function CommDKP:StartRaidTimer(pause, syncTimer, syncSecondCount, syncMinuteCou
 		end
 	end
 
-	CommDKP:BroadcastPartial()
-	CommDKP:BroadcastSettings()
+	if IsInRaid() and CommDKP:CheckRaidLeader() then
+		CommDKP:BroadcastPartial()
+		CommDKP:BroadcastSettings()
+	end
 
 	CommDKP.RaidTimer:SetScript("OnUpdate", function(self, elapsed)
 		timer = timer + elapsed

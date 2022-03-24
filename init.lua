@@ -298,8 +298,9 @@ local function DoGuildUpdate()
             -- if they have this entry it does nothing since they are up to date, if they dont it changes seed in those tables to the index being sent
             CommDKP:SendSeedData();
 
-
-    CommDKP:BroadcastPartial()
+            -- if core.IsOfficer and not IsInRaid() then
+            --     CommDKP:BroadcastPartial();
+            -- end
         end)
     end
 end
