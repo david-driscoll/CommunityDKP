@@ -1145,7 +1145,7 @@ function CommDKP:CreateTimer()
 
   if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f = CreateFrame("StatusBar", nil, UIParent)
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f = CreateFrame("StatusBar", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)
   end
 
