@@ -96,5 +96,6 @@
         "statusBarItem.remoteBackground": "#007a99",
         "statusBarItem.remoteForeground": "#e7e7e7"
     },
-    "peacock.color": "#007a99"
+    "peacock.color": "#007a99",
+    "editor.formatOnSave": false
 }

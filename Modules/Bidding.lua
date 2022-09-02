@@ -1177,7 +1177,7 @@ function CommDKP:CreateTimer()
 
   if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f.border = CreateFrame("Frame", nil, f);
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f.border = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil);
   end
 
@@ -1536,7 +1536,7 @@ function CommDKP:CreateBidWindow()
 
   if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f = CreateFrame("Frame", "CommDKP_BiddingWindow", UIParent, "ShadowOverlaySmallTemplate");
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f = CreateFrame("Frame", "CommDKP_BiddingWindow", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
   end
 
@@ -1586,7 +1586,7 @@ function CommDKP:CreateBidWindow()
 
   if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f.closeContainer = CreateFrame("Frame", "CommDKPBiddingWindowCloseButtonContainer", f)
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f.closeContainer = CreateFrame("Frame", "CommDKPBiddingWindowCloseButtonContainer", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
   end
 
@@ -1616,7 +1616,7 @@ function CommDKP:CreateBidWindow()
 
     if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
       f.boss = CreateFrame("EditBox", nil, f)
-    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
       f.boss = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
     end
 
@@ -1684,7 +1684,7 @@ function CommDKP:CreateBidWindow()
 
       if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         f.minBid = CreateFrame("EditBox", nil, f)
-      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
         f.minBid = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
       end
 
@@ -1750,7 +1750,7 @@ function CommDKP:CreateBidWindow()
 
       if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         f.maxBid = CreateFrame("EditBox", nil, f)
-      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
         f.maxBid = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
       end
 
@@ -1818,7 +1818,7 @@ function CommDKP:CreateBidWindow()
 
     if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
       f.bidTimer = CreateFrame("EditBox", nil, f)
-    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
       f.bidTimer = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
     end
 
@@ -1931,7 +1931,7 @@ function CommDKP:CreateBidWindow()
     --------------------------------------------------
     if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
       f.bidTable = CreateFrame("ScrollFrame", "CommDKP_BidWindowTable", f, "FauxScrollFrameTemplate")
-    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
       f.bidTable = CreateFrame("ScrollFrame", "CommDKP_BidWindowTable", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
     end
 
@@ -1969,7 +1969,7 @@ function CommDKP:CreateBidWindow()
 
     if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
       f.BidTable_Headers = CreateFrame("Frame", "CommDKPDKPTableHeaders", f)
-    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
       f.BidTable_Headers = CreateFrame("Frame", "CommDKPDKPTableHeaders", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
     end
 
@@ -2061,7 +2061,7 @@ function CommDKP:CreateBidWindow()
 
       if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         f.cost = CreateFrame("EditBox", nil, f)
-      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
         f.cost = CreateFrame("EditBox", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
       end
 

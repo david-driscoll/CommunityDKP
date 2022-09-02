@@ -376,7 +376,7 @@ function CommDKP:DKPModes_Main()
 
     if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
       f.DKPModesMain.AntiSnipe = CreateFrame("EditBox", nil, f.DKPModesMain)
-    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
       f.DKPModesMain.AntiSnipe = CreateFrame("EditBox", nil, f.DKPModesMain, BackdropTemplateMixin and "BackdropTemplate" or nil)
     end
 
@@ -564,7 +564,7 @@ function CommDKP:DKPModes_Main()
 
     if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         f.DKPModesMain.Inflation = CreateFrame("EditBox", nil, f.DKPModesMain)
-    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
         f.DKPModesMain.Inflation = CreateFrame("EditBox", nil, f.DKPModesMain, BackdropTemplateMixin and "BackdropTemplate" or nil)
     end
 
@@ -845,7 +845,7 @@ function CommDKP:DKPModes_Main()
 
     if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
       f.DKPModesMain.RollContainer = CreateFrame("Frame", nil, f.DKPModesMain);
-    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
       f.DKPModesMain.RollContainer = CreateFrame("Frame", nil, f.DKPModesMain, BackdropTemplateMixin and "BackdropTemplate" or nil);
     end
 
@@ -971,7 +971,7 @@ function CommDKP:DKPModes_Main()
     ---
       if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         f.DKPModesMain.RollContainer.rollMin = CreateFrame("EditBox", nil, f.DKPModesMain.RollContainer)
-      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
         f.DKPModesMain.RollContainer.rollMin = CreateFrame("EditBox", nil, f.DKPModesMain.RollContainer, BackdropTemplateMixin and "BackdropTemplate" or nil)
       end
 
@@ -1122,7 +1122,7 @@ function CommDKP:DKPModes_Main()
 
         if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
           f.DKPModesMain.RollContainer.UsePerc = CreateFrame("CheckButton", nil, f.DKPModesMain.RollContainer, "UICheckButtonTemplate");
-        elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+        elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
           f.DKPModesMain.RollContainer.UsePerc = CreateFrame("CheckButton", nil, f.DKPModesMain.RollContainer, "UICheckButtonTemplate");
         end
 
@@ -1155,7 +1155,7 @@ function CommDKP:DKPModes_Main()
         -- Add to Max Editbox
       if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         f.DKPModesMain.RollContainer.AddMax = CreateFrame("EditBox", nil, f.DKPModesMain.RollContainer)
-      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+      elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
         f.DKPModesMain.RollContainer.AddMax = CreateFrame("EditBox", nil, f.DKPModesMain.RollContainer, BackdropTemplateMixin and "BackdropTemplate" or nil)
       end
 

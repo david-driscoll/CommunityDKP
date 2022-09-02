@@ -392,7 +392,7 @@ local function BidWindowCreateRow(parent, id) -- Create 3 buttons for each row i
 
   if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f = CreateFrame("Frame", "CommDKP_BidderWindow", UIParent, "ShadowOverlaySmallTemplate");
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f = CreateFrame("Button", "$parentLine"..id, parent)
   end
 
@@ -611,7 +611,7 @@ function CommDKP:BidInterface_Create()
 
   if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f.closeContainer = CreateFrame("Frame", "CommDKPBidderWindowCloseButtonContainer", f)
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f.closeContainer = CreateFrame("Frame", "CommDKPBidderWindowCloseButtonContainer", f, BackdropTemplateMixin and "BackdropTemplate" or nil)
   end
 
@@ -626,7 +626,7 @@ function CommDKP:BidInterface_Create()
 
   if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f.closeBtn = CreateFrame("Button", nil, f, "UIPanelCloseButton")
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f.closeBtn = CreateFrame("Button", nil, f, "UIPanelCloseButton", BackdropTemplateMixin and "BackdropTemplate" or nil)
   end
 
@@ -637,7 +637,7 @@ function CommDKP:BidInterface_Create()
 
   if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f.lootContainer = CreateFrame("Frame", "CommDKP_LootContainer", UIParent);
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f.lootContainer = CreateFrame("Frame", "CommDKP_LootContainer", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil);
   end
 
@@ -938,7 +938,7 @@ function CommDKP:BidInterface_Create()
 
   if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     f.BidTable_Headers = CreateFrame("Frame", "CommDKPBidderTableHeaders", f.bidTable)
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f.BidTable_Headers = CreateFrame("Frame", "CommDKPBidderTableHeaders", f.bidTable, BackdropTemplateMixin and "BackdropTemplate" or nil)
   end
 
@@ -957,7 +957,7 @@ function CommDKP:BidInterface_Create()
     f.headerButtons.player = CreateFrame("Button", "$ParentButtonPlayer", f.BidTable_Headers)
     f.headerButtons.bid = CreateFrame("Button", "$ParentButtonBid", f.BidTable_Headers)
     f.headerButtons.dkp = CreateFrame("Button", "$ParentSuttonDkp", f.BidTable_Headers)
-  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+  elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
     f.headerButtons.player = CreateFrame("Button", "$ParentButtonPlayer", f.BidTable_Headers, BackdropTemplateMixin and "BackdropTemplate" or nil)
     f.headerButtons.bid = CreateFrame("Button", "$ParentButtonBid", f.BidTable_Headers, BackdropTemplateMixin and "BackdropTemplate" or nil)
     f.headerButtons.dkp = CreateFrame("Button", "$ParentSuttonDkp", f.BidTable_Headers, BackdropTemplateMixin and "BackdropTemplate" or nil)
